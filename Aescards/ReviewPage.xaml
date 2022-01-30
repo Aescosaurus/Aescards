@@ -33,7 +33,7 @@
 				</Grid>
 			</Grid>
 
-			<Grid DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto">
+			<Grid x:Name="ScoreButtons" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"></ColumnDefinition>
 					<ColumnDefinition Width="*"></ColumnDefinition>
@@ -41,13 +41,25 @@
 					<ColumnDefinition Width="*"></ColumnDefinition>
 				</Grid.ColumnDefinitions>
 
-				<Button Grid.Column="0" FontSize="16" x:Name="ButtonFail" Click="ButtonFail_Click" Content="(1) Fail" Width="Auto" Height="85"/>
-				<Button Grid.Column="1" FontSize="16" x:Name="ButtonHard" Click="ButtonHard_Click" Content="(2) Hard" Width="Auto" Height="85"/>
-				<Button Grid.Column="2" FontSize="16" x:Name="ButtonGood" Click="ButtonGood_Click" Content="(3) Good" Width="Auto" Height="85"/>
-				<Button Grid.Column="3" FontSize="16" x:Name="ButtonEasy" Click="ButtonEasy_Click" Content="(4) Easy" Width="Auto" Height="85"/>
+				<Button Grid.Column="0" FontSize="16" x:Name="ButtonFail" Click="ButtonFail_Click" Content="Fail" Width="Auto" Height="85"/>
+				<Button Grid.Column="1" FontSize="16" x:Name="ButtonHard" Click="ButtonHard_Click" Content="Hard" Width="Auto" Height="85"/>
+				<Button Grid.Column="2" FontSize="16" x:Name="ButtonGood" Click="ButtonGood_Click" Content="Good" Width="Auto" Height="85"/>
+				<Button Grid.Column="3" FontSize="16" x:Name="ButtonEasy" Click="ButtonEasy_Click" Content="Easy" Width="Auto" Height="85"/>
+				
+				<Button Grid.ColumnSpan="4" FontSize="16" x:Name="ButtonNext" Click="ButtonNext_Click" Content="Next" Width="Auto" Height="85"/>
 			</Grid>
 
-			<TextBlock x:Name="ReviewText" TextAlignment="Center" Padding="30" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="test" VerticalAlignment="Center" Width="Auto" Height="304" FontSize="60"/>
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="4.9*"></RowDefinition>
+					<RowDefinition Height="0.2*"></RowDefinition>
+					<RowDefinition Height="4.9*"></RowDefinition>
+				</Grid.RowDefinitions>
+				<TextBlock Grid.RowSpan="3" Grid.Row="0" x:Name="ReviewFront" TextAlignment="Center" Padding="30" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="front" VerticalAlignment="Center" Width="Auto" FontSize="60"/>
+				<TextBlock Grid.Row="0" x:Name="ReviewAnswerFront" TextAlignment="Center" Padding="30" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="front" VerticalAlignment="Bottom" Width="Auto" FontSize="60"/>
+				<Rectangle Grid.Row="1" x:Name="ReviewAnswerSeparator" HorizontalAlignment="Stretch" Height="4" Fill="DarkGray"></Rectangle>
+				<TextBlock Grid.Row="2" x:Name="ReviewAnswerBack" TextAlignment="Center" Padding="30" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="back" VerticalAlignment="Top" Width="Auto" FontSize="60"/>
+			</Grid>
 		</DockPanel>
 	</Grid>
 </Page>

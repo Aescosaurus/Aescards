@@ -63,6 +63,11 @@ namespace Aescards
 			return( modified );
 		}
 
+		public int GetId()
+		{
+			return( myId );
+		}
+
 		public string GetFront()
 		{
 			return( front );

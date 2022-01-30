@@ -22,52 +22,96 @@ namespace Aescards
 		:
 		Page
 	{
+		class ShowHideItem
+		{
+			public ShowHideItem( FrameworkElement item,bool showOnFront )
+			{
+				this.item = item;
+				visOnFront = showOnFront;
+			}
+
+			public void ShowFront()
+			{
+				item.Visibility = visOnFront ? Visibility.Visible : Visibility.Hidden;
+			}
+
+			public void ShowBack()
+			{
+				item.Visibility = visOnFront ? Visibility.Hidden : Visibility.Visible;
+			}
+
+			public FrameworkElement item;
+			public bool visOnFront;
+		}
+
 		public ReviewPage( Frame reviewFrame )
 		{
 			InitializeComponent();
 
 			this.reviewFrame = reviewFrame;
 
-			KeyDown += new KeyEventHandler( OnKeyDown );
+			showToggleItems.Add( new ShowHideItem( ButtonNext,true ) );
+			showToggleItems.Add( new ShowHideItem( ButtonFail,false ) );
+			showToggleItems.Add( new ShowHideItem( ButtonHard,false ) );
+			showToggleItems.Add( new ShowHideItem( ButtonGood,false ) );
+			showToggleItems.Add( new ShowHideItem( ButtonEasy,false ) );
+			showToggleItems.Add( new ShowHideItem( ReviewFront,true ) );
+			showToggleItems.Add( new ShowHideItem( ReviewAnswerFront,false ) );
+			showToggleItems.Add( new ShowHideItem( ReviewAnswerSeparator,false ) );
+			showToggleItems.Add( new ShowHideItem( ReviewAnswerBack,false ) );
+
+			LoadCardFront();
+		}
+
+		void LoadCardFront()
+		{
+			foreach( var item in showToggleItems ) item.ShowFront();
+
+			var card = cardHand.GetCurReviewCard();
+
+			ReviewFront.Text = card.GetFront();
+		}
+
+		void LoadCardBack()
+		{
+			foreach( var item in showToggleItems ) item.ShowBack();
+
+			var card = cardHand.GetCurReviewCard();
+
+			ReviewAnswerFront.Text = card.GetFront();
+			ReviewAnswerBack.Text = card.GetBack();
 		}
 
 		private void BackButton_Click( object sender,RoutedEventArgs e )
 		{
-			cardHandler.Save();
+			FinishReview();
+		}
+
+		void FinishReview()
+		{
+			cardHand.Save();
 
 			reviewFrame.Navigate( null );
 		}
 
 		private void SickButton_Click( object sender,RoutedEventArgs e )
 		{
-			
-		}
-
-		void OnKeyDown( object sender, KeyEventArgs keyArgs )
-		{
-			switch( keyArgs.Key )
-			{
-				case Key.D1:
-					ScoreButtonClick( 0 );
-					break;
-				case Key.D2:
-					ScoreButtonClick( 1 );
-					break;
-				case Key.D3:
-					ScoreButtonClick( 2 );
-					break;
-				case Key.D4:
-					ScoreButtonClick( 3 );
-					break;
-				default:
-					break;
-			}
+			// set card time till next review to a few days
 		}
 
 		void ScoreButtonClick( int score )
 		{
 			// change card score
-			// goto next card
+
+			if( cardHand.GotoNextReviewCard() )
+			{
+				FinishReview();
+			}
+			else
+			{
+				// goto next card
+				LoadCardFront();
+			}
 		}
 
 		private void ButtonFail_Click( object sender,RoutedEventArgs e )
@@ -90,7 +134,14 @@ namespace Aescards
 			ScoreButtonClick( 3 );
 		}
 
+		private void ButtonNext_Click( object sender,RoutedEventArgs e )
+		{
+			LoadCardBack();
+		}
+
 		Frame reviewFrame;
-		CardHandler cardHandler = new CardHandler();
+		CardHandler cardHand = new CardHandler();
+
+		List<ShowHideItem> showToggleItems = new List<ShowHideItem>();
 	}
 }
