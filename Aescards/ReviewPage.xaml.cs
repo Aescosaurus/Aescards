@@ -44,11 +44,9 @@ namespace Aescards
 			public bool visOnFront;
 		}
 
-		public ReviewPage( Frame reviewFrame )
+		public ReviewPage()
 		{
 			InitializeComponent();
-
-			this.reviewFrame = reviewFrame;
 
 			showToggleItems.Add( new ShowHideItem( ButtonNext,true ) );
 			showToggleItems.Add( new ShowHideItem( ButtonFail,false ) );
@@ -91,7 +89,7 @@ namespace Aescards
 		{
 			cardHand.Save();
 
-			reviewFrame.Navigate( null );
+			MenuStack.GoBack();
 		}
 
 		private void SickButton_Click( object sender,RoutedEventArgs e )
@@ -139,7 +137,6 @@ namespace Aescards
 			LoadCardBack();
 		}
 
-		Frame reviewFrame;
 		CardHandler cardHand = new CardHandler();
 
 		List<ShowHideItem> showToggleItems = new List<ShowHideItem>();

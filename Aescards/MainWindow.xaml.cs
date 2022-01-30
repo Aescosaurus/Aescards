@@ -25,11 +25,18 @@ namespace Aescards
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			MenuStack.SetupContentFrame( ContentFrame );
 		}
 
 		private void StartReviewButton_Click( object sender,RoutedEventArgs e )
 		{
-			ReviewFrame.Navigate( new ReviewPage( ReviewFrame ) );
+			MenuStack.GoIn( new ReviewPage() );
+		}
+
+		private void AddCardButton_Click( object sender,RoutedEventArgs e )
+		{
+			MenuStack.GoIn( new AddCardPage() );
 		}
 	}
 }

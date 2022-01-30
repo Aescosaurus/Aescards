@@ -22,14 +22,19 @@
 			</Grid>
 
 			<Grid DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto">
-				<Button FontSize="16" x:Name="StartReviewButton" Content="Start Review" Width="Auto" Height="85" Click="StartReviewButton_Click"/>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"></ColumnDefinition>
+					<ColumnDefinition Width="*"></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<Button Grid.Column="0" FontSize="16" x:Name="StartReviewButton" Content="Start Review" Width="Auto" Height="85" Click="StartReviewButton_Click"/>
+				<Button Grid.Column="1" FontSize="16" x:Name="AddCardButton" Content="Add Card" Width="Auto" Height="85" Click="AddCardButton_Click"/>
 			</Grid>
 			
 			<TextBlock TextAlignment="Center" Padding="30" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Aescards" VerticalAlignment="Center" Width="Auto" Height="304" FontSize="60"/>
 
 		</DockPanel>
 		<Grid>
-			<Frame x:Name="ReviewFrame" NavigationUIVisibility="Hidden" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"></Frame>
+			<Frame x:Name="ContentFrame" NavigationUIVisibility="Hidden" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"></Frame>
 		</Grid>
 	</Grid>
 </Window>
