@@ -26,5 +26,15 @@ namespace Aescards
         {
             InitializeComponent();
         }
-    }
+
+		private void BackButton_Click( object sender,RoutedEventArgs e )
+		{
+			MenuStack.GoBack();
+		}
+
+		private void SaveButton_Click( object sender,RoutedEventArgs e )
+		{
+
+		}
+	}
 }
