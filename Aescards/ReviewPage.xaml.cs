@@ -29,12 +29,12 @@ namespace Aescards
 			this.reviewFrame = reviewFrame;
 
 			KeyDown += new KeyEventHandler( OnKeyDown );
-
-			ButtonFail.Focus();
 		}
 
 		private void BackButton_Click( object sender,RoutedEventArgs e )
 		{
+			cardHandler.Save();
+
 			reviewFrame.Navigate( null );
 		}
 
@@ -91,5 +91,6 @@ namespace Aescards
 		}
 
 		Frame reviewFrame;
+		CardHandler cardHandler = new CardHandler();
 	}
 }
