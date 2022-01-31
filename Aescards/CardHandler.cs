@@ -32,6 +32,14 @@ namespace Aescards
 			// GenerateReview();
 		}
 
+		public void UpdateCurCardScore( int score )
+		{
+			GetCurReviewCard().UpdateScore( score );
+
+			// repeat failed cards until they are not fail
+			if( score < 1 ) reviewCards.Add( reviewCards[curReviewSpot] );
+		}
+
 		public void Save()
 		{
 			foreach( var card in cards )

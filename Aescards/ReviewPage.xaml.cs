@@ -104,11 +104,13 @@ namespace Aescards
 		private void SickButton_Click( object sender,RoutedEventArgs e )
 		{
 			// set card time till next review to a few days
+			cardHand.GetCurReviewCard().Sick();
 		}
 
 		void ScoreButtonClick( int score )
 		{
 			// change card score
+			cardHand.UpdateCurCardScore( score );
 
 			if( cardHand.GotoNextReviewCard() )
 			{

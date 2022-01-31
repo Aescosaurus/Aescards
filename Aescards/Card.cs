@@ -53,6 +53,20 @@ namespace Aescards
 			writer.Close();
 		}
 
+		public void UpdateScore( int score )
+		{
+			if( score < 1 ) ++fCount;
+			curScore = score;
+			daysTillNextReview = curScore;
+			modified = true;
+		}
+
+		// I don't know this card but also im sick of it so don't show me it for a few days
+		public void Sick()
+		{
+			daysTillNextReview = sickReviewPenalty;
+		}
+
 		static string GeneratePath( int cardId )
 		{
 			return( CardHandler.curCardPath + cardId.ToString() + ".txt" );
@@ -104,5 +118,7 @@ namespace Aescards
 		float daysTillNextReview; // decrement every day, <0 = time to review
 
 		public static readonly string folderPath = "Cards/";
+
+		const float sickReviewPenalty = 3.0f;
     }
 }
