@@ -26,11 +26,12 @@ namespace Aescards
 		{
 			Debug.Assert( contentFrame != null );
 
-			pageStack.Pop();
-
-			Page prevPage = null;
-			if( pageStack.Count > 0 ) prevPage = pageStack.Peek();
-			contentFrame.Navigate( prevPage );
+			if( pageStack.Count > 1 )
+			{
+				pageStack.Pop();
+				Page prevPage = pageStack.Peek();
+				contentFrame.Navigate( prevPage );
+			}
 		}
 
 		static Stack<Page> pageStack = new Stack<Page>();
