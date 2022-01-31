@@ -63,19 +63,33 @@ namespace Aescards
 
 			foreach( var deckData in deckDataList )
 			{
-				ListBoxItem curItem = new ListBoxItem();
-				curItem.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-				
-				var curButton = new Button();
-				curButton.Content = deckData.name;
-				curButton.FontSize = 16.0;
-				// curButton.Name = deckData.path;
-				curButton.Click += new RoutedEventHandler( OnDeckClick );
-
-				curItem.Content = curButton;
-
-				DeckList.Items.Add( curItem );
+				AddDeckListItem( deckData.name,new RoutedEventHandler( OnDeckClick ) );
 			}
+
+			AddDeckListItem( "(+) New deck",new RoutedEventHandler( OnCreateDeck ) );
+		}
+
+		public void ReloadDecks()
+		{
+			DeckList.Items.Clear();
+			deckDataDict.Clear();
+
+			LoadDecks();
+		}
+		
+		void AddDeckListItem( string name,RoutedEventHandler clickHandler )
+		{
+			ListBoxItem curItem = new ListBoxItem();
+			curItem.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+
+			var curButton = new Button();
+			curButton.Content = name;
+			curButton.FontSize = 16.0;
+			curButton.Click += clickHandler;
+
+			curItem.Content = curButton;
+
+			DeckList.Items.Add( curItem );
 		}
 
 		void OnDeckClick( object sender,RoutedEventArgs args )
@@ -84,7 +98,13 @@ namespace Aescards
 			
 			Debug.Assert( selectedDeck != null );
 			
-			MenuStack.GoIn( new DeckPage( deckDataDict[selectedDeck.Content as string] ) );
+			var deckName = selectedDeck.Content as string;
+			MenuStack.GoIn( new DeckPage( deckName,deckDataDict[deckName] ) );
+		}
+
+		void OnCreateDeck( object sender,RoutedEventArgs args )
+		{
+			MenuStack.GoIn( new CreateDeckPage( this ) );
 		}
 
 		Dictionary<string,string> deckDataDict = new Dictionary<string,string>();

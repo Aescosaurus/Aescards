@@ -60,6 +60,9 @@
     </Compile>
     <Compile Include="Card.cs" />
     <Compile Include="CardHandler.cs" />
+    <Compile Include="CreateDeckPage.xaml.cs">
+      <DependentUpon>CreateDeckPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DeckPage.xaml.cs">
       <DependentUpon>DeckPage.xaml</DependentUpon>
     </Compile>
@@ -71,6 +74,10 @@
       <DependentUpon>ReviewPage.xaml</DependentUpon>
     </Compile>
     <Page Include="AddCardPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CreateDeckPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

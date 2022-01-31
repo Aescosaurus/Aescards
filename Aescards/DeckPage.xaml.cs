@@ -22,12 +22,13 @@ namespace Aescards
 		:
 		Page
     {
-        public DeckPage( string deckName )
+        public DeckPage( string deckName,string deckNamePath )
         {
             InitializeComponent();
 
 			// load deck info
-			this.deckName = deckName;
+			this.deckName = deckNamePath;
+			DeckName.Text = deckName;
 		}
 
 		private void BackButton_Click( object sender,RoutedEventArgs e )
