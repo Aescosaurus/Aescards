@@ -29,6 +29,13 @@ namespace Aescards
 			// load deck info
 			this.deckName = deckNamePath;
 			DeckName.Text = deckName;
+
+			cardHand = new CardHandler( deckName );
+		}
+
+		public void ReloadCards()
+		{
+			cardHand.ReloadCards();
 		}
 
 		private void BackButton_Click( object sender,RoutedEventArgs e )
@@ -38,16 +45,21 @@ namespace Aescards
 
 		private void StartReviewButton_Click( object sender,RoutedEventArgs e )
 		{
-			var reviewPage = new ReviewPage( deckName );
-			if( reviewPage.HasLoadedCards() ) MenuStack.GoIn( reviewPage );
+			if( cardHand.GetCardCount() > 0 )
+			{
+				cardHand.GenerateReview();
+
+				MenuStack.GoIn( new ReviewPage( cardHand ) );
+			}
 		}
 
 		private void AddCardButton_Click( object sender,RoutedEventArgs e )
 		{
-			MenuStack.GoIn( new AddCardPage() );
+			MenuStack.GoIn( new AddCardPage( cardHand.GetCardCount(),this ) );
 		}
 
 		public static readonly string deckPath = "Decks/";
 		string deckName;
+		CardHandler cardHand;
 	}
 }

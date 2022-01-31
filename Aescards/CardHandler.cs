@@ -7,14 +7,20 @@ using System.IO;
 
 namespace Aescards
 {
-    class CardHandler
+    public class CardHandler
     {
 		public CardHandler( string deckPath )
 		{
-			curCardPath = deckPath + '/' + Card.folderPath;
+			curCardPath = DeckPage.deckPath + deckPath + '/' + Card.folderPath;
 
 			if( !Directory.Exists( curCardPath ) ) Directory.CreateDirectory( curCardPath );
 
+			ReloadCards();
+		}
+
+		public void ReloadCards()
+		{
+			cards.Clear();
 			// Load all cards
 			for( int i = 0; i < maxCards; ++i )
 			{
@@ -23,7 +29,7 @@ namespace Aescards
 				else cards.Add( curCard );
 			}
 
-			GenerateReview();
+			// GenerateReview();
 		}
 
 		public void Save()
@@ -34,9 +40,10 @@ namespace Aescards
 			}
 		}
 
-		void GenerateReview()
+		public void GenerateReview()
 		{
 			reviewCards.Clear();
+			curReviewSpot = 0;
 
 			foreach( var card in cards )
 			{

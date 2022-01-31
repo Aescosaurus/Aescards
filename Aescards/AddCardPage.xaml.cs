@@ -22,9 +22,12 @@ namespace Aescards
 		:
 		Page
     {
-        public AddCardPage()
+        public AddCardPage( int cardCount,DeckPage deckPage )
         {
             InitializeComponent();
+
+			maxCard = cardCount;
+			this.deckPage = deckPage;
         }
 
 		private void BackButton_Click( object sender,RoutedEventArgs e )
@@ -34,7 +37,20 @@ namespace Aescards
 
 		private void SaveButton_Click( object sender,RoutedEventArgs e )
 		{
+			if( InputFront.Text.Length > 0 && InputBack.Text.Length > 0 )
+			{
+				// var savePath = DeckPage.deckPath + Card.folderPath + maxCard.ToString() + ".txt";
 
+				var newCard = new Card( maxCard,InputFront.Text,InputBack.Text,0,0.0f,0.0f );
+				newCard.Save();
+
+				deckPage.ReloadCards();
+
+				MenuStack.GoBack();
+			}
 		}
+
+		int maxCard;
+		DeckPage deckPage;
 	}
 }

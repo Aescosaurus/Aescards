@@ -44,7 +44,7 @@ namespace Aescards
 			public bool visOnFront;
 		}
 
-		public ReviewPage( string deckName )
+		public ReviewPage( CardHandler cardHand )
 		{
 			InitializeComponent();
 
@@ -58,15 +58,17 @@ namespace Aescards
 			showToggleItems.Add( new ShowHideItem( ReviewAnswerSeparator,false ) );
 			showToggleItems.Add( new ShowHideItem( ReviewAnswerBack,false ) );
 			
-			cardHand = new CardHandler( deckName );
+			// cardHand = new CardHandler( deckName );
+			this.cardHand = cardHand;
 
-			if( cardHand.GetCardCount() > 0 ) LoadCardFront();
+			// if( cardHand.GetCardCount() > 0 ) LoadCardFront();
+			LoadCardFront();
 		}
 
-		public bool HasLoadedCards()
-		{
-			return( cardHand.GetCardCount() > 0 );
-		}
+		// public bool HasLoadedCards()
+		// {
+		// 	return( cardHand.GetCardCount() > 0 );
+		// }
 
 		void LoadCardFront()
 		{

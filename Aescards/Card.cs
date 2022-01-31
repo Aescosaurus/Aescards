@@ -7,9 +7,9 @@ using System.IO;
 
 namespace Aescards
 {
-    class Card
+    public class Card
     {
-		private Card( int cardId,string front,string back,int fCount,float curScore,float daysTillNextReview )
+		public Card( int cardId,string front,string back,int fCount,float curScore,float daysTillNextReview )
 		{
 			myId = cardId;
 			this.front = front;

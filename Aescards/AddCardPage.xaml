@@ -48,10 +48,10 @@
 				</Grid.ColumnDefinitions>
 				
 				<TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Center" Padding="10" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Text="Front" Width="Auto" FontSize="30"/>
-				<TextBox Grid.Row="1" Grid.Column="1" FontSize="30" TextAlignment="Center" AcceptsReturn="True"></TextBox>
+				<TextBox x:Name="InputFront" Grid.Row="1" Grid.Column="1" FontSize="30" TextAlignment="Center" AcceptsReturn="True"></TextBox>
 				
 				<TextBlock Grid.Row="2" Grid.Column="1" TextAlignment="Center" Padding="10" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Text="Back" Width="Auto" FontSize="30"/>
-				<TextBox Grid.Row="3" Grid.Column="1" FontSize="30" TextAlignment="Center" AcceptsReturn="True"></TextBox>
+				<TextBox x:Name="InputBack" Grid.Row="3" Grid.Column="1" FontSize="30" TextAlignment="Center" AcceptsReturn="True"></TextBox>
 
 				<Button Grid.Row="5" Grid.Column="1" Content="Save" FontSize="16" Width="250" Click="SaveButton_Click"></Button>
 			</Grid>
