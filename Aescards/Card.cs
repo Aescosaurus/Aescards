@@ -55,8 +55,20 @@ namespace Aescards
 
 		public void UpdateScore( int score )
 		{
-			if( score < 1 ) ++fCount;
-			curScore = score;
+			if( score < 1 ) // fail
+			{
+				++fCount;
+				curScore = 0;
+			}
+			else if( score > 2 ) // easy
+			{
+				if( fCount > 0 ) --fCount;
+				if( score > curScore ) curScore = score;
+
+				curScore += 1.0f / fCount;
+			}
+			else curScore = score; // hard/good
+
 			daysTillNextReview = curScore;
 			modified = true;
 		}
