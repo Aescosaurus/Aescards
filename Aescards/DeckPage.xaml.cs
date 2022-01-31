@@ -23,26 +23,28 @@ namespace Aescards
 		:
 		Page
     {
-		public DeckPage( string deckName,string deckNamePath )
+		public DeckPage( string deckNamePath )
 		{
 			InitializeComponent();
 
 			// load deck info
 			this.deckName = deckNamePath;
-			DeckName.Text = deckName;
+			// DeckName.Text = deckName;
 
-			cardHand = new CardHandler( deckName );
+			cardHand = new CardHandler( deckNamePath );
 
 			CardCount.Text = cardHand.GetCardCount().ToString() + " cards";
 
 			// update card time till next review
-			var deckDataPath = deckPath + deckName + '/' + "DeckData.txt";
-			myData = new DeckData( deckDataPath );
+			// var deckDataPath = deckPath + deckName + '/' + "DeckData.txt";
+			myData = new DeckData( deckNamePath );
+			DeckName.Text = myData.GetDeckName();
+
 			var daysSinceLastOpened = myData.GetDaysSinceLastOpened();
 			if( daysSinceLastOpened > 1.0f ) // no use in updating partial days if spam opening and closing deck
 			{
 				myData.UpdateTime();
-				myData.Save( deckDataPath ); // so we don't have to worry about saving on close
+				myData.Save( deckName ); // so we don't have to worry about saving on close
 
 				cardHand.UpdateTimeTillNextReview( daysSinceLastOpened );
 				cardHand.Save();

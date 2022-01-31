@@ -49,16 +49,25 @@ namespace Aescards
 
 			var deckDataList = new List<DeckListItem>();
 
-			foreach( var specificDeckPath in Directory.EnumerateDirectories( DeckPage.deckPath ) )
+			// foreach( var specificDeckPath in Directory.EnumerateDirectories( DeckPage.deckPath ) )
+			for( int i = 0; i < 9999; ++i )
 			{
-				string deckName = "";
-				for( int i = 0; i < specificDeckPath.Length; ++i )
+				// string deckName = "";
+				// for( int i = 0; i < specificDeckPath.Length; ++i )
+				// {
+				// 	if( specificDeckPath[i] == '/' ) deckName = specificDeckPath.Substring( i + 1 );
+				// }
+				var deckPath = i.ToString();
+				if( File.Exists( DeckData.GeneratePath( deckPath ) ) )
 				{
-					if( specificDeckPath[i] == '/' ) deckName = specificDeckPath.Substring( i + 1 );
-				}
+					var deckData = new DeckData( deckPath );
 
-				deckDataList.Add( new DeckListItem( deckName,specificDeckPath ) );
-				deckDataDict.Add( deckName,specificDeckPath );
+					var deckName = deckData.GetDeckName();
+
+					deckDataList.Add( new DeckListItem( deckName,deckPath ) );
+					deckDataDict.Add( deckName,deckPath );
+				}
+				else break;
 			}
 
 			foreach( var deckData in deckDataList )
@@ -99,7 +108,7 @@ namespace Aescards
 			Debug.Assert( selectedDeck != null );
 			
 			var deckName = selectedDeck.Content as string;
-			MenuStack.GoIn( new DeckPage( deckName,deckDataDict[deckName] ) );
+			MenuStack.GoIn( new DeckPage( deckDataDict[deckName] ) );
 		}
 
 		void OnCreateDeck( object sender,RoutedEventArgs args )
@@ -107,6 +116,13 @@ namespace Aescards
 			MenuStack.GoIn( new CreateDeckPage( this ) );
 		}
 
+		public int GetDeckCount()
+		{
+			return( deckDataDict.Count );
+		}
+
 		Dictionary<string,string> deckDataDict = new Dictionary<string,string>();
+
+		// const int maxDecks = 9999;
     }
 }

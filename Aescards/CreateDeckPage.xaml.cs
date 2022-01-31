@@ -32,10 +32,16 @@ namespace Aescards
 
 		private void CreateButton_Click( object sender,RoutedEventArgs e )
 		{
-			var newDeckPath = DeckPage.deckPath + DeckName.Text;
+			// var newDeckPath = DeckPage.deckPath + DeckName.Text;
+			var curDeckNum = mainPageRef.GetDeckCount().ToString();
+			var newDeckPath = DeckPage.deckPath + curDeckNum;
 			if( DeckName.Text.Length > 0 && !Directory.Exists( newDeckPath ) )
 			{
 				Directory.CreateDirectory( newDeckPath );
+				var curDeckData = new DeckData( curDeckNum );
+				curDeckData.UpdateTime();
+				curDeckData.SetDeckName( DeckName.Text );
+				curDeckData.Save( curDeckNum );
 				mainPageRef.ReloadDecks();
 				MenuStack.GoBack();
 			}
