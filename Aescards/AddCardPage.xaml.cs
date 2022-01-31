@@ -41,7 +41,11 @@ namespace Aescards
 			{
 				// var savePath = DeckPage.deckPath + Card.folderPath + maxCard.ToString() + ".txt";
 
-				var newCard = new Card( maxCard,InputFront.Text,InputBack.Text,0,0.0f,0.0f );
+				// replace \r\n with "\n" (2 chars, diff than '\n') so reader doesn't glitch
+				var frontText = InputFront.Text.Replace( "\r\n","\\n" );
+				var backText = InputBack.Text.Replace( "\r\n","\\n" );
+
+				var newCard = new Card( maxCard,frontText,backText,0,0.0f,0.0f );
 				newCard.Save();
 
 				deckPage.ReloadCards();

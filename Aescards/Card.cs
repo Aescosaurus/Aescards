@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Diagnostics;
 
 namespace Aescards
 {
@@ -34,6 +35,8 @@ namespace Aescards
 				lines.Add( curLine );
 			}
 			reader.Close();
+
+			Debug.Assert( lines.Count == 5 );
 
 			return( new Card( cardId,lines[0],lines[1],int.Parse( lines[2] ),
 				float.Parse( lines[3] ),float.Parse( lines[4] ) ) );
