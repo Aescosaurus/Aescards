@@ -55,8 +55,18 @@ namespace Aescards
 
 			foreach( var card in cards )
 			{
-				reviewCards.Add( card.GetId() );
+				// reviewCards.Add( card.GetId() );
+				if( card.GetDaysTillNextReview() <= 0 )
+				{
+					reviewCards.Add( card.GetId() );
+				}
 			}
+
+			// Sort with longest overdue cards coming first
+			reviewCards.Sort( delegate( int a,int b )
+			{
+				return( ( int )( cards[b].GetDaysTillNextReview() - cards[a].GetDaysTillNextReview() ) );
+			} );
 		}
 
 		public Card GetCurReviewCard()
