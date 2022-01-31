@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace Aescards
 {
@@ -22,9 +23,9 @@ namespace Aescards
 		:
 		Page
     {
-        public DeckPage( string deckName,string deckNamePath )
-        {
-            InitializeComponent();
+		public DeckPage( string deckName,string deckNamePath )
+		{
+			InitializeComponent();
 
 			// load deck info
 			this.deckName = deckNamePath;
@@ -33,11 +34,26 @@ namespace Aescards
 			cardHand = new CardHandler( deckName );
 
 			CardCount.Text = cardHand.GetCardCount().ToString() + " cards";
+
+			// update card time till next review
+			var deckDataPath = deckPath + deckName + '/' + "DeckData.txt";
+			myData = new DeckData( deckDataPath );
+			var daysSinceLastOpened = myData.GetDaysSinceLastOpened();
+			if( daysSinceLastOpened > 1.0f ) // no use in updating partial days if spam opening and closing deck
+			{
+				myData.UpdateTime();
+				myData.Save( deckDataPath ); // so we don't have to worry about saving on close
+
+				cardHand.UpdateTimeTillNextReview( daysSinceLastOpened );
+				cardHand.Save();
+			}
 		}
 
 		public void ReloadCards()
 		{
 			cardHand.ReloadCards();
+
+			CardCount.Text = cardHand.GetCardCount().ToString() + " cards";
 		}
 
 		private void BackButton_Click( object sender,RoutedEventArgs e )
@@ -47,12 +63,7 @@ namespace Aescards
 
 		private void StartReviewButton_Click( object sender,RoutedEventArgs e )
 		{
-			if( cardHand.GetCardCount() > 0 )
-			{
-				cardHand.GenerateReview();
-
-				MenuStack.GoIn( new ReviewPage( cardHand ) );
-			}
+			if( cardHand.GenerateReview() ) MenuStack.GoIn( new ReviewPage( cardHand ) );
 		}
 
 		private void AddCardButton_Click( object sender,RoutedEventArgs e )
@@ -61,6 +72,7 @@ namespace Aescards
 		}
 
 		public static readonly string deckPath = "Decks/";
+		DeckData myData;
 		string deckName;
 		CardHandler cardHand;
 	}

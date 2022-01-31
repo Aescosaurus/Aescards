@@ -48,7 +48,16 @@ namespace Aescards
 			}
 		}
 
-		public void GenerateReview()
+		public void UpdateTimeTillNextReview( float daysPassed )
+		{
+			foreach( var card in cards )
+			{
+				card.UpdateDaysTillNextReview( daysPassed );
+			}
+		}
+
+		// return true if there is >0 cards in review list
+		public bool GenerateReview()
 		{
 			reviewCards.Clear();
 			curReviewSpot = 0;
@@ -67,6 +76,8 @@ namespace Aescards
 			{
 				return( ( int )( cards[b].GetDaysTillNextReview() - cards[a].GetDaysTillNextReview() ) );
 			} );
+
+			return( reviewCards.Count > 0 );
 		}
 
 		public Card GetCurReviewCard()

@@ -63,6 +63,7 @@
     <Compile Include="CreateDeckPage.xaml.cs">
       <DependentUpon>CreateDeckPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DeckData.cs" />
     <Compile Include="DeckPage.xaml.cs">
       <DependentUpon>DeckPage.xaml</DependentUpon>
     </Compile>

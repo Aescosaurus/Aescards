@@ -105,6 +105,8 @@ namespace Aescards
 		{
 			// set card time till next review to a few days
 			cardHand.GetCurReviewCard().Sick();
+
+			GotoNextCard();
 		}
 
 		void ScoreButtonClick( int score )
@@ -112,6 +114,11 @@ namespace Aescards
 			// change card score
 			cardHand.UpdateCurCardScore( score );
 
+			GotoNextCard();
+		}
+
+		void GotoNextCard()
+		{
 			if( cardHand.GotoNextReviewCard() )
 			{
 				FinishReview();

@@ -67,9 +67,17 @@ namespace Aescards
 
 				curScore += 1.0f / fCount;
 			}
-			else curScore = score; // hard/good
+			else curScore = score - 1; // hard/good, hard = next review = 0
 
 			daysTillNextReview = curScore;
+
+			modified = true;
+		}
+
+		public void UpdateDaysTillNextReview( float daysPassed )
+		{
+			daysTillNextReview -= daysPassed;
+
 			modified = true;
 		}
 
@@ -77,6 +85,8 @@ namespace Aescards
 		public void Sick()
 		{
 			daysTillNextReview = sickReviewPenalty;
+
+			modified = true;
 		}
 
 		static string GeneratePath( int cardId )
