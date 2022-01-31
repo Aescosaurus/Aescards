@@ -33,7 +33,8 @@ namespace Aescards
 
 			cardHand = new CardHandler( deckNamePath );
 
-			CardCount.Text = cardHand.GetCardCount().ToString() + " cards";
+			var nCards = cardHand.GetCardCount();
+			CardCount.Text = nCards.ToString() + " card" + ( nCards != 1 ? "s" : "" );
 
 			// update card time till next review
 			// var deckDataPath = deckPath + deckName + '/' + "DeckData.txt";
