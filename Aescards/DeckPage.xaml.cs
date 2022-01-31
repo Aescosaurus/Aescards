@@ -31,6 +31,8 @@ namespace Aescards
 			DeckName.Text = deckName;
 
 			cardHand = new CardHandler( deckName );
+
+			CardCount.Text = cardHand.GetCardCount().ToString() + " cards";
 		}
 
 		public void ReloadCards()
