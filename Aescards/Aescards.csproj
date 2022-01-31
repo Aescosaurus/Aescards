@@ -58,6 +58,7 @@
     <Compile Include="AddCardPage.xaml.cs">
       <DependentUpon>AddCardPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AescPage.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="CardHandler.cs" />
     <Compile Include="CreateDeckPage.xaml.cs">
