@@ -9,9 +9,11 @@ namespace Aescards
 {
     class CardHandler
     {
-		public CardHandler()
+		public CardHandler( string deckPath )
 		{
-			if( !Directory.Exists( Card.folderPath ) ) Directory.CreateDirectory( Card.folderPath );
+			curCardPath = deckPath + '/' + Card.folderPath;
+
+			if( !Directory.Exists( curCardPath ) ) Directory.CreateDirectory( curCardPath );
 
 			// Load all cards
 			for( int i = 0; i < maxCards; ++i )
@@ -55,11 +57,18 @@ namespace Aescards
 			return( curReviewSpot >= reviewCards.Count );
 		}
 
+		public int GetCardCount()
+		{
+			return( cards.Count );
+		}
+
 		List<Card> cards = new List<Card>();
 
 		const int maxCards = 9999;
 
 		List<int> reviewCards = new List<int>();
 		int curReviewSpot = 0;
+
+		public static string curCardPath = "";
     }
 }

@@ -22,11 +22,12 @@ namespace Aescards
 		:
 		Page
     {
-        public DeckPage( string name )
+        public DeckPage( string deckName )
         {
             InitializeComponent();
 
 			// load deck info
+			this.deckName = deckName;
 		}
 
 		private void BackButton_Click( object sender,RoutedEventArgs e )
@@ -36,7 +37,8 @@ namespace Aescards
 
 		private void StartReviewButton_Click( object sender,RoutedEventArgs e )
 		{
-			MenuStack.GoIn( new ReviewPage() );
+			var reviewPage = new ReviewPage( deckName );
+			if( reviewPage.HasLoadedCards() ) MenuStack.GoIn( reviewPage );
 		}
 
 		private void AddCardButton_Click( object sender,RoutedEventArgs e )
@@ -45,5 +47,6 @@ namespace Aescards
 		}
 
 		public static readonly string deckPath = "Decks/";
+		string deckName;
 	}
 }

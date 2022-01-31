@@ -55,7 +55,7 @@ namespace Aescards
 
 		static string GeneratePath( int cardId )
 		{
-			return( folderPath + '/' + cardId.ToString() + ".txt" );
+			return( CardHandler.curCardPath + cardId.ToString() + ".txt" );
 		}
 
 		public bool IsModified()
@@ -103,6 +103,6 @@ namespace Aescards
 		float curScore; // 0 = hard f, <1 = next review, <2 = tomorrow, 2-3 = keep incrementing
 		float daysTillNextReview; // decrement every day, <0 = time to review
 
-		public static readonly string folderPath = "Cards";
+		public static readonly string folderPath = "Cards/";
     }
 }
