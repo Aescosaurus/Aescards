@@ -53,7 +53,10 @@ namespace Aescards
 
 				deckPage.ReloadCards();
 
-				MenuStack.GoBack();
+				InputFront.Text = "";
+				InputBack.Text = "";
+
+				// MenuStack.GoBack();
 			}
 		}
 
