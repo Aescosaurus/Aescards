@@ -20,15 +20,12 @@ namespace Aescards
 				while( !reader.EndOfStream ) lines.Add( reader.ReadLine() );
 				reader.Close();
 
-				lastSave = DateTime.Parse( lines[0] );
-				this.deckName = lines[1];
-				if( lines.Count >= 6 ) // Since I added these after the save file might not have them
-				{
-					fRepair = int.Parse( lines[2] );
-					nCardsPerReview = int.Parse( lines[3] );
-					timeUpdateThresh = float.Parse( lines[4] );
-					maxDeckSize = int.Parse( lines[5] );
-				}
+				if( lines.Count > 0 ) lastSave = DateTime.Parse( lines[0] );
+				if( lines.Count > 1 ) this.deckName = lines[1];
+				if( lines.Count > 2 ) fRepair = int.Parse( lines[2] );
+				if( lines.Count > 3 ) nCardsPerReview = int.Parse( lines[3] );
+				if( lines.Count > 4 ) timeUpdateThresh = float.Parse( lines[4] );
+				if( lines.Count > 5 ) maxDeckSize = int.Parse( lines[5] );
 			}
 		}
 
