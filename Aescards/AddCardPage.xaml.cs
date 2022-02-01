@@ -28,6 +28,9 @@ namespace Aescards
 
 			maxCard = cardCount;
 			this.deckPage = deckPage;
+
+			SetInputBoxLanguage( InputFront );
+			SetInputBoxLanguage( InputBack );
         }
 
 		private void BackButton_Click( object sender,RoutedEventArgs e )
@@ -52,6 +55,12 @@ namespace Aescards
 
 				MenuStack.GoBack();
 			}
+		}
+
+		void SetInputBoxLanguage( TextBox box )
+		{
+			var cultureInfo = Dispatcher.Thread.CurrentCulture.Name.ToString();
+			InputLanguageManager.SetInputLanguage( box,new System.Globalization.CultureInfo( cultureInfo ) );
 		}
 
 		int maxCard;
