@@ -8,8 +8,8 @@ using System.Diagnostics;
 
 namespace Aescards
 {
-    class DeckData
-    {
+	public class DeckData
+	{
 		public DeckData( string deckName )
 		{
 			var path = GeneratePath( deckName );
@@ -22,6 +22,13 @@ namespace Aescards
 
 				lastSave = DateTime.Parse( lines[0] );
 				this.deckName = lines[1];
+				if( lines.Count >= 6 ) // Since I added these after the save file might not have them
+				{
+					fRepair = int.Parse( lines[2] );
+					nCardsPerReview = int.Parse( lines[3] );
+					timeUpdateThresh = float.Parse( lines[4] );
+					maxDeckSize = int.Parse( lines[5] );
+				}
 			}
 		}
 
@@ -30,9 +37,15 @@ namespace Aescards
 			Debug.Assert( deckName.Length > 0 );
 
 			var path = GeneratePath( deckName );
+
 			string saveData = "";
+
 			saveData += lastSave.ToString() + '\n';
 			saveData += this.deckName + '\n';
+			saveData += fRepair.ToString() + '\n';
+			saveData += nCardsPerReview.ToString() + '\n';
+			saveData += timeUpdateThresh.ToString() + '\n';
+			saveData += maxDeckSize.ToString() + '\n';
 
 			var writer = new StreamWriter( path );
 			writer.Write( saveData );
@@ -64,7 +77,31 @@ namespace Aescards
 			return( deckName );
 		}
 
+		public int GetFRepair()
+		{
+			return( fRepair );
+		}
+
+		public int GetCardsPerReview()
+		{
+			return( nCardsPerReview );
+		}
+
+		public float GetTimeUpdateThresh()
+		{
+			return( timeUpdateThresh );
+		}
+
+		public int GetMaxDeckSize()
+		{
+			return( maxDeckSize );
+		}
+
 		DateTime lastSave;
 		string deckName = "";
+		int fRepair = 1;
+		int nCardsPerReview = 20;
+		float timeUpdateThresh = 0.2f;
+		int maxDeckSize = 10000;
 	}
 }

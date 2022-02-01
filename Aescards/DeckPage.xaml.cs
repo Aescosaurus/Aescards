@@ -29,20 +29,17 @@ namespace Aescards
 
 			// load deck info
 			this.deckName = deckNamePath;
-			// DeckName.Text = deckName;
+			myData = new DeckData( deckNamePath );
+			DeckName.Text = myData.GetDeckName();
 
-			cardHand = new CardHandler( deckNamePath );
+			cardHand = new CardHandler( deckNamePath,this );
 
 			var nCards = cardHand.GetCardCount();
 			CardCount.Text = nCards.ToString() + " card" + ( nCards != 1 ? "s" : "" );
 
 			// update card time till next review
-			// var deckDataPath = deckPath + deckName + '/' + "DeckData.txt";
-			myData = new DeckData( deckNamePath );
-			DeckName.Text = myData.GetDeckName();
-
 			var daysSinceLastOpened = myData.GetDaysSinceLastOpened();
-			if( daysSinceLastOpened > 1.0f ) // no use in updating partial days if spam opening and closing deck
+			if( daysSinceLastOpened > myData.GetTimeUpdateThresh() ) // no use in updating partial days if spam opening and closing deck
 			{
 				myData.UpdateTime();
 				myData.Save( deckName ); // so we don't have to worry about saving on close
@@ -77,6 +74,11 @@ namespace Aescards
 		public int GetMaxCard()
 		{
 			return( cardHand.GetCardCount() );
+		}
+
+		public DeckData GetDeckData()
+		{
+			return( myData );
 		}
 
 		public static readonly string deckPath = "Decks/";

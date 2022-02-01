@@ -56,7 +56,7 @@ namespace Aescards
 			writer.Close();
 		}
 
-		public void UpdateScore( int score )
+		public void UpdateScore( int score,DeckData deckData )
 		{
 			if( score < 1 ) // fail
 			{
@@ -65,8 +65,8 @@ namespace Aescards
 			}
 			else if( score > 2 ) // easy
 			{
-				if( fCount > 0 ) --fCount;
-				Debug.Assert( fCount >= 0 );
+				fCount -= deckData.GetFRepair();
+				if( fCount < 0 ) fCount = 0;
 
 				if( score > curScore ) curScore = score;
 

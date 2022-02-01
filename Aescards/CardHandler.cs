@@ -9,9 +9,11 @@ namespace Aescards
 {
     public class CardHandler
     {
-		public CardHandler( string deckPath )
+		public CardHandler( string deckPath,DeckPage deckPage )
 		{
 			curCardPath = DeckPage.deckPath + deckPath + '/' + Card.folderPath;
+			
+			this.deckPage = deckPage;
 
 			if( !Directory.Exists( curCardPath ) ) Directory.CreateDirectory( curCardPath );
 
@@ -22,7 +24,7 @@ namespace Aescards
 		{
 			cards.Clear();
 			// Load all cards
-			for( int i = 0; i < maxCards; ++i )
+			for( int i = 0; i < deckPage.GetDeckData().GetMaxDeckSize(); ++i )
 			{
 				var curCard = Card.GenerateCard( i );
 				if( curCard == null ) break;
@@ -34,7 +36,7 @@ namespace Aescards
 
 		public void UpdateCurCardScore( int score )
 		{
-			GetCurReviewCard().UpdateScore( score );
+			GetCurReviewCard().UpdateScore( score,deckPage.GetDeckData() );
 
 			// repeat failed cards until they are not fail
 			if( score < 1 ) reviewCards.Add( reviewCards[curReviewSpot] );
@@ -78,21 +80,25 @@ namespace Aescards
 			} );
 
 			// cull excess cards
-			if( reviewCards.Count > maxReviewSize )
+			var reviewSize = deckPage.GetDeckData().GetCardsPerReview();
+			if( reviewCards.Count > reviewSize )
 			{
-				int amountOver = reviewCards.Count - maxReviewSize;
+				int amountOver = reviewCards.Count - reviewSize;
 				reviewCards.RemoveRange( reviewCards.Count - amountOver,amountOver );
 			}
 
 			// shuffle
 			var rand = new Random();
-			for( int i = 0; i < reviewCards.Count; ++i )
+			for( int shuffle = 0; shuffle < 3; ++shuffle )
 			{
-				int randSpot = rand.Next( 0,reviewCards.Count - 1 );
+				for( int i = 0; i < reviewCards.Count; ++i )
+				{
+					int randSpot = rand.Next( 0,reviewCards.Count - 1 );
 
-				var temp = reviewCards[i];
-				reviewCards[i] = reviewCards[randSpot];
-				reviewCards[randSpot] = temp;
+					var temp = reviewCards[i];
+					reviewCards[i] = reviewCards[randSpot];
+					reviewCards[randSpot] = temp;
+				}
 			}
 
 			return( reviewCards.Count > 0 );
@@ -118,12 +124,14 @@ namespace Aescards
 
 		List<Card> cards = new List<Card>();
 
-		const int maxCards = 9999;
-		const int maxReviewSize = 20;
+		// const int maxCards = 9999;
+		// const int maxReviewSize = 20;
 
 		List<int> reviewCards = new List<int>();
 		int curReviewSpot = 0;
 
 		public static string curCardPath = "";
+
+		DeckPage deckPage;
     }
 }
