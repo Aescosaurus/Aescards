@@ -66,9 +66,11 @@ namespace Aescards
 			else if( score > 2 ) // easy
 			{
 				if( fCount > 0 ) --fCount;
+				Debug.Assert( fCount >= 0 );
+
 				if( score > curScore ) curScore = score;
 
-				curScore += 1.0f / fCount;
+				curScore += 1.0f / ( fCount + 1 );
 			}
 			else curScore = score - 1; // hard/good, hard = next review = 0
 

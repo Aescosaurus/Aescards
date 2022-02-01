@@ -119,7 +119,7 @@ namespace Aescards
 		List<Card> cards = new List<Card>();
 
 		const int maxCards = 9999;
-		const int maxReviewSize = 100;
+		const int maxReviewSize = 20;
 
 		List<int> reviewCards = new List<int>();
 		int curReviewSpot = 0;
