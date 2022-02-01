@@ -26,6 +26,7 @@ namespace Aescards
 				if( lines.Count > 3 ) nCardsPerReview = int.Parse( lines[3] );
 				if( lines.Count > 4 ) timeUpdateThresh = float.Parse( lines[4] );
 				if( lines.Count > 5 ) maxDeckSize = int.Parse( lines[5] );
+				if( lines.Count > 6 ) sickDelay = int.Parse( lines[6] );
 			}
 		}
 
@@ -43,6 +44,7 @@ namespace Aescards
 			saveData += nCardsPerReview.ToString() + '\n';
 			saveData += timeUpdateThresh.ToString() + '\n';
 			saveData += maxDeckSize.ToString() + '\n';
+			saveData += sickDelay.ToString() + '\n';
 
 			var writer = new StreamWriter( path );
 			writer.Write( saveData );
@@ -94,11 +96,17 @@ namespace Aescards
 			return( maxDeckSize );
 		}
 
+		public float GetSickDelay()
+		{
+			return( sickDelay );
+		}
+
 		DateTime lastSave;
 		string deckName = "";
 		int fRepair = 1;
 		int nCardsPerReview = 20;
 		float timeUpdateThresh = 0.2f;
 		int maxDeckSize = 10000;
+		float sickDelay = 3.0f;
 	}
 }

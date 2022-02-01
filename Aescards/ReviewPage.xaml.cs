@@ -104,7 +104,8 @@ namespace Aescards
 		private void SickButton_Click( object sender,RoutedEventArgs e )
 		{
 			// set card time till next review to a few days
-			cardHand.GetCurReviewCard().Sick();
+			// cardHand.GetCurReviewCard().Sick();
+			cardHand.SickCurCard();
 
 			GotoNextCard();
 		}

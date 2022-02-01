@@ -42,11 +42,14 @@ namespace Aescards
 			if( daysSinceLastOpened > myData.GetTimeUpdateThresh() ) // no use in updating partial days if spam opening and closing deck
 			{
 				myData.UpdateTime();
-				myData.Save( deckName ); // so we don't have to worry about saving on close
 
 				cardHand.UpdateTimeTillNextReview( daysSinceLastOpened );
 				cardHand.Save();
 			}
+			
+			// Save no matter what since we want to save setting data
+			// also save on setting update
+			myData.Save( deckName ); // so we don't have to worry about saving on close
 		}
 
 		public void ReloadCards()

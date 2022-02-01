@@ -56,7 +56,7 @@ namespace Aescards
 			writer.Close();
 		}
 
-		public void UpdateScore( int score,DeckData deckData )
+		public void UpdateScore( int score,int fRepair )
 		{
 			if( score < 1 ) // fail
 			{
@@ -65,7 +65,7 @@ namespace Aescards
 			}
 			else if( score > 2 ) // easy
 			{
-				fCount -= deckData.GetFRepair();
+				fCount -= fRepair;
 				if( fCount < 0 ) fCount = 0;
 
 				if( score > curScore ) curScore = score;
@@ -87,9 +87,9 @@ namespace Aescards
 		}
 
 		// I don't know this card but also im sick of it so don't show me it for a few days
-		public void Sick()
+		public void Sick( float sickDelay )
 		{
-			daysTillNextReview = sickReviewPenalty;
+			daysTillNextReview = sickDelay;
 
 			modified = true;
 		}
@@ -146,6 +146,6 @@ namespace Aescards
 
 		public static readonly string folderPath = "Cards/";
 
-		const float sickReviewPenalty = 3.0f;
+		// const float sickReviewPenalty = 3.0f;
     }
 }

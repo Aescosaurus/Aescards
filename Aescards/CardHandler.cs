@@ -36,10 +36,15 @@ namespace Aescards
 
 		public void UpdateCurCardScore( int score )
 		{
-			GetCurReviewCard().UpdateScore( score,deckPage.GetDeckData() );
+			GetCurReviewCard().UpdateScore( score,deckPage.GetDeckData().GetFRepair() );
 
 			// repeat failed cards until they are not fail
 			if( score < 1 ) reviewCards.Add( reviewCards[curReviewSpot] );
+		}
+
+		public void SickCurCard()
+		{
+			GetCurReviewCard().Sick( deckPage.GetDeckData().GetSickDelay() );
 		}
 
 		public void Save()
