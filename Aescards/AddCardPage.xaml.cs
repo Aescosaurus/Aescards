@@ -22,11 +22,11 @@ namespace Aescards
 		:
 		Page
     {
-        public AddCardPage( int cardCount,DeckPage deckPage )
+        public AddCardPage( DeckPage deckPage )
         {
             InitializeComponent();
 
-			maxCard = cardCount;
+			// maxCard = cardCount;
 			this.deckPage = deckPage;
 
 			SetInputBoxLanguage( InputFront );
@@ -48,7 +48,7 @@ namespace Aescards
 				var frontText = InputFront.Text.Replace( "\r\n","\\n" );
 				var backText = InputBack.Text.Replace( "\r\n","\\n" );
 
-				var newCard = new Card( maxCard,frontText,backText,0,0.0f,0.0f );
+				var newCard = new Card( deckPage.GetMaxCard(),frontText,backText,0,0.0f,0.0f );
 				newCard.Save();
 
 				deckPage.ReloadCards();
@@ -66,7 +66,6 @@ namespace Aescards
 			InputLanguageManager.SetInputLanguage( box,new System.Globalization.CultureInfo( cultureInfo ) );
 		}
 
-		int maxCard;
 		DeckPage deckPage;
 	}
 }

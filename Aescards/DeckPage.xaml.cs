@@ -71,7 +71,12 @@ namespace Aescards
 
 		private void AddCardButton_Click( object sender,RoutedEventArgs e )
 		{
-			MenuStack.GoIn( new AddCardPage( cardHand.GetCardCount(),this ) );
+			MenuStack.GoIn( new AddCardPage( this ) );
+		}
+
+		public int GetMaxCard()
+		{
+			return( cardHand.GetCardCount() );
 		}
 
 		public static readonly string deckPath = "Decks/";
