@@ -77,6 +77,24 @@ namespace Aescards
 				return( ( int )( cards[b].GetDaysTillNextReview() - cards[a].GetDaysTillNextReview() ) );
 			} );
 
+			// cull excess cards
+			if( reviewCards.Count > maxReviewSize )
+			{
+				int amountOver = reviewCards.Count - maxReviewSize;
+				reviewCards.RemoveRange( reviewCards.Count - amountOver,amountOver );
+			}
+
+			// shuffle
+			var rand = new Random();
+			for( int i = 0; i < reviewCards.Count; ++i )
+			{
+				int randSpot = rand.Next( 0,reviewCards.Count - 1 );
+
+				var temp = reviewCards[i];
+				reviewCards[i] = reviewCards[randSpot];
+				reviewCards[randSpot] = temp;
+			}
+
 			return( reviewCards.Count > 0 );
 		}
 
@@ -101,6 +119,7 @@ namespace Aescards
 		List<Card> cards = new List<Card>();
 
 		const int maxCards = 9999;
+		const int maxReviewSize = 100;
 
 		List<int> reviewCards = new List<int>();
 		int curReviewSpot = 0;
