@@ -54,6 +54,16 @@
 					<TextBox></TextBox>
 				</Grid>
 
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1">
+					<Button x:Name="Created" Click="Created_Click" Content="Date" Width="55" Height="55" FontSize="16"/>
+					<Button x:Name="SortFCount" Click="SortFCount_Click" Content="# F's" Width="55" Height="55" FontSize="16"/>
+					<Button x:Name="SortScore" Click="SortScore_Click" Content="Score" Width="55" Height="55" FontSize="16"/>
+					<Button x:Name="SortReview" Click="SortReview_Click" Content="Review" Width="55" Height="55" FontSize="16"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1">
+					<Button x:Name="SortAsc" Click="SortAsc_Click" Content="Asc" Width="55" Height="55" FontSize="16"/>
+					<Button x:Name="SortDesc" Click="SortDesc_Click" Content="Desc" Width="55" Height="55" FontSize="16"/>
+				</StackPanel>
 			</Grid>
 		</DockPanel>
 
