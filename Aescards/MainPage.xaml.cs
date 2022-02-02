@@ -40,6 +40,8 @@ namespace Aescards
         {
             InitializeComponent();
 
+			AescPage.SetupColors( BaseGrid );
+
 			LoadDecks();
         }
 
@@ -88,12 +90,11 @@ namespace Aescards
 		
 		void AddDeckListItem( string name,RoutedEventHandler clickHandler )
 		{
-			ListBoxItem curItem = new ListBoxItem();
-			curItem.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+			var curItem = AescPage.CreateListBoxItem();
+			// curItem.HorizontalContentAlignment = HorizontalAlignment.Stretch;
 
-			var curButton = new Button();
+			var curButton = AescPage.CreateButton();
 			curButton.Content = name;
-			curButton.FontSize = 20.0;
 			curButton.Click += clickHandler;
 
 			curItem.Content = curButton;

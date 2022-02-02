@@ -34,6 +34,8 @@ namespace Aescards
 		{
 			InitializeComponent();
 
+			AescPage.SetupColors( BaseGrid );
+
 			this.deckPage = deckPage;
 			this.mainPage = mainPage;
 
@@ -49,12 +51,11 @@ namespace Aescards
 
 		void AddSettingsListItem( string name,string value,InputType inputType )
 		{
-			ListBoxItem curItem = new ListBoxItem();
-			curItem.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+			var curItem = AescPage.CreateListBoxItem();
+			// curItem.HorizontalContentAlignment = HorizontalAlignment.Stretch;
 
-			var curSetting = new TextBox();
+			var curSetting = AescPage.CreateTextBox();
 			curSetting.Text = value;
-			curSetting.FontSize = 30.0;
 			switch( inputType )
 			{
 				case InputType.String:
@@ -71,9 +72,8 @@ namespace Aescards
 
 			// curItem.Content = curSetting;
 			var stackPanel = new StackPanel();
-			var textBlock = new TextBlock();
+			var textBlock = AescPage.CreateTextBlock();
 			textBlock.Text = name;
-			textBlock.FontSize = 16.0;
 			stackPanel.Children.Add( textBlock );
 			stackPanel.Children.Add( curSetting );
 

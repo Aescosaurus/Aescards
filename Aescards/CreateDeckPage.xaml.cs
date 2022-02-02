@@ -27,6 +27,8 @@ namespace Aescards
         {
             InitializeComponent();
 
+			AescPage.SetupColors( BaseGrid );
+
 			this.mainPageRef = mainPageRef;
         }
 

@@ -27,6 +27,8 @@ namespace Aescards
 		{
 			InitializeComponent();
 
+			AescPage.SetupColors( BaseGrid );
+
 			// load deck info
 			this.deckName = deckNamePath;
 			myData = new DeckData( deckNamePath );

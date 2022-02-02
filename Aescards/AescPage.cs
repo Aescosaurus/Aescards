@@ -5,84 +5,112 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Shapes;
 using System.Diagnostics;
+using System.Windows.Media;
 
 namespace Aescards
 {
 	class AescPage
 	{
-		public static void SetupElements( params FrameworkElement[] elements )
+		public static void SetupColors( Grid baseGrid )
 		{
-			foreach( var el in elements )
+			ObjSearch( baseGrid );
+		}
+
+		static void ObjSearch( DependencyObject obj )
+		{
+			SetObjCol( obj );
+
+			for( int i = 0; i < VisualTreeHelper.GetChildrenCount( obj ); ++i )
 			{
-				ProcessElement( el );
+				ObjSearch( VisualTreeHelper.GetChild( obj,i ) );
 			}
 		}
 
-		static void ProcessElement( FrameworkElement el )
+		static void SetObjCol( DependencyObject obj )
 		{
-			foreach( char c in el.Tag.ToString() )
+			if( obj is TextBlock )
 			{
-				if( c == tags[0] )
-				{
-					// translation?
-				}
-				else
-				{
-					double fontSize = 0.0;
-					if( c == tags[1] ) fontSize = largeTextSize;
-					else if( c == tags[2] ) fontSize = medTextSize;
-					else if( c == tags[3] ) fontSize = smallTextSize;
-					else if( c == tags[4] ) fontSize = buttonTextSize;
-
-					if( el is Button )
-					{
-						( ( Button )el ).FontSize = fontSize;
-					}
-					else if( el is TextBlock )
-					{
-						( ( TextBlock )el ).FontSize = fontSize;
-					}
-					else
-					{
-						Debug.Assert( false );
-					}
-				}
+				( obj as TextBlock ).Foreground = textCol;
+			}
+			else if( obj is Rectangle )
+			{
+				var rectObj = obj as Rectangle;
+				if( rectObj.Fill == Brushes.Gray ) rectObj.Fill = bgCol;
+				else rectObj.Fill = topBarCol;
+			}
+			else if( obj is Button )
+			{
+				var buttonObj = obj as Button;
+				buttonObj.Background = buttonCol;
+				buttonObj.Foreground = textCol;
+			}
+			else if( obj is TextBox )
+			{
+				var textBoxObj = obj as TextBox;
+				textBoxObj.Foreground = textCol;
+				textBoxObj.Background = listBoxCol;
+			}
+			else if( obj is ListBox )
+			{
+				var listBoxObj = obj as ListBox;
+				listBoxObj.Background = listBoxCol;
+				listBoxObj.Foreground = textCol;
+			}
+			else if( obj is ListBoxItem )
+			{
+				var listBoxItemObj = obj as ListBoxItem;
+				listBoxItemObj.Foreground = textCol;
+				listBoxItemObj.Background = listBoxCol;
 			}
 		}
 
-		public static double GetLargeTextSize()
+		public static TextBlock CreateTextBlock()
 		{
-			return( largeTextSize );
+			var textBlock = new TextBlock();
+			textBlock.FontSize = 16.0;
+			textBlock.Foreground = textCol;
+			return( textBlock );
 		}
 
-		public static double GetMedTextSize()
+		public static Button CreateButton()
 		{
-			return( medTextSize );
+			var button = new Button();
+			button.Background = buttonCol;
+			button.Foreground = textCol;
+			button.FontSize = 20.0f;
+			return( button );
 		}
 
-		public static double GetSmallTextSize()
+		public static TextBox CreateTextBox()
 		{
-			return( smallTextSize );
+			var textBox = new TextBox();
+			textBox.FontSize = 30.0;
+			textBox.Foreground = textCol;
+			textBox.Background = listBoxCol;
+			return( textBox );
 		}
 
-		public static double GetButtonTextSize()
+		public static ListBoxItem CreateListBoxItem()
 		{
-			return( buttonTextSize );
+			var listBoxItem = new ListBoxItem();
+			listBoxItem.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+			listBoxItem.Foreground = textCol;
+			listBoxItem.Background = listBoxCol;
+			return( listBoxItem );
 		}
 
-		static readonly char[] tags =
-		{
-			't', // translateable
-			'l', // large text (60)
-			'm', // med text (40)
-			's', // small text (20)
-			'b' // button text (16)
-		};
+		static readonly Brush textCol = Brushes.Black;
+		static readonly Brush bgCol = Brushes.DarkGray;
+		static readonly Brush topBarCol = Brushes.LightGray;
+		static readonly Brush buttonCol = Brushes.LightGray;
+		static readonly Brush listBoxCol = Brushes.WhiteSmoke;
 
-		const double largeTextSize = 60.0;
-		const double medTextSize = 40.0;
-		const double smallTextSize = 20.0;
-		const double buttonTextSize = 16.0;
+		// static readonly Brush textCol = Brushes.White;
+		// static readonly Brush bgCol = Brushes.LightPink;
+		// static readonly Brush topBarCol = Brushes.Red;
+		// static readonly Brush buttonCol = Brushes.HotPink;
+		// static readonly Brush listBoxCol = Brushes.DeepPink;
 	}
 }

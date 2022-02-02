@@ -9,7 +9,7 @@
       d:DesignHeight="600"
       Title="DeckPage">
 
-	<Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+	<Grid x:Name="BaseGrid">
 		<Rectangle Fill="gray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" />
 
 		<DockPanel>

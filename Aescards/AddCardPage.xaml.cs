@@ -26,6 +26,8 @@ namespace Aescards
         {
             InitializeComponent();
 
+			AescPage.SetupColors( BaseGrid );
+
 			// maxCard = cardCount;
 			this.deckPage = deckPage;
 

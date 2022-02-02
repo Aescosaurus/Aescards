@@ -41,6 +41,8 @@ namespace Aescards
 		{
 			InitializeComponent();
 
+			AescPage.SetupColors( BaseGrid );
+
 			cards = cardHand.GetAllCards();
 
 			for( int i = 0; i < cards.Count; ++i )
@@ -113,8 +115,8 @@ namespace Aescards
 
 		void AddCardListItem( string name,int id )
 		{
-			ListBoxItem curItem = new ListBoxItem();
-			curItem.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+			var curItem = AescPage.CreateListBoxItem();
+			// curItem.HorizontalContentAlignment = HorizontalAlignment.Stretch;
 
 			curItem.Content = name;
 			curItem.Name = "card" + id.ToString();

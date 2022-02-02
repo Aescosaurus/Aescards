@@ -48,6 +48,8 @@ namespace Aescards
 		{
 			InitializeComponent();
 
+			AescPage.SetupColors( BaseGrid );
+
 			showToggleItems.Add( new ShowHideItem( ButtonNext,true ) );
 			showToggleItems.Add( new ShowHideItem( ButtonFail,false ) );
 			showToggleItems.Add( new ShowHideItem( ButtonHard,false ) );
