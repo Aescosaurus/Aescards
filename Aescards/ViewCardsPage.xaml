@@ -52,11 +52,11 @@
 				</Grid>
 				<Grid Grid.Row="4" Grid.Column="3" Grid.RowSpan="2">
 					<ListBox>
-						<ListBoxItem x:Name="CardFront" FontSize="16"></ListBoxItem>
-						<ListBoxItem x:Name="CardBack" FontSize="16"></ListBoxItem>
-						<ListBoxItem x:Name="CardFCount" FontSize="16"></ListBoxItem>
-						<ListBoxItem x:Name="CardScore" FontSize="16"></ListBoxItem>
-						<ListBoxItem x:Name="CardReview" FontSize="16"></ListBoxItem>
+						<ListBoxItem x:Name="CardFront"></ListBoxItem>
+						<ListBoxItem x:Name="CardBack"></ListBoxItem>
+						<ListBoxItem x:Name="CardFCount"></ListBoxItem>
+						<ListBoxItem x:Name="CardScore"></ListBoxItem>
+						<ListBoxItem x:Name="CardReview"></ListBoxItem>
 					</ListBox>
 				</Grid>
 

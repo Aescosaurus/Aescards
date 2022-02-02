@@ -32,7 +32,9 @@ namespace Aescards
 		{
 			if( obj is TextBlock )
 			{
-				( obj as TextBlock ).Foreground = textCol;
+				var textBlockObj = obj as TextBlock;
+				textBlockObj.Foreground = textCol;
+				// textBlockObj.FontSize = 16.0;
 			}
 			else if( obj is Rectangle )
 			{
@@ -45,59 +47,58 @@ namespace Aescards
 				var buttonObj = obj as Button;
 				buttonObj.Background = buttonCol;
 				buttonObj.Foreground = textCol;
+				buttonObj.FontSize = 20.0f;
 			}
 			else if( obj is TextBox )
 			{
 				var textBoxObj = obj as TextBox;
 				textBoxObj.Foreground = textCol;
 				textBoxObj.Background = listBoxCol;
+				textBoxObj.FontSize = 30.0;
 			}
 			else if( obj is ListBox )
 			{
 				var listBoxObj = obj as ListBox;
 				listBoxObj.Background = listBoxCol;
 				listBoxObj.Foreground = textCol;
+				listBoxObj.FontSize = 20.0f;
 			}
 			else if( obj is ListBoxItem )
 			{
 				var listBoxItemObj = obj as ListBoxItem;
 				listBoxItemObj.Foreground = textCol;
 				listBoxItemObj.Background = listBoxCol;
+				listBoxItemObj.FontSize = 20.0f;
+				listBoxItemObj.HorizontalContentAlignment = HorizontalAlignment.Stretch;
 			}
 		}
 
 		public static TextBlock CreateTextBlock()
 		{
 			var textBlock = new TextBlock();
+			SetObjCol( textBlock );
 			textBlock.FontSize = 16.0;
-			textBlock.Foreground = textCol;
-			return( textBlock );
+			return ( textBlock );
 		}
 
 		public static Button CreateButton()
 		{
 			var button = new Button();
-			button.Background = buttonCol;
-			button.Foreground = textCol;
-			button.FontSize = 20.0f;
+			SetObjCol( button );
 			return( button );
 		}
 
 		public static TextBox CreateTextBox()
 		{
 			var textBox = new TextBox();
-			textBox.FontSize = 30.0;
-			textBox.Foreground = textCol;
-			textBox.Background = listBoxCol;
+			SetObjCol( textBox );
 			return( textBox );
 		}
 
 		public static ListBoxItem CreateListBoxItem()
 		{
 			var listBoxItem = new ListBoxItem();
-			listBoxItem.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-			listBoxItem.Foreground = textCol;
-			listBoxItem.Background = listBoxCol;
+			SetObjCol( listBoxItem );
 			return( listBoxItem );
 		}
 
