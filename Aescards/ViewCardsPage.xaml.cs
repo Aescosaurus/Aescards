@@ -64,19 +64,25 @@ namespace Aescards
 				case SortType.FCount:
 					cardSortOrder.Sort( delegate( int a,int b )
 					{
-						return( cards[a].GetFCount().CompareTo( cards[b].GetFCount() ) );
+						var result = cards[a].GetFCount().CompareTo( cards[b].GetFCount() );
+						if( result == 0 ) result = a.CompareTo( b );
+						return( result );
 					} );
 					break;
 				case SortType.Score:
 					cardSortOrder.Sort( delegate ( int a,int b )
 					{
-						return( cards[a].GetCurScore().CompareTo( cards[b].GetCurScore() ) );
+						var result = cards[a].GetCurScore().CompareTo( cards[b].GetCurScore() );
+						if( result == 0 ) result = a.CompareTo( b );
+						return ( result );
 					} );
 					break;
 				case SortType.Review:
 					cardSortOrder.Sort( delegate ( int a,int b )
 					{
-						return( cards[a].GetDaysTillNextReview().CompareTo( cards[b].GetDaysTillNextReview() ) );
+						var result = cards[a].GetDaysTillNextReview().CompareTo( cards[b].GetDaysTillNextReview() );
+						if( result == 0 ) result = a.CompareTo( b );
+						return ( result );
 					} );
 					break;
 				default:
