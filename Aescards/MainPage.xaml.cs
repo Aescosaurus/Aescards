@@ -108,7 +108,7 @@ namespace Aescards
 			Debug.Assert( selectedDeck != null );
 			
 			var deckName = selectedDeck.Content as string;
-			MenuStack.GoIn( new DeckPage( deckDataDict[deckName] ) );
+			MenuStack.GoIn( new DeckPage( deckDataDict[deckName],this ) );
 		}
 
 		void OnCreateDeck( object sender,RoutedEventArgs args )

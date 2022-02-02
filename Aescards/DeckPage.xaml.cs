@@ -23,19 +23,19 @@ namespace Aescards
 		:
 		Page
     {
-		public DeckPage( string deckNamePath )
+		public DeckPage( string deckNamePath,MainPage mainPage )
 		{
 			InitializeComponent();
 
 			// load deck info
 			this.deckName = deckNamePath;
 			myData = new DeckData( deckNamePath );
-			DeckName.Text = myData.GetDeckName();
 
 			cardHand = new CardHandler( deckNamePath,this );
 
-			var nCards = cardHand.GetCardCount();
-			CardCount.Text = nCards.ToString() + " card" + ( nCards != 1 ? "s" : "" );
+			this.mainPage = mainPage;
+
+			ReloadDeckData();
 
 			// update card time till next review
 			var daysSinceLastOpened = myData.GetDaysSinceLastOpened();
@@ -49,7 +49,7 @@ namespace Aescards
 			
 			// Save no matter what since we want to save setting data
 			// also save on setting update
-			myData.Save( deckName ); // so we don't have to worry about saving on close
+			myData.Save(); // so we don't have to worry about saving on close
 		}
 
 		public void ReloadCards()
@@ -57,6 +57,15 @@ namespace Aescards
 			cardHand.ReloadCards();
 
 			CardCount.Text = cardHand.GetCardCount().ToString() + " cards";
+		}
+
+		public void ReloadDeckData()
+		{
+
+
+			DeckName.Text = myData.GetDeckName();
+			var nCards = cardHand.GetCardCount();
+			CardCount.Text = nCards.ToString() + " card" + ( nCards != 1 ? "s" : "" );
 		}
 
 		private void BackButton_Click( object sender,RoutedEventArgs e )
@@ -74,6 +83,11 @@ namespace Aescards
 			MenuStack.GoIn( new AddCardPage( this ) );
 		}
 
+		private void SettingsButton_Click( object sender,RoutedEventArgs e )
+		{
+			MenuStack.GoIn( new SettingsPage( this,mainPage ) );
+		}
+
 		public int GetMaxCard()
 		{
 			return( cardHand.GetCardCount() );
@@ -88,5 +102,6 @@ namespace Aescards
 		DeckData myData;
 		string deckName;
 		CardHandler cardHand;
+		MainPage mainPage;
 	}
 }

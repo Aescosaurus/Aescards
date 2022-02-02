@@ -12,29 +12,34 @@ namespace Aescards
 	{
 		public DeckData( string deckName )
 		{
-			var path = GeneratePath( deckName );
-			if( File.Exists( path ) )
+			mySavePath = GeneratePath( deckName );
+			if( File.Exists( mySavePath ) )
 			{
-				var reader = new StreamReader( path );
-				var lines = new List<string>();
-				while( !reader.EndOfStream ) lines.Add( reader.ReadLine() );
-				reader.Close();
-
-				if( lines.Count > 0 ) lastSave = DateTime.Parse( lines[0] );
-				if( lines.Count > 1 ) this.deckName = lines[1];
-				if( lines.Count > 2 ) fRepair = int.Parse( lines[2] );
-				if( lines.Count > 3 ) nCardsPerReview = int.Parse( lines[3] );
-				if( lines.Count > 4 ) timeUpdateThresh = float.Parse( lines[4] );
-				if( lines.Count > 5 ) maxDeckSize = int.Parse( lines[5] );
-				if( lines.Count > 6 ) sickDelay = int.Parse( lines[6] );
+				ReloadData();
 			}
 		}
 
-		public void Save( string deckName )
+		public void ReloadData()
+		{
+			var reader = new StreamReader( mySavePath );
+			var lines = new List<string>();
+			while( !reader.EndOfStream ) lines.Add( reader.ReadLine() );
+			reader.Close();
+
+			if( lines.Count > 0 ) lastSave = DateTime.Parse( lines[0] );
+			if( lines.Count > 1 ) this.deckName = lines[1];
+			if( lines.Count > 2 ) fRepair = int.Parse( lines[2] );
+			if( lines.Count > 3 ) nCardsPerReview = int.Parse( lines[3] );
+			if( lines.Count > 4 ) timeUpdateThresh = float.Parse( lines[4] );
+			if( lines.Count > 5 ) maxDeckSize = int.Parse( lines[5] );
+			if( lines.Count > 6 ) sickDelay = int.Parse( lines[6] );
+		}
+
+		public void Save()
 		{
 			Debug.Assert( deckName.Length > 0 );
 
-			var path = GeneratePath( deckName );
+			// var path = GeneratePath( deckName );
 
 			string saveData = "";
 
@@ -46,7 +51,7 @@ namespace Aescards
 			saveData += maxDeckSize.ToString() + '\n';
 			saveData += sickDelay.ToString() + '\n';
 
-			var writer = new StreamWriter( path );
+			var writer = new StreamWriter( mySavePath );
 			writer.Write( saveData );
 			writer.Close();
 		}
@@ -64,6 +69,31 @@ namespace Aescards
 		public void SetDeckName( string name )
 		{
 			deckName = name;
+		}
+
+		public void SetFRepair( int fRepair )
+		{
+			this.fRepair = fRepair;
+		}
+
+		public void SetCardsPerReview( int nCards )
+		{
+			nCardsPerReview = nCards;
+		}
+
+		public void SetTimeUpdateThresh( float thresh )
+		{
+			timeUpdateThresh = thresh;
+		}
+
+		public void SetMaxDeckSize( int size )
+		{
+			maxDeckSize = size;
+		}
+
+		public void SetSickDelay( float delay )
+		{
+			sickDelay = delay;
 		}
 
 		public float GetDaysSinceLastOpened()
@@ -100,6 +130,8 @@ namespace Aescards
 		{
 			return( sickDelay );
 		}
+
+		string mySavePath;
 
 		DateTime lastSave;
 		string deckName = "";

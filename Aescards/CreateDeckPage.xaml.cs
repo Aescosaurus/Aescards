@@ -41,7 +41,7 @@ namespace Aescards
 				var curDeckData = new DeckData( curDeckNum );
 				curDeckData.UpdateTime();
 				curDeckData.SetDeckName( DeckName.Text );
-				curDeckData.Save( curDeckNum );
+				curDeckData.Save();
 				mainPageRef.ReloadDecks();
 				MenuStack.GoBack();
 			}

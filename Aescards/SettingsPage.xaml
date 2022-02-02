@@ -1,4 +1,4 @@
-﻿<Page x:Class="Aescards.DeckPage"
+﻿<Page x:Class="Aescards.SettingsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,9 +7,9 @@
       mc:Ignorable="d"
 	  d:DesignWidth="800"
       d:DesignHeight="600"
-      Title="DeckPage">
+      Title="SettingsPage">
 
-	<Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid>
 		<Rectangle Fill="gray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" />
 
 		<DockPanel>
@@ -28,19 +28,14 @@
 				</Grid>
 			</Grid>
 
-			<Grid DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"></ColumnDefinition>
-					<ColumnDefinition Width="*"></ColumnDefinition>
-				</Grid.ColumnDefinitions>
-				<Button Grid.Column="0" FontSize="16" x:Name="StartReviewButton" Content="Start Review" Width="Auto" Height="85" Click="StartReviewButton_Click"/>
-				<Button Grid.Column="1" FontSize="16" x:Name="AddCardButton" Content="Add Card" Width="Auto" Height="85" Click="AddCardButton_Click"/>
-			</Grid>
-
 			<Grid>
 				<Grid.RowDefinitions>
-					<RowDefinition Height="0.4*"></RowDefinition>
+					<RowDefinition Height="0.6*"></RowDefinition>
+					<RowDefinition Height="0.2*"></RowDefinition>
 					<RowDefinition Height="*"></RowDefinition>
+					<RowDefinition Height="*"></RowDefinition>
+					<RowDefinition Height="0.15*"></RowDefinition>
+					<RowDefinition Height="0.3*"></RowDefinition>
 					<RowDefinition Height="0.15*"></RowDefinition>
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
@@ -50,14 +45,16 @@
 					<ColumnDefinition Width="2.7*"></ColumnDefinition>
 					<ColumnDefinition Width="0.7*"></ColumnDefinition>
 				</Grid.ColumnDefinitions>
-				<TextBlock x:Name="DeckName" Grid.ColumnSpan="5" Grid.Row="0" TextAlignment="Center" HorizontalAlignment="Stretch" Text="Deck Name" VerticalAlignment="Center" Width="Auto" FontSize="60"/>
-				<Grid Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
-					<TextBlock x:Name="CardCount" Grid.Row="5" Grid.Column="3" TextAlignment="Center" Padding="5" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Card Count" VerticalAlignment="Top" Width="Auto" FontSize="30"/>
+				<TextBlock Grid.ColumnSpan="4" Grid.Row="0" TextAlignment="Center" HorizontalAlignment="Stretch" Text="Deck Settings" VerticalAlignment="Center" Width="Auto" FontSize="60"/>
+				<Grid Grid.Row="2" Grid.Column="1" Grid.RowSpan="2">
+					<ListBox x:Name="SettingsList">
+					</ListBox>
 				</Grid>
-				<Grid Grid.Row="1" Grid.Column="3" Grid.RowSpan="2">
-					<Button x:Name="SettingsButton" Content="Settings" FontSize="30" Height="60" VerticalAlignment="Top" Click="SettingsButton_Click"></Button>
+				<Grid Grid.Row="2" Grid.Column="3" Grid.RowSpan="2">
 				</Grid>
 
+				<Button x:Name="SaveButton" FontSize="16" Content="Save" Grid.Row="5" Grid.Column="1" Click="SaveButton_Click"></Button>
+				<Button x:Name="CancelButton" FontSize="16" Content="Cancel" Grid.Row="5" Grid.Column="3" Click="CancelButton_Click"></Button>
 			</Grid>
 		</DockPanel>
 	</Grid>
