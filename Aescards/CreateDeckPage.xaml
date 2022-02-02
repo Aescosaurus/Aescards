@@ -43,7 +43,7 @@
 				</Grid.ColumnDefinitions>
 
 				<TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Center" Padding="10" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Text="Deck Name" Width="Auto" FontSize="30"/>
-				<TextBox x:Name="DeckName" Grid.Row="1" Grid.Column="1" FontSize="30" TextAlignment="Center" AcceptsReturn="True"></TextBox>
+				<TextBox x:Name="DeckName" Grid.Row="1" Grid.Column="1" FontSize="30" TextAlignment="Center" AcceptsReturn="False"></TextBox>
 
 				<Button Grid.Row="3" Grid.Column="1" Content="Create" FontSize="16" Width="250" Click="CreateButton_Click"></Button>
 			</Grid>
