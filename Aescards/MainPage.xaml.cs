@@ -93,7 +93,7 @@ namespace Aescards
 
 			var curButton = new Button();
 			curButton.Content = name;
-			curButton.FontSize = 16.0;
+			curButton.FontSize = 20.0;
 			curButton.Click += clickHandler;
 
 			curItem.Content = curButton;
