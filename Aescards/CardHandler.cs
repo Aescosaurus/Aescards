@@ -71,7 +71,6 @@ namespace Aescards
 
 			foreach( var card in cards )
 			{
-				// reviewCards.Add( card.GetId() );
 				if( card.GetDaysTillNextReview() <= 0 )
 				{
 					reviewCards.Add( card.GetId() );
@@ -81,7 +80,7 @@ namespace Aescards
 			// Sort with longest overdue cards coming first
 			reviewCards.Sort( delegate( int a,int b )
 			{
-				return( ( int )( cards[a].GetDaysTillNextReview() - cards[b].GetDaysTillNextReview() ) );
+				return( cards[a].GetDaysTillNextReview().CompareTo( cards[b].GetDaysTillNextReview() ) );
 			} );
 
 			// cull excess cards
