@@ -63,12 +63,15 @@ namespace Aescards
 				case 0: // fail
 					++fCount;
 					curScore = 0;
+					daysTillNextReview = 0;
 					break;
 				case 1: // hard 0-1
 					curScore = 1.0f / ( fCount + 1.0f );
+					daysTillNextReview = 0;
 					break;
 				case 2: // good 1-2
 					curScore = 1.0f + ( 1.0f / ( fCount + 1.0f ) );
+					daysTillNextReview = 1;
 					break;
 				default: // easy, >= 3
 					fCount -= fRepair;
@@ -77,11 +80,13 @@ namespace Aescards
 					if( score > curScore ) curScore = score;
 
 					curScore += 1.0f / ( fCount + 1 );
+
+					daysTillNextReview = curScore;
 					break;
 			}
 
 			// -1 since hard is 0-1
-			daysTillNextReview = curScore - 1.0f;
+			// daysTillNextReview = curScore - 1.0f;
 
 			modified = true;
 		}
