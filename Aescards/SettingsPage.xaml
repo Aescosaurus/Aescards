@@ -53,8 +53,8 @@
 				<Grid Grid.Row="2" Grid.Column="3" Grid.RowSpan="2">
 				</Grid>
 
-				<Button x:Name="SaveButton" FontSize="16" Content="Save" Grid.Row="5" Grid.Column="1" Click="SaveButton_Click"></Button>
-				<Button x:Name="CancelButton" FontSize="16" Content="Cancel" Grid.Row="5" Grid.Column="3" Click="CancelButton_Click"></Button>
+				<Button x:Name="SaveButton" FontSize="20" Content="Save" Grid.Row="5" Grid.Column="1" Click="SaveButton_Click"></Button>
+				<Button x:Name="CancelButton" FontSize="20" Content="Cancel" Grid.Row="5" Grid.Column="3" Click="CancelButton_Click"></Button>
 			</Grid>
 		</DockPanel>
 	</Grid>
