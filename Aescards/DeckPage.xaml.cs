@@ -88,6 +88,11 @@ namespace Aescards
 			MenuStack.GoIn( new SettingsPage( this,mainPage ) );
 		}
 
+		private void ViewCardsButton_Click( object sender,RoutedEventArgs e )
+		{
+			MenuStack.GoIn( new ViewCardsPage( cardHand ) );
+		}
+
 		public int GetMaxCard()
 		{
 			return( cardHand.GetCardCount() );

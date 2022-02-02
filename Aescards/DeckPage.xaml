@@ -54,9 +54,10 @@
 				<Grid Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
 					<TextBlock x:Name="CardCount" Grid.Row="5" Grid.Column="3" TextAlignment="Center" Padding="5" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Card Count" VerticalAlignment="Top" Width="Auto" FontSize="30"/>
 				</Grid>
-				<Grid Grid.Row="1" Grid.Column="3" Grid.RowSpan="2">
+				<StackPanel Grid.Row="1" Grid.Column="3" Grid.RowSpan="2">
 					<Button x:Name="SettingsButton" Content="Settings" FontSize="30" Height="60" VerticalAlignment="Top" Click="SettingsButton_Click"></Button>
-				</Grid>
+					<Button x:Name="ViewCardsButton" Content="View Cards" FontSize="30" Height="60" VerticalAlignment="Top" Click="ViewCardsButton_Click"></Button>
+				</StackPanel>
 
 			</Grid>
 		</DockPanel>

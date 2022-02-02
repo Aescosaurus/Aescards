@@ -127,6 +127,11 @@ namespace Aescards
 			return( cards.Count );
 		}
 
+		public List<Card> GetAllCards()
+		{
+			return( cards );
+		}
+
 		List<Card> cards = new List<Card>();
 
 		// const int maxCards = 9999;
