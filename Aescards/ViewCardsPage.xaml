@@ -51,7 +51,13 @@
 					</ListBox>
 				</Grid>
 				<Grid Grid.Row="4" Grid.Column="3" Grid.RowSpan="2">
-					<TextBox></TextBox>
+					<ListBox>
+						<ListBoxItem x:Name="CardFront" FontSize="16"></ListBoxItem>
+						<ListBoxItem x:Name="CardBack" FontSize="16"></ListBoxItem>
+						<ListBoxItem x:Name="CardFCount" FontSize="16"></ListBoxItem>
+						<ListBoxItem x:Name="CardScore" FontSize="16"></ListBoxItem>
+						<ListBoxItem x:Name="CardReview" FontSize="16"></ListBoxItem>
+					</ListBox>
 				</Grid>
 
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1">

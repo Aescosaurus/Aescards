@@ -58,41 +58,31 @@ namespace Aescards
 				case SortType.Created:
 					cardSortOrder.Sort( delegate( int a,int b )
 					{
-						return( a - b );
+						return( a.CompareTo( b ) );
 					} );
 					break;
 				case SortType.FCount:
 					cardSortOrder.Sort( delegate( int a,int b )
 					{
-						return( cards[a].GetFCount() - cards[b].GetFCount() );
+						return( cards[a].GetFCount().CompareTo( cards[b].GetFCount() ) );
 					} );
 					break;
 				case SortType.Score:
 					cardSortOrder.Sort( delegate ( int a,int b )
 					{
-						return( ( int )( cards[a].GetCurScore() - cards[b].GetCurScore() ) );
+						return( cards[a].GetCurScore().CompareTo( cards[b].GetCurScore() ) );
 					} );
 					break;
 				case SortType.Review:
 					cardSortOrder.Sort( delegate ( int a,int b )
 					{
-						return ( ( int )( cards[a].GetDaysTillNextReview() - cards[b].GetDaysTillNextReview() ) );
+						return( cards[a].GetDaysTillNextReview().CompareTo( cards[b].GetDaysTillNextReview() ) );
 					} );
 					break;
 				default:
 					Debug.Assert( false );
 					break;
 			}
-		}
-
-		void AddCardListItem( string name )
-		{
-			ListBoxItem curItem = new ListBoxItem();
-			curItem.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-
-			curItem.Content = name;
-
-			CardList.Items.Add( curItem );
 		}
 
 		void ResetCardListItems()
@@ -103,16 +93,50 @@ namespace Aescards
 			{
 				for( int i = 0; i < cardSortOrder.Count; ++i )
 				{
-					AddCardListItem( cards[cardSortOrder[i]].GetFront() );
+					AddCardListItem( cards[cardSortOrder[i]].GetFront(),cardSortOrder[i] );
 				}
 			}
 			else if( sortOrder == SortOrder.Descending )
 			{
 				for( int i = cardSortOrder.Count - 1; i >= 0; --i )
 				{
-					AddCardListItem( cards[cardSortOrder[i]].GetFront() );
+					AddCardListItem( cards[cardSortOrder[i]].GetFront(),cardSortOrder[i] );
 				}
 			}
+		}
+
+		void AddCardListItem( string name,int id )
+		{
+			ListBoxItem curItem = new ListBoxItem();
+			curItem.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+
+			curItem.Content = name;
+			curItem.Name = "card" + id.ToString();
+
+			curItem.Selected += new RoutedEventHandler( OnCardSelected );
+
+			CardList.Items.Add( curItem );
+		}
+
+		void OnCardSelected( object sender,RoutedEventArgs args )
+		{
+			Debug.Assert( sender is ListBoxItem );
+
+			var cardListItem = sender as ListBoxItem;
+
+			string cardNum = "";
+			foreach( char c in cardListItem.Name )
+			{
+				if( char.IsNumber( c ) ) cardNum += c;
+			}
+
+			var selectedCard = cards[int.Parse( cardNum )];
+			
+			CardFront.Content = "Front: " + selectedCard.GetFront();
+			CardBack.Content = "Back:\n" + selectedCard.GetBack();
+			CardFCount.Content = "F Count: " + selectedCard.GetFCount().ToString();
+			CardScore.Content = "Score: " + selectedCard.GetCurScore().ToString();
+			CardReview.Content = "Days Till Next Review: " + selectedCard.GetDaysTillNextReview().ToString();
 		}
 
 		private void BackButton_Click( object sender,RoutedEventArgs e )
