@@ -37,8 +37,6 @@ namespace Aescards
 
 			this.mainPage = mainPage;
 
-			ReloadDeckData();
-
 			// update card time till next review
 			var daysSinceLastOpened = myData.GetDaysSinceLastOpened();
 			if( daysSinceLastOpened > myData.GetTimeUpdateThresh() ) // no use in updating partial days if spam opening and closing deck
@@ -48,7 +46,14 @@ namespace Aescards
 				cardHand.UpdateTimeTillNextReview( daysSinceLastOpened );
 				cardHand.Save();
 			}
-			
+
+			if( myData.IsDifferentWholeDay() )
+			{
+				myData.UpdateWholeDay();
+			}
+
+			ReloadDeckData();
+
 			// Save no matter what since we want to save setting data
 			// also save on setting update
 			myData.Save(); // so we don't have to worry about saving on close
@@ -63,11 +68,13 @@ namespace Aescards
 
 		public void ReloadDeckData()
 		{
-
-
 			DeckName.Text = myData.GetDeckName();
+
 			var nCards = cardHand.GetCardCount();
-			CardCount.Text = nCards.ToString() + " card" + ( nCards != 1 ? "s" : "" );
+			CardCount.Text = nCards.ToString() + " card" + ( nCards != 1 ? "s" : "" ) + " total";
+
+			var newCards = myData.GetCardsAddedToday();
+			NewCards.Text = newCards.ToString() + " card" + ( newCards != 1 ? "s" : "" ) + " added today";
 		}
 
 		private void BackButton_Click( object sender,RoutedEventArgs e )

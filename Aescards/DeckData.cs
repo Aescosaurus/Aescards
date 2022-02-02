@@ -33,6 +33,8 @@ namespace Aescards
 			if( lines.Count > 4 ) timeUpdateThresh = float.Parse( lines[4] );
 			if( lines.Count > 5 ) maxDeckSize = int.Parse( lines[5] );
 			if( lines.Count > 6 ) sickDelay = int.Parse( lines[6] );
+			if( lines.Count > 7 ) wholeDay = DateTime.Parse( lines[7] );
+			if( lines.Count > 8 ) cardsAddedToday = int.Parse( lines[8] );
 		}
 
 		public void Save()
@@ -50,6 +52,8 @@ namespace Aescards
 			saveData += timeUpdateThresh.ToString() + '\n';
 			saveData += maxDeckSize.ToString() + '\n';
 			saveData += sickDelay.ToString() + '\n';
+			saveData += wholeDay.ToString() + '\n';
+			saveData += cardsAddedToday.ToString() + '\n';
 
 			var writer = new StreamWriter( mySavePath );
 			writer.Write( saveData );
@@ -64,6 +68,13 @@ namespace Aescards
 		public void UpdateTime()
 		{
 			lastSave = DateTime.Now;
+		}
+
+		public void UpdateWholeDay()
+		{
+			wholeDay = DateTime.Now;
+
+			cardsAddedToday = 0;
 		}
 
 		public void SetDeckName( string name )
@@ -96,9 +107,24 @@ namespace Aescards
 			sickDelay = delay;
 		}
 
+		public void AddCard()
+		{
+			++cardsAddedToday;
+		}
+
 		public float GetDaysSinceLastOpened()
 		{
 			return( ( float )( ( DateTime.Now - lastSave ).TotalDays ) );
+		}
+
+		public int GetWholeDayDiff()
+		{
+			return( ( DateTime.Now - wholeDay ).Days );
+		}
+
+		public bool IsDifferentWholeDay()
+		{
+			return( DateTime.Now.DayOfYear != wholeDay.DayOfYear );
 		}
 
 		public string GetDeckName()
@@ -131,6 +157,11 @@ namespace Aescards
 			return( sickDelay );
 		}
 
+		public int GetCardsAddedToday()
+		{
+			return( cardsAddedToday );
+		}
+
 		string mySavePath;
 
 		DateTime lastSave;
@@ -140,5 +171,8 @@ namespace Aescards
 		float timeUpdateThresh = 0.2f;
 		int maxDeckSize = 10000;
 		float sickDelay = 3.0f;
+
+		DateTime wholeDay;
+		int cardsAddedToday = 0;
 	}
 }

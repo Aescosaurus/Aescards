@@ -53,7 +53,11 @@ namespace Aescards
 				var newCard = new Card( deckPage.GetMaxCard(),frontText,backText,0,0.0f,0.0f );
 				newCard.Save();
 
+				deckPage.GetDeckData().AddCard();
+				deckPage.GetDeckData().Save();
+
 				deckPage.ReloadCards();
+				deckPage.ReloadDeckData();
 
 				InputFront.Text = "";
 				InputBack.Text = "";
