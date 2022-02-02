@@ -147,16 +147,35 @@ namespace Aescards
 
 		private void CancelButton_Click( object sender,RoutedEventArgs e )
 		{
-			// are you sure box
-
-			MenuStack.GoBack();
+			if( ShowConfirmBox() ) MenuStack.GoBack();
 		}
 
 		private void BackButton_Click( object sender,RoutedEventArgs e )
 		{
-			// are you sure box
+			if( ShowConfirmBox() ) MenuStack.GoBack();
+		}
 
-			MenuStack.GoBack();
+		// return true if want to leave
+		bool ShowConfirmBox()
+		{
+			if( SettingsActuallyChanged() )
+			{
+				var result = MessageBox.Show( "Some settings are modified.  Leave without saving?","Unsaved Changed",MessageBoxButton.YesNoCancel );
+				return( result == MessageBoxResult.Yes );
+			}
+			return( true );
+		}
+
+		// True if diff from DeckData
+		bool SettingsActuallyChanged()
+		{
+			var deckData = deckPage.GetDeckData();
+			return( GetSettingStr( deckNameStr ) != deckData.GetDeckName() ||
+				GetSettingInt( fRepairStr ) != deckData.GetFRepair() ||
+				GetSettingInt( cardsPerReviewStr ) != deckData.GetCardsPerReview() ||
+				GetSettingFloat( timeUpdateThreshStr ) != deckData.GetTimeUpdateThresh() ||
+				GetSettingInt( maxDeckSizeStr ) != deckData.GetMaxDeckSize() ||
+				GetSettingFloat( sickDelayStr ) != deckData.GetSickDelay() );
 		}
 
 		private void TextIntMatch( object sender,TextCompositionEventArgs args )
