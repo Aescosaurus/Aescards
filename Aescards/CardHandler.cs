@@ -81,7 +81,7 @@ namespace Aescards
 			// Sort with longest overdue cards coming first
 			reviewCards.Sort( delegate( int a,int b )
 			{
-				return( ( int )( cards[b].GetDaysTillNextReview() - cards[a].GetDaysTillNextReview() ) );
+				return( ( int )( cards[a].GetDaysTillNextReview() - cards[b].GetDaysTillNextReview() ) );
 			} );
 
 			// cull excess cards
