@@ -58,23 +58,30 @@ namespace Aescards
 
 		public void UpdateScore( int score,int fRepair )
 		{
-			if( score < 1 ) // fail
+			switch( score )
 			{
-				++fCount;
-				curScore = 0;
+				case 0: // fail
+					++fCount;
+					curScore = 0;
+					break;
+				case 1: // hard 0-1
+					curScore = 1.0f / ( fCount + 1.0f );
+					break;
+				case 2: // good 1-2
+					curScore = 1.0f + ( 1.0f / ( fCount + 1.0f ) );
+					break;
+				default: // easy, >= 3
+					fCount -= fRepair;
+					if( fCount < 0 ) fCount = 0;
+
+					if( score > curScore ) curScore = score;
+
+					curScore += 1.0f / ( fCount + 1 );
+					break;
 			}
-			else if( score > 2 ) // easy
-			{
-				fCount -= fRepair;
-				if( fCount < 0 ) fCount = 0;
 
-				if( score > curScore ) curScore = score;
-
-				curScore += 1.0f / ( fCount + 1 );
-			}
-			else curScore = score - 1; // hard/good, hard = next review = 0
-
-			daysTillNextReview = curScore;
+			// -1 since hard is 0-1
+			daysTillNextReview = curScore - 1.0f;
 
 			modified = true;
 		}
