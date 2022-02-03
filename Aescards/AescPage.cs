@@ -33,41 +33,41 @@ namespace Aescards
 			if( obj is TextBlock )
 			{
 				var textBlockObj = obj as TextBlock;
-				textBlockObj.Foreground = textCol;
+				textBlockObj.Foreground = GetCol( textCol );
 				// textBlockObj.FontSize = 16.0;
 			}
 			else if( obj is Rectangle )
 			{
 				var rectObj = obj as Rectangle;
-				if( rectObj.Fill == Brushes.Gray ) rectObj.Fill = bgCol;
-				else rectObj.Fill = topBarCol;
+				if( rectObj.Fill == Brushes.Gray ) rectObj.Fill = GetCol( bgCol );
+				else rectObj.Fill = GetCol( topBarCol );
 			}
 			else if( obj is Button )
 			{
 				var buttonObj = obj as Button;
-				buttonObj.Background = buttonCol;
-				buttonObj.Foreground = textCol;
+				buttonObj.Background = GetCol( buttonCol );
+				buttonObj.Foreground = GetCol( textCol );
 				buttonObj.FontSize = 20.0f;
 			}
 			else if( obj is TextBox )
 			{
 				var textBoxObj = obj as TextBox;
-				textBoxObj.Foreground = textCol;
-				textBoxObj.Background = listBoxCol;
+				textBoxObj.Foreground = GetCol( textCol );
+				textBoxObj.Background = GetCol( listBoxCol );
 				textBoxObj.FontSize = 30.0;
 			}
 			else if( obj is ListBox )
 			{
 				var listBoxObj = obj as ListBox;
-				listBoxObj.Background = listBoxCol;
-				listBoxObj.Foreground = textCol;
+				listBoxObj.Background = GetCol( listBoxCol );
+				listBoxObj.Foreground = GetCol( textCol );
 				listBoxObj.FontSize = 20.0f;
 			}
 			else if( obj is ListBoxItem )
 			{
 				var listBoxItemObj = obj as ListBoxItem;
-				listBoxItemObj.Foreground = textCol;
-				listBoxItemObj.Background = listBoxCol;
+				listBoxItemObj.Foreground = GetCol( textCol );
+				listBoxItemObj.Background = GetCol( listBoxCol );
 				listBoxItemObj.FontSize = 20.0f;
 				listBoxItemObj.HorizontalContentAlignment = HorizontalAlignment.Stretch;
 			}
@@ -102,16 +102,37 @@ namespace Aescards
 			return( listBoxItem );
 		}
 
-		static readonly Brush textCol = Brushes.Black;
-		static readonly Brush bgCol = Brushes.DarkGray;
-		static readonly Brush topBarCol = Brushes.LightGray;
-		static readonly Brush buttonCol = Brushes.LightGray;
-		static readonly Brush listBoxCol = Brushes.WhiteSmoke;
+		static Brush GetCol( int index )
+		{
+			return( colors[curColorScheme][index] );
+		}
 
-		// static readonly Brush textCol = Brushes.White;
-		// static readonly Brush bgCol = Brushes.LightPink;
-		// static readonly Brush topBarCol = Brushes.Red;
-		// static readonly Brush buttonCol = Brushes.HotPink;
-		// static readonly Brush listBoxCol = Brushes.DeepPink;
+		const int textCol = 0;
+		const int bgCol = 1;
+		const int topBarCol = 2;
+		const int buttonCol = 3;
+		const int listBoxCol = 4;
+
+		static int curColorScheme = 0;
+
+		static readonly Brush[][] colors =
+		{
+			new Brush[] // default gray
+			{
+				Brushes.Black,
+				Brushes.DarkGray,
+				Brushes.LightGray,
+				Brushes.LightGray,
+				Brushes.WhiteSmoke
+			},
+			new Brush[] // pink
+			{
+				Brushes.White,
+				Brushes.LightPink,
+				Brushes.DeepPink,
+				Brushes.DeepPink,
+				Brushes.HotPink
+			}
+		};
 	}
 }
