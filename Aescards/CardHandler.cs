@@ -158,7 +158,7 @@ namespace Aescards
 			int newCount = 0;
 			foreach( var card in cards )
 			{
-				if( card.GetCurScore() == 0.0f && card.GetDaysTillNextReview() == 0.0f ) ++newCount;
+				if( card.GetCurScore() == 0.0f ) ++newCount;
 			}
 			return( newCount );
 		}
