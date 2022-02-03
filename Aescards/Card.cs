@@ -62,7 +62,7 @@ namespace Aescards
 			{
 				case 0: // fail
 					++fCount;
-					curScore = 0;
+					curScore = 0.0001f;
 					daysTillNextReview = 0;
 					break;
 				case 1: // hard 0-1
