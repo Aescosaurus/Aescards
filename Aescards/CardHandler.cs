@@ -131,6 +131,50 @@ namespace Aescards
 			return( cards );
 		}
 
+		public float GetAvgScore()
+		{
+			float total = 0.0f;
+			foreach( var card in cards ) total += card.GetCurScore();
+
+			return( total / cards.Count );
+		}
+
+		public int GetFCount()
+		{
+			int fCount = 0;
+			foreach( var card in cards )
+			{
+				// f = <1 score but 0 score 0 days is newly created card
+				if( card.GetCurScore() < 1.0f &&
+					!( card.GetCurScore() == 0.0f && card.GetDaysTillNextReview() == 0.0f ) )
+				{
+					++fCount;
+				}
+			}
+
+			return( fCount );
+		}
+
+		public int GetNewCount()
+		{
+			int newCount = 0;
+			foreach( var card in cards )
+			{
+				if( card.GetCurScore() == 0.0f && card.GetDaysTillNextReview() == 0.0f ) ++newCount;
+			}
+			return( newCount );
+		}
+
+		public int GetReviewCandidateCount()
+		{
+			int candidateCount = 0;
+			foreach( var card in cards )
+			{
+				if( card.GetDaysTillNextReview() <= 0.0f ) ++candidateCount;
+			}
+			return( candidateCount );
+		}
+
 		List<Card> cards = new List<Card>();
 
 		// const int maxCards = 9999;

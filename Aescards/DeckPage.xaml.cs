@@ -71,10 +71,27 @@ namespace Aescards
 			DeckName.Text = myData.GetDeckName();
 
 			var nCards = cardHand.GetCardCount();
-			CardCount.Text = nCards.ToString() + " card" + ( nCards != 1 ? "s" : "" ) + " total";
+			CardCount.Text = "Total: " + nCards.ToString();// + " card" + ( nCards != 1 ? "s" : "" );
 
 			var newCards = myData.GetCardsAddedToday();
-			NewCards.Text = newCards.ToString() + " card" + ( newCards != 1 ? "s" : "" ) + " added today";
+			NewCards.Text = "Added today: " + newCards.ToString();// + " card" + ( newCards != 1 ? "s" : "" );
+
+			var avgScore = cardHand.GetAvgScore();
+			string scoreGrade = "";
+			if( avgScore < 1.0f ) scoreGrade = "Fail";
+			else if( avgScore < 2.0f ) scoreGrade = "Hard";
+			else if( avgScore < 3.0f ) scoreGrade = "Good";
+			else scoreGrade = "Easy";
+			AvgScore.Text = "Avg score: " + avgScore.ToString() + " (" + scoreGrade + ')';
+
+			var unknownCount = cardHand.GetFCount();
+			FCount.Text = "Unknown: " + unknownCount.ToString();// + " card" + ( unknownCount != 1 ? "s" : "" );
+
+			var newCount = cardHand.GetNewCount();
+			NewCount.Text = "New: " + newCount.ToString();// + " card" + ( newCount != 1 ? "s" : "" );
+
+			var reviewableCount = cardHand.GetReviewCandidateCount();
+			ReviewCount.Text = "Reviewable: " + reviewableCount.ToString();// + " card" + ( reviewableCount != 1 ? "s" : "" );
 		}
 
 		private void BackButton_Click( object sender,RoutedEventArgs e )
@@ -84,7 +101,7 @@ namespace Aescards
 
 		private void StartReviewButton_Click( object sender,RoutedEventArgs e )
 		{
-			if( cardHand.GenerateReview() ) MenuStack.GoIn( new ReviewPage( cardHand ) );
+			if( cardHand.GenerateReview() ) MenuStack.GoIn( new ReviewPage( this,cardHand ) );
 		}
 
 		private void AddCardButton_Click( object sender,RoutedEventArgs e )

@@ -44,7 +44,7 @@ namespace Aescards
 			public bool visOnFront;
 		}
 
-		public ReviewPage( CardHandler cardHand )
+		public ReviewPage( DeckPage deckPage,CardHandler cardHand )
 		{
 			InitializeComponent();
 
@@ -61,6 +61,7 @@ namespace Aescards
 			showToggleItems.Add( new ShowHideItem( ReviewAnswerBack,false ) );
 			
 			// cardHand = new CardHandler( deckName );
+			this.deckPage = deckPage;
 			this.cardHand = cardHand;
 
 			// if( cardHand.GetCardCount() > 0 ) LoadCardFront();
@@ -99,6 +100,8 @@ namespace Aescards
 		void FinishReview()
 		{
 			cardHand.Save();
+
+			deckPage.ReloadDeckData();
 
 			MenuStack.GoBack();
 		}
@@ -158,6 +161,7 @@ namespace Aescards
 			LoadCardBack();
 		}
 
+		DeckPage deckPage;
 		CardHandler cardHand;
 
 		List<ShowHideItem> showToggleItems = new List<ShowHideItem>();
