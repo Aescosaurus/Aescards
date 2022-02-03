@@ -144,9 +144,7 @@ namespace Aescards
 			int fCount = 0;
 			foreach( var card in cards )
 			{
-				// f = <1 score but 0 score 0 days is newly created card
-				if( card.GetCurScore() < 1.0f &&
-					!( card.GetCurScore() == 0.0f && card.GetDaysTillNextReview() == 0.0f ) )
+				if( card.GetCurScore() < 1.0f && card.GetCurScore() != 0.0f )
 				{
 					++fCount;
 				}
