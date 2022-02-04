@@ -40,10 +40,16 @@ namespace Aescards
         {
             InitializeComponent();
 
-			AescPage.SetupColors( BaseGrid );
+			settings = new AescardsSettings();
+
+			var selectedColorScheme = settings.GetColorScheme();
+			ColorSchemeBox.SelectedIndex = selectedColorScheme;
+			AescPage.SetColorScheme( selectedColorScheme );
 
 			LoadDecks();
-        }
+
+			AescPage.SetupColors( BaseGrid );
+		}
 
 		void LoadDecks()
 		{
@@ -122,8 +128,22 @@ namespace Aescards
 			return( deckDataDict.Count );
 		}
 
+		private void ColorSchemeBox_SelectionChanged( object sender,SelectionChangedEventArgs e )
+		{
+			var comboBox = sender as ComboBox;
+
+			settings.SetColorScheme( comboBox.SelectedIndex );
+			settings.Save();
+			AescPage.SetColorScheme( comboBox.SelectedIndex );
+
+
+			AescPage.SetupColors( BaseGrid );
+		}
+
 		Dictionary<string,string> deckDataDict = new Dictionary<string,string>();
 
+		AescardsSettings settings;
+
 		// const int maxDecks = 9999;
-    }
+	}
 }

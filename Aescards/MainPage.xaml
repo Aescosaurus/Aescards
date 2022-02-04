@@ -27,14 +27,29 @@
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="0.2*"></ColumnDefinition>
-					<ColumnDefinition Width="1.5*"></ColumnDefinition>
-					<ColumnDefinition Width="2*"></ColumnDefinition>
-					<ColumnDefinition Width="*"></ColumnDefinition>
+					<ColumnDefinition Width="1.4*"></ColumnDefinition>
+					<ColumnDefinition Width="0.8*"></ColumnDefinition>
+					<ColumnDefinition Width="1.4*"></ColumnDefinition>
+					<ColumnDefinition Width="0.2*"></ColumnDefinition>
 				</Grid.ColumnDefinitions>
 				<TextBlock Grid.ColumnSpan="4" Grid.Row="0" TextAlignment="Center" HorizontalAlignment="Stretch" Text="Aescards" VerticalAlignment="Center" Width="Auto" FontSize="60"/>
 				<TextBlock Grid.Row="1" Grid.Column="1" TextAlignment="Center" HorizontalAlignment="Stretch" Text="Decks" VerticalAlignment="Center" Width="Auto" FontSize="40"/>
 				<Grid Grid.Row="2" Grid.Column="1" Grid.RowSpan="2">
 					<ListBox x:Name="DeckList">
+					</ListBox>
+				</Grid>
+				
+				<Grid Grid.Row="2" Grid.Column="3" Grid.RowSpan="2">
+					<ListBox>
+						<ListBoxItem>
+							<StackPanel>
+								<TextBlock Text="Color Scheme" FontSize="20"></TextBlock>
+								<ComboBox x:Name="ColorSchemeBox" SelectionChanged="ColorSchemeBox_SelectionChanged">
+									<ComboBoxItem Content="Default Gray"></ComboBoxItem>
+									<ComboBoxItem Content="Fashionable Pink"></ComboBoxItem>
+								</ComboBox>
+							</StackPanel>
+						</ListBoxItem>
 					</ListBox>
 				</Grid>
 			</Grid>

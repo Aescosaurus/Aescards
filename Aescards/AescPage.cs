@@ -102,6 +102,11 @@ namespace Aescards
 			return( listBoxItem );
 		}
 
+		public static void SetColorScheme( int index )
+		{
+			curColorScheme = index;
+		}
+
 		static Brush GetCol( int index )
 		{
 			return( colors[curColorScheme][index] );
