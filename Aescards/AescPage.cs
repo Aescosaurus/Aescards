@@ -38,7 +38,7 @@ namespace Aescards
 			else if( obj is Rectangle )
 			{
 				var rectObj = obj as Rectangle;
-				if( rectObj.Height != 55 ) rectObj.Fill = GetCol( bgCol );
+				if( rectObj.Name == "bg" ) rectObj.Fill = GetCol( bgCol );
 				else rectObj.Fill = GetCol( buttonCol ); // top bar & button same color
 			}
 			else if( obj is Button )

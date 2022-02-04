@@ -10,7 +10,7 @@
       Title="MainPage">
 
     <Grid x:Name="BaseGrid">
-		<Rectangle Fill="gray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" />
+		<Rectangle x:Name="bg" Fill="gray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" />
 
 		<DockPanel>
 			<Grid DockPanel.Dock="Top">
