@@ -56,6 +56,9 @@
 					<TextBlock x:Name="NewCards" TextWrapping="Wrap" Text="New Cards" FontSize="30"/>
 					<TextBlock x:Name="AvgScore" TextWrapping="Wrap" Text="Average Score" FontSize="30"/>
 					<TextBlock x:Name="FCount" TextWrapping="Wrap" Text="# F cards" FontSize="30"/>
+					<TextBlock x:Name="HardCount" TextWrapping="Wrap" Text="# Hard cards" FontSize="30"/>
+					<TextBlock x:Name="GoodCount" TextWrapping="Wrap" Text="# Good cards" FontSize="30"/>
+					<TextBlock x:Name="EasyCount" TextWrapping="Wrap" Text="# Easy cards" FontSize="30"/>
 					<TextBlock x:Name="NewCount" TextWrapping="Wrap" Text="# New cards" FontSize="30"/>
 					<TextBlock x:Name="ReviewCount" TextWrapping="Wrap" Text="# Reviewable cards" FontSize="30"/>
 				</StackPanel>

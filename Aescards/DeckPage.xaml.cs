@@ -84,14 +84,25 @@ namespace Aescards
 			else scoreGrade = "Easy";
 			AvgScore.Text = "Avg score: " + avgScore.ToString() + " (" + scoreGrade + ')';
 
-			var unknownCount = cardHand.GetFCount();
-			FCount.Text = "Unknown: " + unknownCount.ToString();// + " card" + ( unknownCount != 1 ? "s" : "" );
+			var fCount = cardHand.GetFCount();
+			FCount.Text = "Fail: " + fCount.ToString() + " (" + FormatFloat( ( ( float )fCount / nCards ) * 100.0f ) + "%)";
+			var hardCount = cardHand.GetHardCount();
+			HardCount.Text = "Hard: " + hardCount.ToString() + " (" + FormatFloat( ( ( float )hardCount / nCards ) * 100.0f ) + "%)";
+			var goodCount = cardHand.GetGoodCount();
+			GoodCount.Text = "Good: " + goodCount.ToString() + " (" + FormatFloat( ( ( float )goodCount / nCards ) * 100.0f ) + "%)";
+			var easycount = cardHand.GetEasyCount();
+			EasyCount.Text = "Easy: " + easycount.ToString() + " (" + FormatFloat( ( ( float )easycount / nCards ) * 100.0f ) + "%)";
 
 			var newCount = cardHand.GetNewCount();
 			NewCount.Text = "New: " + newCount.ToString();// + " card" + ( newCount != 1 ? "s" : "" );
 
 			var reviewableCount = cardHand.GetReviewCandidateCount();
 			ReviewCount.Text = "Reviewable: " + reviewableCount.ToString();// + " card" + ( reviewableCount != 1 ? "s" : "" );
+		}
+
+		string FormatFloat( float val )
+		{
+			return( ( ( int )Math.Round( val ) ).ToString() );
 		}
 
 		private void BackButton_Click( object sender,RoutedEventArgs e )

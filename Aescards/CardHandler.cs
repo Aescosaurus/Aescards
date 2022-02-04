@@ -144,13 +144,39 @@ namespace Aescards
 			int fCount = 0;
 			foreach( var card in cards )
 			{
-				if( card.GetCurScore() < 1.0f && card.GetCurScore() != 0.0f )
-				{
-					++fCount;
-				}
+				if( card.GetCurScore() < 1.0f && card.GetCurScore() != 0.0f ) ++fCount;
 			}
-
 			return( fCount );
+		}
+
+		public int GetHardCount()
+		{
+			int hardCount = 0;
+			foreach( var card in cards )
+			{
+				if( card.GetCurScore() >= 1.0f && card.GetCurScore() < 2.0f ) ++hardCount;
+			}
+			return( hardCount );
+		}
+
+		public int GetGoodCount()
+		{
+			int goodCount = 0;
+			foreach( var card in cards )
+			{
+				if( card.GetCurScore() >= 2.0f && card.GetCurScore() < 3.0f ) ++goodCount;
+			}
+			return( goodCount );
+		}
+
+		public int GetEasyCount()
+		{
+			int easyCount = 0;
+			foreach( var card in cards )
+			{
+				if( card.GetCurScore() >= 3.0f ) ++easyCount;
+			}
+			return( easyCount );
 		}
 
 		public int GetNewCount()
