@@ -90,11 +90,10 @@ namespace Aescards
 			HardCount.Text = "Hard: " + hardCount.ToString() + " (" + FormatFloat( ( ( float )hardCount / nCards ) * 100.0f ) + "%)";
 			var goodCount = cardHand.GetGoodCount();
 			GoodCount.Text = "Good: " + goodCount.ToString() + " (" + FormatFloat( ( ( float )goodCount / nCards ) * 100.0f ) + "%)";
-			var easycount = cardHand.GetEasyCount();
-			EasyCount.Text = "Easy: " + easycount.ToString() + " (" + FormatFloat( ( ( float )easycount / nCards ) * 100.0f ) + "%)";
-
+			var easyCount = cardHand.GetEasyCount();
+			EasyCount.Text = "Easy: " + easyCount.ToString() + " (" + FormatFloat( ( ( float )easyCount / nCards ) * 100.0f ) + "%)";
 			var newCount = cardHand.GetNewCount();
-			NewCount.Text = "New: " + newCount.ToString();// + " card" + ( newCount != 1 ? "s" : "" );
+			NewCount.Text = "New: " + newCount.ToString() + " (" + FormatFloat( ( ( float )newCount / nCards ) * 100.0f ) + "%)";
 
 			var reviewableCount = cardHand.GetReviewCandidateCount();
 			ReviewCount.Text = "Reviewable: " + reviewableCount.ToString();// + " card" + ( reviewableCount != 1 ? "s" : "" );
