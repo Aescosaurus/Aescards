@@ -34,13 +34,12 @@ namespace Aescards
 			{
 				var textBlockObj = obj as TextBlock;
 				textBlockObj.Foreground = GetCol( textCol );
-				// textBlockObj.FontSize = 16.0;
 			}
 			else if( obj is Rectangle )
 			{
 				var rectObj = obj as Rectangle;
-				if( rectObj.Fill == Brushes.Gray ) rectObj.Fill = GetCol( bgCol );
-				else rectObj.Fill = GetCol( topBarCol );
+				if( rectObj.Height != 55 ) rectObj.Fill = GetCol( bgCol );
+				else rectObj.Fill = GetCol( buttonCol ); // top bar & button same color
 			}
 			else if( obj is Button )
 			{
@@ -114,9 +113,8 @@ namespace Aescards
 
 		const int textCol = 0;
 		const int bgCol = 1;
-		const int topBarCol = 2;
-		const int buttonCol = 3;
-		const int listBoxCol = 4;
+		const int buttonCol = 2;
+		const int listBoxCol = 3;
 
 		static int curColorScheme = 0;
 
@@ -127,7 +125,6 @@ namespace Aescards
 				Brushes.Black,
 				Brushes.DarkGray,
 				Brushes.LightGray,
-				Brushes.LightGray,
 				Brushes.WhiteSmoke
 			},
 			new Brush[] // pink
@@ -135,9 +132,33 @@ namespace Aescards
 				Brushes.White,
 				Brushes.LightPink,
 				Brushes.DeepPink,
-				Brushes.DeepPink,
 				Brushes.HotPink
+			},
+			new Brush[] // mellow blue
+			{
+				Brushes.DarkBlue,
+				Brushes.LightBlue,
+				Brushes.CornflowerBlue,
+				Brushes.AliceBlue
+			},
+			new Brush[] // deep sea
+			{
+				Brushes.Turquoise,
+				Brushes.DarkSlateGray,
+				Brushes.DarkCyan,
+				Brushes.SteelBlue
+			},
+			new Brush[] // sandy desert
+			{
+				Brushes.DarkGoldenrod,
+				Brushes.PaleGoldenrod,
+				Brushes.LightYellow,
+				Brushes.LightGoldenrodYellow
 			}
+
+			// deep sky blue
+			// dark turquoise
+			// dodger blue
 		};
 	}
 }

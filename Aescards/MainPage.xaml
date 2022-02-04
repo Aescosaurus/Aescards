@@ -40,13 +40,26 @@
 				</Grid>
 				
 				<Grid Grid.Row="2" Grid.Column="3" Grid.RowSpan="2">
-					<ListBox>
-						<ListBoxItem>
+					<ListBox Tag="C">
+						<ListBoxItem Tag="C">
 							<StackPanel>
 								<TextBlock Text="Color Scheme" FontSize="20"></TextBlock>
 								<ComboBox x:Name="ColorSchemeBox" SelectionChanged="ColorSchemeBox_SelectionChanged">
-									<ComboBoxItem Content="Default Gray"></ComboBoxItem>
-									<ComboBoxItem Content="Fashionable Pink"></ComboBoxItem>
+									<ComboBoxItem>
+										<Label Content="Default Gray"></Label>
+									</ComboBoxItem>
+									<ComboBoxItem>
+										<Label Content="Fashionable Pink"></Label>
+									</ComboBoxItem>
+									<ComboBoxItem>
+										<Label Content="Mellow Blue"></Label>
+									</ComboBoxItem>
+									<ComboBoxItem>
+										<Label Content="Deep Sea"></Label>
+									</ComboBoxItem>
+									<ComboBoxItem>
+										<Label Content="Sandy Desert"></Label>
+									</ComboBoxItem>
 								</ComboBox>
 							</StackPanel>
 						</ListBoxItem>
