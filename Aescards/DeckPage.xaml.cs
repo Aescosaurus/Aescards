@@ -84,16 +84,11 @@ namespace Aescards
 			else scoreGrade = "Easy";
 			AvgScore.Text = "Avg score: " + avgScore.ToString() + " (" + scoreGrade + ')';
 
-			var fCount = cardHand.GetFCount();
-			FCount.Text = "Fail: " + fCount.ToString() + " (" + FormatFloat( ( ( float )fCount / nCards ) * 100.0f ) + "%)";
-			var hardCount = cardHand.GetHardCount();
-			HardCount.Text = "Hard: " + hardCount.ToString() + " (" + FormatFloat( ( ( float )hardCount / nCards ) * 100.0f ) + "%)";
-			var goodCount = cardHand.GetGoodCount();
-			GoodCount.Text = "Good: " + goodCount.ToString() + " (" + FormatFloat( ( ( float )goodCount / nCards ) * 100.0f ) + "%)";
-			var easyCount = cardHand.GetEasyCount();
-			EasyCount.Text = "Easy: " + easyCount.ToString() + " (" + FormatFloat( ( ( float )easyCount / nCards ) * 100.0f ) + "%)";
-			var newCount = cardHand.GetNewCount();
-			NewCount.Text = "New: " + newCount.ToString() + " (" + FormatFloat( ( ( float )newCount / nCards ) * 100.0f ) + "%)";
+			FCount.Text = FormatPercent( "Fail: ",cardHand.GetFCount(),nCards );
+			HardCount.Text = FormatPercent( "Hard: ",cardHand.GetHardCount(),nCards );
+			GoodCount.Text = FormatPercent( "Good: ",cardHand.GetGoodCount(),nCards );
+			EasyCount.Text = FormatPercent( "Easy: ",cardHand.GetEasyCount(),nCards );
+			NewCount.Text = FormatPercent( "New: ",cardHand.GetNewCount(),nCards );
 
 			var reviewableCount = cardHand.GetReviewCandidateCount();
 			ReviewCount.Text = "Reviewable: " + reviewableCount.ToString();// + " card" + ( reviewableCount != 1 ? "s" : "" );
@@ -102,6 +97,18 @@ namespace Aescards
 		string FormatFloat( float val )
 		{
 			return( ( ( int )Math.Round( val ) ).ToString() );
+		}
+
+		string FormatPercent( string start,int count,int maxCards )
+		{
+			var result = start + count.ToString();
+
+			if( maxCards > 0 )
+			{
+				result += " (" + FormatFloat( ( ( float )count / maxCards ) * 100.0f ) + "%)";
+			}
+
+			return( result );
 		}
 
 		private void BackButton_Click( object sender,RoutedEventArgs e )

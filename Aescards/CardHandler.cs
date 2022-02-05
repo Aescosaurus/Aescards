@@ -136,7 +136,8 @@ namespace Aescards
 			float total = 0.0f;
 			foreach( var card in cards ) total += card.GetCurScore();
 
-			return( total / cards.Count );
+			if( cards.Count > 0 ) return( total / cards.Count );
+			else return( 0.0f );
 		}
 
 		public int GetFCount()
