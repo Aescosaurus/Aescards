@@ -24,7 +24,8 @@ namespace Aescards
 		{
 			cards.Clear();
 			// Load all cards
-			for( int i = 0; i < deckPage.GetDeckData().GetMaxDeckSize(); ++i )
+			// for( int i = 0; i < deckPage.GetDeckData().GetMaxDeckSize(); ++i )
+			for( int i = 0; i < int.MaxValue; ++i )
 			{
 				var curCard = Card.GenerateCard( i );
 				if( curCard == null ) break;

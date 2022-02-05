@@ -37,7 +37,15 @@ namespace Aescards
 
 		private void BackButton_Click( object sender,RoutedEventArgs e )
 		{
-			MenuStack.GoBack();
+			bool canLeave = true;
+
+			if( InputFront.Text.Length > 0 || InputBack.Text.Length > 0 )
+			{
+				var result = MessageBox.Show( "Error: Unsaved card data.  Leave without saving?","Unsaved Data",MessageBoxButton.YesNoCancel );
+				canLeave = ( result == MessageBoxResult.Yes );
+			}
+
+			if( canLeave ) MenuStack.GoBack();
 		}
 
 		private void SaveButton_Click( object sender,RoutedEventArgs e )
@@ -53,7 +61,12 @@ namespace Aescards
 				bool allowAdd = true;
 				if( deckPage.CheckExisting( frontText ) )
 				{
-					var result = MessageBox.Show( "Error: Card already exists in deck!  Would you like to add anyway?","Card already exists",MessageBoxButton.YesNoCancel );
+					var result = MessageBox.Show( "Error: Card already exists in deck!  Would you like to add anyway?","Card Already Exists",MessageBoxButton.YesNoCancel );
+					allowAdd = ( result == MessageBoxResult.Yes );
+				}
+				if( deckPage.GetMaxCard() >= deckPage.GetDeckData().GetMaxDeckSize() )
+				{
+					var result = MessageBox.Show( "Error: Exceeding max card limit!  Would you like to add anyway?","Too Many Cards",MessageBoxButton.YesNoCancel );
 					allowAdd = ( result == MessageBoxResult.Yes );
 				}
 
