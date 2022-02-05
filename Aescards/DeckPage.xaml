@@ -51,17 +51,35 @@
 					<ColumnDefinition Width="0.7*"></ColumnDefinition>
 				</Grid.ColumnDefinitions>
 				<TextBlock x:Name="DeckName" Grid.ColumnSpan="5" Grid.Row="0" TextAlignment="Center" HorizontalAlignment="Stretch" Text="Deck Name" VerticalAlignment="Center" Width="Auto" FontSize="60"/>
-				<StackPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
-					<TextBlock x:Name="CardCount" TextWrapping="Wrap" Text="Card Count" FontSize="30"/>
-					<TextBlock x:Name="NewCards" TextWrapping="Wrap" Text="New Cards" FontSize="30"/>
-					<TextBlock x:Name="AvgScore" TextWrapping="Wrap" Text="Average Score" FontSize="30"/>
-					<TextBlock x:Name="FCount" TextWrapping="Wrap" Text="# F cards" FontSize="30"/>
-					<TextBlock x:Name="HardCount" TextWrapping="Wrap" Text="# Hard cards" FontSize="30"/>
-					<TextBlock x:Name="GoodCount" TextWrapping="Wrap" Text="# Good cards" FontSize="30"/>
-					<TextBlock x:Name="EasyCount" TextWrapping="Wrap" Text="# Easy cards" FontSize="30"/>
-					<TextBlock x:Name="NewCount" TextWrapping="Wrap" Text="# New cards" FontSize="30"/>
-					<TextBlock x:Name="ReviewCount" TextWrapping="Wrap" Text="# Reviewable cards" FontSize="30"/>
-				</StackPanel>
+				<ListBox Grid.Row="1" Grid.Column="1" Grid.RowSpan="1">
+					<ListBoxItem>
+						<TextBlock x:Name="CardCount" TextWrapping="Wrap" Text="Card Count" FontSize="30"/>
+					</ListBoxItem>
+					<ListBoxItem>
+						<TextBlock x:Name="NewCards" TextWrapping="Wrap" Text="New Cards" FontSize="30"/>
+					</ListBoxItem>
+					<ListBoxItem>
+						<TextBlock x:Name="AvgScore" TextWrapping="Wrap" Text="Average Score" FontSize="30"/>
+					</ListBoxItem>
+					<ListBoxItem>
+						<TextBlock x:Name="FCount" TextWrapping="Wrap" Text="# F cards" FontSize="30"/>
+					</ListBoxItem>
+					<ListBoxItem>
+						<TextBlock x:Name="HardCount" TextWrapping="Wrap" Text="# Hard cards" FontSize="30"/>
+					</ListBoxItem>
+					<ListBoxItem>
+						<TextBlock x:Name="GoodCount" TextWrapping="Wrap" Text="# Good cards" FontSize="30"/>
+					</ListBoxItem>
+					<ListBoxItem>
+						<TextBlock x:Name="EasyCount" TextWrapping="Wrap" Text="# Easy cards" FontSize="30"/>
+					</ListBoxItem>
+					<ListBoxItem>
+						<TextBlock x:Name="NewCount" TextWrapping="Wrap" Text="# New cards" FontSize="30"/>
+					</ListBoxItem>
+					<ListBoxItem>
+						<TextBlock x:Name="ReviewCount" TextWrapping="Wrap" Text="# Reviewable cards" FontSize="30"/>
+					</ListBoxItem>
+				</ListBox>
 				<StackPanel Grid.Row="1" Grid.Column="3" Grid.RowSpan="2">
 					<Button x:Name="SettingsButton" Content="Settings" FontSize="30" Height="60" VerticalAlignment="Top" Click="SettingsButton_Click"></Button>
 					<Button x:Name="ViewCardsButton" Content="View Cards" FontSize="30" Height="60" VerticalAlignment="Top" Click="ViewCardsButton_Click"></Button>
