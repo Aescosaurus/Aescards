@@ -50,19 +50,29 @@ namespace Aescards
 				var frontText = InputFront.Text.Replace( "\r\n","\\n" );
 				var backText = InputBack.Text.Replace( "\r\n","\\n" );
 
-				var newCard = new Card( deckPage.GetMaxCard(),frontText,backText,0,0.0f,0.0f );
-				newCard.Save();
+				bool allowAdd = true;
+				if( deckPage.CheckExisting( frontText ) )
+				{
+					var result = MessageBox.Show( "Error: Card already exists in deck!  Would you like to add anyway?","Card already exists",MessageBoxButton.YesNoCancel );
+					allowAdd = ( result == MessageBoxResult.Yes );
+				}
 
-				deckPage.GetDeckData().AddCard();
-				deckPage.GetDeckData().Save();
+				if( allowAdd )
+				{
+					var newCard = new Card( deckPage.GetMaxCard(),frontText,backText,0,0.0f,0.0f );
+					newCard.Save();
 
-				deckPage.ReloadCards();
-				deckPage.ReloadDeckData();
+					deckPage.GetDeckData().AddCard();
+					deckPage.GetDeckData().Save();
 
-				InputFront.Text = "";
-				InputBack.Text = "";
+					deckPage.ReloadCards();
+					deckPage.ReloadDeckData();
 
-				// MenuStack.GoBack();
+					InputFront.Text = "";
+					InputBack.Text = "";
+
+					// MenuStack.GoBack();
+				}
 			}
 		}
 

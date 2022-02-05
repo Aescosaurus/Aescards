@@ -200,6 +200,16 @@ namespace Aescards
 			return( candidateCount );
 		}
 
+		public bool CheckExisting( string front )
+		{
+			foreach( var card in cards )
+			{
+				if( card.GetFront() == front ) return( true );
+			}
+
+			return( false );
+		}
+
 		List<Card> cards = new List<Card>();
 
 		// const int maxCards = 9999;
