@@ -35,6 +35,7 @@ namespace Aescards
 			if( lines.Count > 6 ) sickDelay = int.Parse( lines[6] );
 			if( lines.Count > 7 ) wholeDay = DateTime.Parse( lines[7] );
 			if( lines.Count > 8 ) cardsAddedToday = int.Parse( lines[8] );
+			if( lines.Count > 9 ) checkExisting = bool.Parse( lines[9] );
 		}
 
 		public void Save()
@@ -54,6 +55,7 @@ namespace Aescards
 			saveData += sickDelay.ToString() + '\n';
 			saveData += wholeDay.ToString() + '\n';
 			saveData += cardsAddedToday.ToString() + '\n';
+			saveData += checkExisting.ToString() + '\n';
 
 			var writer = new StreamWriter( mySavePath );
 			writer.Write( saveData );
@@ -112,6 +114,11 @@ namespace Aescards
 			++cardsAddedToday;
 		}
 
+		public void SetCheckExisting( bool check )
+		{
+			checkExisting = check;
+		}
+
 		public float GetDaysSinceLastOpened()
 		{
 			return( ( float )( ( DateTime.Now - lastSave ).TotalDays ) );
@@ -162,6 +169,11 @@ namespace Aescards
 			return( cardsAddedToday );
 		}
 
+		public bool GetCheckExisting()
+		{
+			return( checkExisting );
+		}
+
 		string mySavePath;
 
 		DateTime lastSave;
@@ -171,6 +183,7 @@ namespace Aescards
 		float timeUpdateThresh = 0.2f;
 		int maxDeckSize = 10000;
 		float sickDelay = 3.0f;
+		bool checkExisting = false;
 
 		DateTime wholeDay;
 		int cardsAddedToday = 0;

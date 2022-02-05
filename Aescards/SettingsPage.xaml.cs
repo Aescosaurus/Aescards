@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace Aescards
 {
@@ -27,7 +28,8 @@ namespace Aescards
 		{
 			String,
 			Int,
-			Float
+			Float,
+			Bool
 		}
 
 		public SettingsPage( DeckPage deckPage,MainPage mainPage )
@@ -47,6 +49,7 @@ namespace Aescards
 			AddSettingsListItem( timeUpdateThreshStr,deckData.GetTimeUpdateThresh().ToString(),InputType.Float );
 			AddSettingsListItem( maxDeckSizeStr,deckData.GetMaxDeckSize().ToString(),InputType.Int );
 			AddSettingsListItem( sickDelayStr,deckData.GetSickDelay().ToString(),InputType.Float );
+			AddSettingsListItem( checkExistingStr,deckData.GetCheckExisting().ToString(),InputType.Bool );
 		}
 
 		void AddSettingsListItem( string name,string value,InputType inputType )
@@ -54,8 +57,17 @@ namespace Aescards
 			var curItem = AescPage.CreateListBoxItem();
 			// curItem.HorizontalContentAlignment = HorizontalAlignment.Stretch;
 
-			var curSetting = AescPage.CreateTextBox();
-			curSetting.Text = value;
+			FrameworkElement curSetting = null;
+			if( inputType != InputType.Bool )
+			{
+				curSetting = AescPage.CreateTextBox();
+				( curSetting as TextBox ).Text = value;
+			}
+			else
+			{
+				curSetting = AescPage.CreateCheckBox();
+				( curSetting as CheckBox ).IsChecked = bool.Parse( value );
+			}
 			switch( inputType )
 			{
 				case InputType.String:
@@ -66,6 +78,12 @@ namespace Aescards
 					break;
 				case InputType.Float:
 					curSetting.PreviewTextInput += new TextCompositionEventHandler( TextFloatMatch );
+					break;
+				case InputType.Bool:
+					// no veri
+					break;
+				default:
+					Debug.Assert( false );
 					break;
 			}
 			settingBoxes.Add( name,curSetting );
@@ -92,6 +110,7 @@ namespace Aescards
 			var timeUpdateThreshVal = GetSettingFloat( timeUpdateThreshStr );
 			var maxDeckSizeVal = GetSettingInt( maxDeckSizeStr );
 			var sickDelayVal = GetSettingFloat( sickDelayStr );
+			var checkExistingVal = GetSettingBool( checkExistingStr );
 
 			if( !parseError )
 			{
@@ -101,6 +120,7 @@ namespace Aescards
 				deckData.SetTimeUpdateThresh( timeUpdateThreshVal );
 				deckData.SetMaxDeckSize( maxDeckSizeVal );
 				deckData.SetSickDelay( sickDelayVal );
+				deckData.SetCheckExisting( checkExistingVal );
 
 				deckData.Save();
 
@@ -113,7 +133,8 @@ namespace Aescards
 
 		string GetSettingStr( string index )
 		{
-			return( settingBoxes[index].Text );
+			Debug.Assert( settingBoxes[index] is TextBox );
+			return( ( settingBoxes[index] as TextBox ).Text );
 		}
 
 		int GetSettingInt( string index )
@@ -138,6 +159,12 @@ namespace Aescards
 				ShowErrorBox( index );
 			}
 			return( val );
+		}
+
+		bool GetSettingBool( string index )
+		{
+			Debug.Assert( settingBoxes[index] is CheckBox );
+			return ( ( settingBoxes[index] as CheckBox ).IsChecked ?? false );
 		}
 
 		void ShowErrorBox( string paramName )
@@ -175,7 +202,8 @@ namespace Aescards
 				GetSettingInt( cardsPerReviewStr ) != deckData.GetCardsPerReview() ||
 				GetSettingFloat( timeUpdateThreshStr ) != deckData.GetTimeUpdateThresh() ||
 				GetSettingInt( maxDeckSizeStr ) != deckData.GetMaxDeckSize() ||
-				GetSettingFloat( sickDelayStr ) != deckData.GetSickDelay() );
+				GetSettingFloat( sickDelayStr ) != deckData.GetSickDelay() ||
+				GetSettingBool( checkExistingStr ) != deckData.GetCheckExisting() );
 		}
 
 		private void TextIntMatch( object sender,TextCompositionEventArgs args )
@@ -191,7 +219,7 @@ namespace Aescards
 		DeckPage deckPage;
 		MainPage mainPage;
 
-		Dictionary<string,TextBox> settingBoxes = new Dictionary<string,TextBox>();
+		Dictionary<string,FrameworkElement> settingBoxes = new Dictionary<string,FrameworkElement>();
 		Regex intRegex = new Regex( "[^0-9\\.]+" );
 		Regex floatRegex = new Regex( "[^0-9]+" );
 
@@ -203,5 +231,6 @@ namespace Aescards
 		static readonly string timeUpdateThreshStr = "Time Update Threshhold";
 		static readonly string maxDeckSizeStr = "Max Deck Size";
 		static readonly string sickDelayStr = "Sick Delay";
+		static readonly string checkExistingStr = "Check Existing";
 	}
 }

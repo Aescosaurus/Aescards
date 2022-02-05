@@ -46,7 +46,7 @@ namespace Aescards
 				var buttonObj = obj as Button;
 				buttonObj.Background = GetCol( buttonCol );
 				buttonObj.Foreground = GetCol( textCol );
-				buttonObj.FontSize = 20.0f;
+				buttonObj.FontSize = 20.0;
 			}
 			else if( obj is TextBox )
 			{
@@ -60,15 +60,20 @@ namespace Aescards
 				var listBoxObj = obj as ListBox;
 				listBoxObj.Background = GetCol( listBoxCol );
 				listBoxObj.Foreground = GetCol( textCol );
-				listBoxObj.FontSize = 20.0f;
+				listBoxObj.FontSize = 20.0;
 			}
 			else if( obj is ListBoxItem )
 			{
 				var listBoxItemObj = obj as ListBoxItem;
 				listBoxItemObj.Foreground = GetCol( textCol );
 				listBoxItemObj.Background = GetCol( listBoxCol );
-				listBoxItemObj.FontSize = 20.0f;
+				listBoxItemObj.FontSize = 20.0;
 				listBoxItemObj.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+			}
+			else if( obj is CheckBox )
+			{
+				var checkBoxObj = obj as CheckBox;
+				checkBoxObj.LayoutTransform = new ScaleTransform( 1.5,1.5 );
 			}
 		}
 
@@ -99,6 +104,13 @@ namespace Aescards
 			var listBoxItem = new ListBoxItem();
 			SetObjCol( listBoxItem );
 			return( listBoxItem );
+		}
+
+		public static CheckBox CreateCheckBox()
+		{
+			var checkBox = new CheckBox();
+			SetObjCol( checkBox );
+			return( checkBox );
 		}
 
 		public static void SetColorScheme( int index )
