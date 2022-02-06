@@ -40,7 +40,7 @@ namespace Aescards
 			GetCurReviewCard().UpdateScore( score,deckPage.GetDeckData().GetFRepair() );
 
 			// repeat failed cards until they are not fail
-			if( score < 1 ) reviewCards.Add( reviewCards[curReviewSpot] );
+			if( score < 1 && curReviewSpot < reviewCards.Count - 1 ) reviewCards.Add( reviewCards[curReviewSpot] );
 		}
 
 		public void SickCurCard()
