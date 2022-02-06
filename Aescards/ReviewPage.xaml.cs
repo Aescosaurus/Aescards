@@ -125,6 +125,8 @@ namespace Aescards
 
 		void GotoNextCard()
 		{
+			if( !cardHand.ReviewingOldCards() ) deckPage.GetDeckData().ReviewCard();
+
 			if( cardHand.GotoNextReviewCard() )
 			{
 				FinishReview();

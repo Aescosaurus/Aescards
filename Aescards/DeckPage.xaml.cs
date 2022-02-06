@@ -76,6 +76,8 @@ namespace Aescards
 			var newCards = myData.GetCardsAddedToday();
 			NewCards.Text = "Added today: " + newCards.ToString();// + " card" + ( newCards != 1 ? "s" : "" );
 
+			ReviewedCards.Text = "Reviewed today: " + myData.GetCardsReviewedToday().ToString();
+
 			var avgScore = cardHand.GetAvgScore();
 			string scoreGrade = "";
 			if( avgScore < 1.0f ) scoreGrade = "Fail";

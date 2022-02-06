@@ -59,6 +59,9 @@
 						<TextBlock x:Name="NewCards" TextWrapping="Wrap" Text="New Cards" FontSize="30"/>
 					</ListBoxItem>
 					<ListBoxItem>
+						<TextBlock x:Name="ReviewedCards" TextWrapping="Wrap" Text="Cards Reviewed Today" FontSize="30"></TextBlock>
+					</ListBoxItem>
+					<ListBoxItem>
 						<TextBlock x:Name="AvgScore" TextWrapping="Wrap" Text="Average Score" FontSize="30"/>
 					</ListBoxItem>
 					<ListBoxItem>

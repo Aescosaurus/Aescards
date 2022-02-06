@@ -142,6 +142,12 @@ namespace Aescards
 			return( curReviewSpot >= reviewCards.Count );
 		}
 
+		// returns true if we're just reviewing cards that we've seen in the same review but marked as f so they're coming back
+		public bool ReviewingOldCards()
+		{
+			return( curReviewSpot >= deckPage.GetDeckData().GetCardsPerReview() );
+		}
+
 		public int GetCardCount()
 		{
 			return( cards.Count );
