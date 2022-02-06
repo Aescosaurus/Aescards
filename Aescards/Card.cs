@@ -67,7 +67,7 @@ namespace Aescards
 					break;
 				case 1: // hard 0-1
 					curScore = 1.0f / ( fCount + 1.0f );
-					daysTillNextReview = 0;
+					daysTillNextReview = 0.0001f;
 					break;
 				case 2: // good 1-2
 					curScore = 1.0f + ( 1.0f / ( fCount + 1.0f ) );
