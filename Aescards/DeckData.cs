@@ -36,6 +36,7 @@ namespace Aescards
 			if( lines.Count > 7 ) wholeDay = DateTime.Parse( lines[7] );
 			if( lines.Count > 8 ) cardsAddedToday = int.Parse( lines[8] );
 			if( lines.Count > 9 ) checkExisting = bool.Parse( lines[9] );
+			if( lines.Count > 10 ) prioritizeNew = bool.Parse( lines[10] );
 		}
 
 		public void Save()
@@ -56,6 +57,7 @@ namespace Aescards
 			saveData += wholeDay.ToString() + '\n';
 			saveData += cardsAddedToday.ToString() + '\n';
 			saveData += checkExisting.ToString() + '\n';
+			saveData += prioritizeNew.ToString() + '\n';
 
 			var writer = new StreamWriter( mySavePath );
 			writer.Write( saveData );
@@ -119,6 +121,11 @@ namespace Aescards
 			checkExisting = check;
 		}
 
+		public void SetPrioritizeNew( bool prioritize )
+		{
+			prioritizeNew = prioritize;
+		}
+
 		public float GetDaysSinceLastOpened()
 		{
 			return( ( float )( ( DateTime.Now - lastSave ).TotalDays ) );
@@ -174,6 +181,11 @@ namespace Aescards
 			return( checkExisting );
 		}
 
+		public bool GetPrioritizeNew()
+		{
+			return( prioritizeNew );
+		}
+
 		string mySavePath;
 
 		DateTime lastSave;
@@ -187,5 +199,7 @@ namespace Aescards
 
 		DateTime wholeDay;
 		int cardsAddedToday = 0;
+
+		bool prioritizeNew = false;
 	}
 }

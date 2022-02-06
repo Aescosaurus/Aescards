@@ -152,6 +152,11 @@ namespace Aescards
 			return( curScore );
 		}
 
+		public bool IsNew()
+		{
+			return( curScore == 0.0f );
+		}
+
 		public float GetDaysTillNextReview()
 		{
 			return( daysTillNextReview );

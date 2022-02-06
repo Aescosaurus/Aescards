@@ -86,11 +86,23 @@ namespace Aescards
 				}
 			}
 
-			// Sort with longest overdue cards coming first
-			reviewCards.Sort( delegate( int a,int b )
+			// Try to get all new cards in reviewCards.
+			if( deckPage.GetDeckData().GetPrioritizeNew() )
 			{
-				return( cards[a].GetDaysTillNextReview().CompareTo( cards[b].GetDaysTillNextReview() ) );
-			} );
+				// new cards at the front, they're all new so we don't care about days till next review
+				reviewCards.Sort( delegate( int a,int b )
+				{
+					return( cards[b].IsNew().CompareTo( cards[a].IsNew() ) );
+				} );
+			}
+			else
+			{
+				// Sort with longest overdue cards coming first
+				reviewCards.Sort( delegate( int a,int b )
+				{
+					return( cards[a].GetDaysTillNextReview().CompareTo( cards[b].GetDaysTillNextReview() ) );
+				} );
+			}
 
 			// cull excess cards
 			var reviewSize = deckPage.GetDeckData().GetCardsPerReview();
@@ -194,7 +206,7 @@ namespace Aescards
 			int newCount = 0;
 			foreach( var card in cards )
 			{
-				if( card.GetCurScore() == 0.0f ) ++newCount;
+				if( card.IsNew() ) ++newCount;
 			}
 			return( newCount );
 		}
