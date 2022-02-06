@@ -37,7 +37,15 @@ namespace Aescards
 
 		public void UpdateCurCardScore( int score )
 		{
-			GetCurReviewCard().UpdateScore( score,deckPage.GetDeckData().GetFRepair() );
+			var deckData = deckPage.GetDeckData();
+
+			// Can't say good/easy if you've already failed it once this review
+			if( curReviewSpot >= deckData.GetCardsPerReview() && score > 1 )
+			{
+				score = 1;
+			}
+
+			GetCurReviewCard().UpdateScore( score,deckData.GetFRepair() );
 
 			// repeat failed cards until they are not fail
 			if( score < 1 && curReviewSpot < reviewCards.Count - 1 ) reviewCards.Add( reviewCards[curReviewSpot] );
