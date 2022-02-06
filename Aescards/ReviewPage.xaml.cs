@@ -115,7 +115,7 @@ namespace Aescards
 			GotoNextCard();
 		}
 
-		void ScoreButtonClick( int score )
+		void ScoreButtonClick( Card.Score score )
 		{
 			// change card score
 			cardHand.UpdateCurCardScore( score );
@@ -138,22 +138,22 @@ namespace Aescards
 
 		private void ButtonFail_Click( object sender,RoutedEventArgs e )
 		{
-			ScoreButtonClick( 0 );
+			ScoreButtonClick( Card.Score.Fail );
 		}
 
 		private void ButtonHard_Click( object sender,RoutedEventArgs e )
 		{
-			ScoreButtonClick( 1 );
+			ScoreButtonClick( Card.Score.Hard );
 		}
 
 		private void ButtonGood_Click( object sender,RoutedEventArgs e )
 		{
-			ScoreButtonClick( 2 );
+			ScoreButtonClick( Card.Score.Good );
 		}
 
 		private void ButtonEasy_Click( object sender,RoutedEventArgs e )
 		{
-			ScoreButtonClick( 3 );
+			ScoreButtonClick( Card.Score.Easy );
 		}
 
 		private void ButtonNext_Click( object sender,RoutedEventArgs e )

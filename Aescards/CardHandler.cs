@@ -35,20 +35,20 @@ namespace Aescards
 			// GenerateReview();
 		}
 
-		public void UpdateCurCardScore( int score )
+		public void UpdateCurCardScore( Card.Score score )
 		{
 			var deckData = deckPage.GetDeckData();
 
 			// Can't say good/easy if you've already failed it once this review
-			if( curReviewSpot >= deckData.GetCardsPerReview() && score > 1 )
+			if( curReviewSpot >= deckData.GetCardsPerReview() && score > Card.Score.Hard )
 			{
-				score = 1;
+				score = Card.Score.Hard;
 			}
 
 			GetCurReviewCard().UpdateScore( score,deckData.GetFRepair() );
 
 			// repeat failed cards until they are not fail
-			if( score < 1 && curReviewSpot < reviewCards.Count - 1 ) reviewCards.Add( reviewCards[curReviewSpot] );
+			if( score == Card.Score.Fail && curReviewSpot < reviewCards.Count - 1 ) reviewCards.Add( reviewCards[curReviewSpot] );
 		}
 
 		public void SickCurCard()

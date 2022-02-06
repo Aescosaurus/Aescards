@@ -10,6 +10,14 @@ namespace Aescards
 {
     public class Card
     {
+		public enum Score
+		{
+			Fail = 0,
+			Hard = 1,
+			Good = 2,
+			Easy = 3
+		}
+
 		public Card( int cardId,string front,string back,int fCount,float curScore,float daysTillNextReview )
 		{
 			myId = cardId;
@@ -56,32 +64,35 @@ namespace Aescards
 			writer.Close();
 		}
 
-		public void UpdateScore( int score,int fRepair )
+		public void UpdateScore( Score score,int fRepair )
 		{
 			switch( score )
 			{
-				case 0: // fail
+				case Score.Fail:
 					++fCount;
 					curScore = 0.0001f;
 					daysTillNextReview = 0;
 					break;
-				case 1: // hard 0-1
+				case Score.Hard:
 					curScore = 1.0f / ( fCount + 1.0f );
 					daysTillNextReview = 0.0001f;
 					break;
-				case 2: // good 1-2
+				case Score.Good:
 					curScore = 1.0f + ( 1.0f / ( fCount + 1.0f ) );
 					daysTillNextReview = 1;
 					break;
-				default: // easy, >= 3
+				case Score.Easy:
 					fCount -= fRepair;
 					if( fCount < 0 ) fCount = 0;
-
-					if( score > curScore ) curScore = score;
+					
+					if( curScore < 2.0f ) curScore = 2.0f;
 
 					curScore += 1.0f / ( fCount + 1 );
 
 					daysTillNextReview = curScore;
+					break;
+				default:
+					Debug.Assert( false );
 					break;
 			}
 
