@@ -101,6 +101,7 @@ namespace Aescards
 		{
 			cardHand.Save();
 
+			deckPage.GetDeckData().Save();
 			deckPage.ReloadDeckData();
 
 			MenuStack.GoBack();
