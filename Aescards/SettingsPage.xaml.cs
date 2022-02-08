@@ -50,7 +50,8 @@ namespace Aescards
 			AddSettingsListItem( maxDeckSizeStr,deckData.GetMaxDeckSize().ToString(),InputType.Int );
 			AddSettingsListItem( sickDelayStr,deckData.GetSickDelay().ToString(),InputType.Float );
 			AddSettingsListItem( checkExistingStr,deckData.GetCheckExisting().ToString(),InputType.Bool );
-			AddSettingsListItem( prioritizeNewStr,deckData.GetPrioritizeNew().ToString(),InputType.Bool );
+			// AddSettingsListItem( prioritizeNewStr,deckData.GetPrioritizeNew().ToString(),InputType.Bool );
+			AddSettingsListItem( targetNewPerReviewStr,deckData.GetNewCardsPerReview().ToString(),InputType.Int );
 		}
 
 		void AddSettingsListItem( string name,string value,InputType inputType )
@@ -112,7 +113,8 @@ namespace Aescards
 			var maxDeckSizeVal = GetSettingInt( maxDeckSizeStr );
 			var sickDelayVal = GetSettingFloat( sickDelayStr );
 			var checkExistingVal = GetSettingBool( checkExistingStr );
-			var prioritizeNewVal = GetSettingBool( prioritizeNewStr );
+			// var prioritizeNewVal = GetSettingBool( prioritizeNewStr );
+			var targetNewVal = GetSettingInt( targetNewPerReviewStr );
 
 			if( !parseError )
 			{
@@ -123,7 +125,8 @@ namespace Aescards
 				deckData.SetMaxDeckSize( maxDeckSizeVal );
 				deckData.SetSickDelay( sickDelayVal );
 				deckData.SetCheckExisting( checkExistingVal );
-				deckData.SetPrioritizeNew( prioritizeNewVal );
+				// deckData.SetPrioritizeNew( prioritizeNewVal );
+				deckData.SetNewCardsPerReview( targetNewVal );
 
 				deckData.Save();
 
@@ -207,7 +210,8 @@ namespace Aescards
 				GetSettingInt( maxDeckSizeStr ) != deckData.GetMaxDeckSize() ||
 				GetSettingFloat( sickDelayStr ) != deckData.GetSickDelay() ||
 				GetSettingBool( checkExistingStr ) != deckData.GetCheckExisting() ||
-				GetSettingBool( prioritizeNewStr ) != deckData.GetPrioritizeNew() );
+				// GetSettingBool( prioritizeNewStr ) != deckData.GetPrioritizeNew() ||
+				GetSettingInt( targetNewPerReviewStr ) != deckData.GetNewCardsPerReview() );
 		}
 
 		private void TextIntMatch( object sender,TextCompositionEventArgs args )
@@ -236,6 +240,7 @@ namespace Aescards
 		static readonly string maxDeckSizeStr = "Max Deck Size";
 		static readonly string sickDelayStr = "Sick Delay";
 		static readonly string checkExistingStr = "Check Existing";
-		static readonly string prioritizeNewStr = "Prioritize New";
+		// static readonly string prioritizeNewStr = "Prioritize New";
+		static readonly string targetNewPerReviewStr = "Target New Cards Per Review";
 	}
 }

@@ -78,53 +78,72 @@ namespace Aescards
 			reviewCards.Clear();
 			curReviewSpot = 0;
 
+			var deckData = deckPage.GetDeckData();
+
+			var targetNewPerReview = deckData.GetNewCardsPerReview();
+			int curNew = 0;
 			foreach( var card in cards )
 			{
 				if( card.GetDaysTillNextReview() <= 0 )
 				{
-					reviewCards.Add( card.GetId() );
+					if( !card.IsNew() || curNew++ < targetNewPerReview )
+					{
+						reviewCards.Add( card.GetId() );
+					}
 				}
 			}
 
-			// Try to get all new cards in reviewCards.
-			if( deckPage.GetDeckData().GetPrioritizeNew() )
+			// Sort with longest overdue cards coming first
+			reviewCards.Sort( delegate( int a,int b )
 			{
-				// new cards at the front, they're all new so we don't care about days till next review
-				reviewCards.Sort( delegate( int a,int b )
-				{
-					return( cards[b].IsNew().CompareTo( cards[a].IsNew() ) );
-				} );
-			}
-			else
+				return( cards[a].GetDaysTillNextReview().CompareTo( cards[b].GetDaysTillNextReview() ) );
+			} );
+
+			// i dont think this wrecks the previous sorting that much but maybe a little so we should find a better solution
+			reviewCards.Sort( delegate( int a,int b )
 			{
-				// Sort with longest overdue cards coming first
-				reviewCards.Sort( delegate( int a,int b )
-				{
-					return( cards[a].GetDaysTillNextReview().CompareTo( cards[b].GetDaysTillNextReview() ) );
-				} );
-			}
+				return( cards[b].IsNew().CompareTo( cards[a].IsNew() ) );
+			} );
+
+			// // Try to get all new cards in reviewCards.
+			// if( deckData.GetPrioritizeNew() )
+			// {
+			// 	// new cards at the front, they're all new so we don't care about days till next review
+			// 	reviewCards.Sort( delegate( int a,int b )
+			// 	{
+			// 		return( cards[b].IsNew().CompareTo( cards[a].IsNew() ) );
+			// 	} );
+			// }
+			// else
+			// {
+			// 	// Sort with longest overdue cards coming first
+			// 	reviewCards.Sort( delegate( int a,int b )
+			// 	{
+			// 		return( cards[a].GetDaysTillNextReview().CompareTo( cards[b].GetDaysTillNextReview() ) );
+			// 	} );
+			// }
 
 			// cull excess cards
-			var reviewSize = deckPage.GetDeckData().GetCardsPerReview();
+			var reviewSize = deckData.GetCardsPerReview();
 			if( reviewCards.Count > reviewSize )
 			{
 				int amountOver = reviewCards.Count - reviewSize;
 				reviewCards.RemoveRange( reviewCards.Count - amountOver,amountOver );
 			}
 
-			// shuffle
-			var rand = new Random();
-			for( int shuffle = 0; shuffle < 3; ++shuffle )
-			{
-				for( int i = 0; i < reviewCards.Count; ++i )
-				{
-					int randSpot = rand.Next( 0,reviewCards.Count - 1 );
-
-					var temp = reviewCards[i];
-					reviewCards[i] = reviewCards[randSpot];
-					reviewCards[randSpot] = temp;
-				}
-			}
+			// // shuffle
+			// var rand = new Random();
+			// for( int shuffle = 0; shuffle < 3; ++shuffle )
+			// {
+			// 	for( int i = 0; i < reviewCards.Count; ++i )
+			// 	{
+			// 		int randSpot = rand.Next( 0,reviewCards.Count - 1 );
+			// 
+			// 		var temp = reviewCards[i];
+			// 		reviewCards[i] = reviewCards[randSpot];
+			// 		reviewCards[randSpot] = temp;
+			// 	}
+			// }
 
 			return( reviewCards.Count > 0 );
 		}
