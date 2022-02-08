@@ -71,13 +71,15 @@ namespace Aescards
 				case Score.Fail:
 					++fCount;
 					curScore = 0.0001f;
-					daysTillNextReview = 0;
+					// daysTillNextReview = 0;
 					break;
 				case Score.Hard:
 					curScore = 1.0f / ( fCount + 1.0f );
 					daysTillNextReview = 0.0001f;
 					break;
 				case Score.Good:
+					fCount -= fRepair / 2;
+					if( fCount < 0 ) fCount = 0;
 					curScore = 1.0f + ( 1.0f / ( fCount + 1.0f ) );
 					daysTillNextReview = 1;
 					break;
