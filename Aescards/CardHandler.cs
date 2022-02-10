@@ -93,16 +93,27 @@ namespace Aescards
 				}
 			}
 
-			// Sort with longest overdue cards coming first
+			// // Sort with longest overdue cards coming first
+			// reviewCards.Sort( delegate( int a,int b )
+			// {
+			// 	return( cards[a].GetDaysTillNextReview().CompareTo( cards[b].GetDaysTillNextReview() ) );
+			// } );
+			// 
+			// // i dont think this wrecks the previous sorting that much but maybe a little so we should find a better solution
+			// reviewCards.Sort( delegate( int a,int b )
+			// {
+			// 	return( cards[b].IsNew().CompareTo( cards[a].IsNew() ) );
+			// } );
 			reviewCards.Sort( delegate( int a,int b )
 			{
-				return( cards[a].GetDaysTillNextReview().CompareTo( cards[b].GetDaysTillNextReview() ) );
-			} );
-
-			// i dont think this wrecks the previous sorting that much but maybe a little so we should find a better solution
-			reviewCards.Sort( delegate( int a,int b )
-			{
-				return( cards[b].IsNew().CompareTo( cards[a].IsNew() ) );
+				if( cards[a].IsNew() != cards[b].IsNew() ) // new & not new, sort new first
+				{
+					return( cards[b].IsNew().CompareTo( cards[a].IsNew() ) );
+				}
+				else // both new or both not new, sort with longest overdue cards coming first
+				{
+					return( cards[a].GetDaysTillNextReview().CompareTo( cards[b].GetDaysTillNextReview() ) );
+				}
 			} );
 
 			// // Try to get all new cards in reviewCards.
