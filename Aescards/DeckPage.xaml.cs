@@ -120,7 +120,15 @@ namespace Aescards
 
 		private void StartReviewButton_Click( object sender,RoutedEventArgs e )
 		{
-			if( cardHand.GenerateReview() ) MenuStack.GoIn( new ReviewPage( this,cardHand ) );
+			if( cardHand.GenerateReview() )
+			{
+				MenuStack.GoIn( new ReviewPage( this,cardHand ) );
+
+				myData.UpdateLastReviewDate();
+				myData.Save();
+
+				mainPage.ReloadDecks();
+			}
 		}
 
 		private void AddCardButton_Click( object sender,RoutedEventArgs e )

@@ -26,14 +26,16 @@ namespace Aescards
     {
 		class DeckListItem
 		{
-			public DeckListItem( string name,string path )
+			public DeckListItem( string name,string path,DeckData deckData )
 			{
 				this.name = name;
 				this.path = path;
+				this.deckData = deckData;
 			}
 
 			public string name;
 			public string path;
+			public DeckData deckData;
 		}
 
         public MainPage()
@@ -57,14 +59,8 @@ namespace Aescards
 
 			var deckDataList = new List<DeckListItem>();
 
-			// foreach( var specificDeckPath in Directory.EnumerateDirectories( DeckPage.deckPath ) )
 			for( int i = 0; i < 9999; ++i )
 			{
-				// string deckName = "";
-				// for( int i = 0; i < specificDeckPath.Length; ++i )
-				// {
-				// 	if( specificDeckPath[i] == '/' ) deckName = specificDeckPath.Substring( i + 1 );
-				// }
 				var deckPath = i.ToString();
 				if( File.Exists( DeckData.GeneratePath( deckPath ) ) )
 				{
@@ -72,11 +68,17 @@ namespace Aescards
 
 					var deckName = deckData.GetDeckName();
 
-					deckDataList.Add( new DeckListItem( deckName,deckPath ) );
+					deckDataList.Add( new DeckListItem( deckName,deckPath,deckData ) );
 					deckDataDict.Add( deckName,deckPath );
 				}
 				else break;
 			}
+
+			// Sort with most recently reviewed decks first.
+			deckDataList.Sort( delegate( DeckListItem a,DeckListItem b )
+			{
+				return( b.deckData.GetLastReviewDate().CompareTo( a.deckData.GetLastReviewDate() ) );
+			} );
 
 			foreach( var deckData in deckDataList )
 			{
