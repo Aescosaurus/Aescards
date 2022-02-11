@@ -85,8 +85,8 @@ namespace Aescards
 					// 
 					// deckPage.ReloadCards();
 					// deckPage.ReloadDeckData();
-					card.SetFront( frontText );
-					card.SetBack( backText );
+					card.SetFront( frontText.Replace( "\n","\\n" ) );
+					card.SetBack( backText.Replace( "\n","\\n" ) );
 					card.Save();
 
 					// we're editing the card ref so no need to reload cards

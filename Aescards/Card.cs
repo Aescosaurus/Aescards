@@ -63,8 +63,10 @@ namespace Aescards
 		void LoadStats( int cardId,string front,string back,int fCount,float curScore,float daysTillNextReview )
 		{
 			myId = cardId;
-			this.front = front;
-			this.back = back;
+			SetFront( front );
+			SetBack( back );
+			// this.front = front;
+			// this.back = back;
 			this.fCount = fCount;
 			this.curScore = curScore;
 			this.daysTillNextReview = daysTillNextReview;
@@ -86,11 +88,13 @@ namespace Aescards
 
 		public void SetFront( string front )
 		{
+			Debug.Assert( !front.Contains( "\n" ) );
 			this.front = front;
 		}
 
 		public void SetBack( string back )
 		{
+			Debug.Assert( !back.Contains( "\n" ) );
 			this.back = back;
 		}
 
