@@ -80,11 +80,13 @@ namespace Aescards
 
 			var deckData = deckPage.GetDeckData();
 
+			var allowInReviewThresh = deckData.GetAllowReviewThresh();
+
 			var targetNewPerReview = deckData.GetNewCardsPerReview();
 			int curNew = 0;
 			foreach( var card in cards )
 			{
-				if( card.GetDaysTillNextReview() <= 0 )
+				if( card.GetDaysTillNextReview() <= allowInReviewThresh )
 				{
 					if( !card.IsNew() || curNew++ < targetNewPerReview )
 					{

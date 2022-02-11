@@ -29,6 +29,7 @@ namespace Aescards
 			String,
 			Int,
 			Float,
+			FloatNegative,
 			Bool
 		}
 
@@ -52,6 +53,7 @@ namespace Aescards
 			AddSettingsListItem( checkExistingStr,deckData.GetCheckExisting().ToString(),InputType.Bool );
 			// AddSettingsListItem( prioritizeNewStr,deckData.GetPrioritizeNew().ToString(),InputType.Bool );
 			AddSettingsListItem( targetNewPerReviewStr,deckData.GetNewCardsPerReview().ToString(),InputType.Int );
+			AddSettingsListItem( allowReviewThreshStr,deckData.GetAllowReviewThresh().ToString(),InputType.FloatNegative );
 		}
 
 		void AddSettingsListItem( string name,string value,InputType inputType )
@@ -80,6 +82,9 @@ namespace Aescards
 					break;
 				case InputType.Float:
 					curSetting.PreviewTextInput += new TextCompositionEventHandler( TextFloatMatch );
+					break;
+				case InputType.FloatNegative:
+					curSetting.PreviewTextInput += new TextCompositionEventHandler( TextFloatNegativeMatch );
 					break;
 				case InputType.Bool:
 					// no veri
@@ -115,6 +120,7 @@ namespace Aescards
 			var checkExistingVal = GetSettingBool( checkExistingStr );
 			// var prioritizeNewVal = GetSettingBool( prioritizeNewStr );
 			var targetNewVal = GetSettingInt( targetNewPerReviewStr );
+			var allowReviewThreshVal = GetSettingFloat( allowReviewThreshStr );
 
 			if( !parseError )
 			{
@@ -127,6 +133,7 @@ namespace Aescards
 				deckData.SetCheckExisting( checkExistingVal );
 				// deckData.SetPrioritizeNew( prioritizeNewVal );
 				deckData.SetNewCardsPerReview( targetNewVal );
+				deckData.SetAllowReviewThresh( allowReviewThreshVal );
 
 				deckData.Save();
 
@@ -134,6 +141,10 @@ namespace Aescards
 				mainPage.ReloadDecks();
 
 				MenuStack.GoBack();
+			}
+			else
+			{
+				parseError = false;
 			}
 		}
 
@@ -211,25 +222,32 @@ namespace Aescards
 				GetSettingFloat( sickDelayStr ) != deckData.GetSickDelay() ||
 				GetSettingBool( checkExistingStr ) != deckData.GetCheckExisting() ||
 				// GetSettingBool( prioritizeNewStr ) != deckData.GetPrioritizeNew() ||
-				GetSettingInt( targetNewPerReviewStr ) != deckData.GetNewCardsPerReview() );
+				GetSettingInt( targetNewPerReviewStr ) != deckData.GetNewCardsPerReview() ||
+				GetSettingFloat( allowReviewThreshStr ) != deckData.GetAllowReviewThresh() );
 		}
 
 		private void TextIntMatch( object sender,TextCompositionEventArgs args )
 		{
-			args.Handled = floatRegex.IsMatch( args.Text );
+			args.Handled = intRegex.IsMatch( args.Text );
 		}
 
 		private void TextFloatMatch( object sender,TextCompositionEventArgs args )
 		{
-			args.Handled = intRegex.IsMatch( args.Text );
+			args.Handled = floatRegex.IsMatch( args.Text );
+		}
+
+		private void TextFloatNegativeMatch( object sender,TextCompositionEventArgs args )
+		{
+			args.Handled = floatNegativeRegex.IsMatch( args.Text );
 		}
 
 		DeckPage deckPage;
 		MainPage mainPage;
 
 		Dictionary<string,FrameworkElement> settingBoxes = new Dictionary<string,FrameworkElement>();
-		Regex intRegex = new Regex( "[^0-9\\.]+" );
-		Regex floatRegex = new Regex( "[^0-9]+" );
+		Regex floatRegex = new Regex( "[^0-9\\.]+" );
+		Regex floatNegativeRegex = new Regex( "[^0-9\\.\\-]+" );
+		Regex intRegex = new Regex( "[^0-9]+" );
 
 		bool parseError = false;
 
@@ -242,5 +260,6 @@ namespace Aescards
 		static readonly string checkExistingStr = "Check Existing";
 		// static readonly string prioritizeNewStr = "Prioritize New";
 		static readonly string targetNewPerReviewStr = "Target New Cards Per Review";
+		static readonly string allowReviewThreshStr = "Allow Card in Review Threshold";
 	}
 }
