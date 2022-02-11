@@ -30,13 +30,13 @@
 
 			<Grid>
 				<Grid.RowDefinitions>
-					<RowDefinition Height="0.6*"></RowDefinition>
-					<RowDefinition Height="0.1*"></RowDefinition>
+					<RowDefinition Height="0.4*"></RowDefinition>
+					<RowDefinition Height="0.05*"></RowDefinition>
 					<RowDefinition Height="0.3*"></RowDefinition>
-					<RowDefinition Height="0.1*"></RowDefinition>
+					<RowDefinition Height="0.25*"></RowDefinition>
 					<RowDefinition Height="*"></RowDefinition>
 					<RowDefinition Height="*"></RowDefinition>
-					<RowDefinition Height="0.2*"></RowDefinition>
+					<RowDefinition Height="0.07*"></RowDefinition>
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="0.7*"></ColumnDefinition>
@@ -50,7 +50,7 @@
 					<ListBox x:Name="CardList">
 					</ListBox>
 				</Grid>
-				<Grid Grid.Row="4" Grid.Column="3" Grid.RowSpan="2">
+				<Grid Grid.Row="3" Grid.Column="3" Grid.RowSpan="3">
 					<ListBox>
 						<ListBoxItem x:Name="CardFront"></ListBoxItem>
 						<ListBoxItem x:Name="CardBack"></ListBoxItem>
@@ -66,6 +66,20 @@
 					<Button x:Name="SortScore" Click="SortScore_Click" Content="Score" Width="55" Height="55" FontSize="16"/>
 					<Button x:Name="SortReview" Click="SortReview_Click" Content="Review" Width="55" Height="55" FontSize="16"/>
 				</StackPanel>
+
+				<StackPanel Grid.Row="3" Grid.Column="1">
+					<TextBox Text="" FontSize="16" x:Name="SearchBox"></TextBox>
+
+					<Grid Grid.Row="3" Grid.Column="1">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"></ColumnDefinition>
+							<ColumnDefinition Width="*"></ColumnDefinition>
+						</Grid.ColumnDefinitions>
+						<Button Content="Search" x:Name="SearchButton" Click="SearchButton_Click" Grid.Column="0"></Button>
+						<Button Content="Clear" x:Name="ClearSearchButton" Click="ClearSearchButton_Click" Grid.Column="1"></Button>
+					</Grid>
+				</StackPanel>
+
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1">
 					<Button x:Name="SortAsc" Click="SortAsc_Click" Content="Asc" Width="55" Height="55" FontSize="16"/>
 					<Button x:Name="SortDesc" Click="SortDesc_Click" Content="Desc" Width="55" Height="55" FontSize="16"/>

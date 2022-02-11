@@ -103,15 +103,25 @@ namespace Aescards
 			{
 				for( int i = 0; i < cardSortOrder.Count; ++i )
 				{
-					AddCardListItem( cards[cardSortOrder[i]].GetFront(),cardSortOrder[i] );
+					// AddCardListItem( cards[cardSortOrder[i]].GetFront(),cardSortOrder[i] );
+					TryAddCardListItem( cards[cardSortOrder[i]],cardSortOrder[i] );
 				}
 			}
 			else if( sortOrder == SortOrder.Descending )
 			{
 				for( int i = cardSortOrder.Count - 1; i >= 0; --i )
 				{
-					AddCardListItem( cards[cardSortOrder[i]].GetFront(),cardSortOrder[i] );
+					// AddCardListItem( cards[cardSortOrder[i]].GetFront(),cardSortOrder[i] );
+					TryAddCardListItem( cards[cardSortOrder[i]],cardSortOrder[i] );
 				}
+			}
+		}
+
+		void TryAddCardListItem( Card card,int id )
+		{
+			if( card.GetFront().Contains( filterStr ) || card.GetBack().Contains( filterStr ) )
+			{
+				AddCardListItem( card.GetFront(),id );
 			}
 		}
 
@@ -218,6 +228,21 @@ namespace Aescards
 			DisplayHighlightedCardInfo();
 		}
 
+		private void SearchButton_Click( object sender,RoutedEventArgs e )
+		{
+			filterStr = SearchBox.Text;
+
+			ResetCardListItems();
+		}
+
+		private void ClearSearchButton_Click( object sender,RoutedEventArgs e )
+		{
+			SearchBox.Text = "";
+			filterStr = "";
+
+			ResetCardListItems();
+		}
+
 		CardHandler cardHand;
 		List<Card> cards;
 		List<int> cardSortOrder = new List<int>();
@@ -225,5 +250,7 @@ namespace Aescards
 		SortOrder sortOrder = SortOrder.Descending;
 
 		int highlightedCard = -1;
+
+		string filterStr = "";
 	}
 }
