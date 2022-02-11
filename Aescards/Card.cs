@@ -211,5 +211,7 @@ namespace Aescards
 		public static readonly string folderPath = "Cards/";
 
 		// const float sickReviewPenalty = 3.0f;
+
+		public int repeatCount = 0; // not saved
     }
 }

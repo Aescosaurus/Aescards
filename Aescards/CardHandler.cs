@@ -45,10 +45,19 @@ namespace Aescards
 				score = Card.Score.Hard;
 			}
 
-			GetCurReviewCard().UpdateScore( score,deckData.GetFRepair() );
+			var curCard = GetCurReviewCard();
+				
+			curCard.UpdateScore( score,deckData.GetFRepair() );
 
 			// repeat failed cards until they are not fail
-			if( score == Card.Score.Fail && curReviewSpot < reviewCards.Count - 1 ) reviewCards.Add( reviewCards[curReviewSpot] );
+			if( score == Card.Score.Fail && curReviewSpot < reviewCards.Count - 1 &&
+				curReviewSpot < deckData.GetCardsPerReview() + deckData.GetRepeatCardCount() &&
+				curCard.repeatCount < deckData.GetRepeatTries() )
+			{
+				reviewCards.Add( reviewCards[curReviewSpot] );
+
+				++curCard.repeatCount;
+			}
 		}
 
 		public void SickCurCard()
@@ -69,6 +78,14 @@ namespace Aescards
 			foreach( var card in cards )
 			{
 				card.UpdateDaysTillNextReview( daysPassed );
+			}
+		}
+
+		public void ResetCardReviewTries()
+		{
+			foreach( var card in cards )
+			{
+				card.repeatCount = 0;
 			}
 		}
 

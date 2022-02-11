@@ -54,6 +54,8 @@ namespace Aescards
 			// AddSettingsListItem( prioritizeNewStr,deckData.GetPrioritizeNew().ToString(),InputType.Bool );
 			AddSettingsListItem( targetNewPerReviewStr,deckData.GetNewCardsPerReview().ToString(),InputType.Int );
 			AddSettingsListItem( allowReviewThreshStr,deckData.GetAllowReviewThresh().ToString(),InputType.FloatNegative );
+			AddSettingsListItem( repeatCardCountStr,deckData.GetRepeatCardCount().ToString(),InputType.Int );
+			AddSettingsListItem( repeatTriesStr,deckData.GetRepeatTries().ToString(),InputType.Int );
 		}
 
 		void AddSettingsListItem( string name,string value,InputType inputType )
@@ -121,6 +123,8 @@ namespace Aescards
 			// var prioritizeNewVal = GetSettingBool( prioritizeNewStr );
 			var targetNewVal = GetSettingInt( targetNewPerReviewStr );
 			var allowReviewThreshVal = GetSettingFloat( allowReviewThreshStr );
+			var repeatCountVal = GetSettingInt( repeatCardCountStr );
+			var repeatTriesVal = GetSettingInt( repeatTriesStr );
 
 			if( !parseError )
 			{
@@ -134,6 +138,8 @@ namespace Aescards
 				// deckData.SetPrioritizeNew( prioritizeNewVal );
 				deckData.SetNewCardsPerReview( targetNewVal );
 				deckData.SetAllowReviewThresh( allowReviewThreshVal );
+				deckData.SetRepeatCardCount( repeatCountVal );
+				deckData.SetRepeatTries( repeatTriesVal );
 
 				deckData.Save();
 
@@ -223,7 +229,9 @@ namespace Aescards
 				GetSettingBool( checkExistingStr ) != deckData.GetCheckExisting() ||
 				// GetSettingBool( prioritizeNewStr ) != deckData.GetPrioritizeNew() ||
 				GetSettingInt( targetNewPerReviewStr ) != deckData.GetNewCardsPerReview() ||
-				GetSettingFloat( allowReviewThreshStr ) != deckData.GetAllowReviewThresh() );
+				GetSettingFloat( allowReviewThreshStr ) != deckData.GetAllowReviewThresh() ||
+				GetSettingInt( repeatCardCountStr ) != deckData.GetRepeatCardCount() ||
+				GetSettingInt( repeatTriesStr ) != deckData.GetRepeatTries() );
 		}
 
 		private void TextIntMatch( object sender,TextCompositionEventArgs args )
@@ -261,5 +269,7 @@ namespace Aescards
 		// static readonly string prioritizeNewStr = "Prioritize New";
 		static readonly string targetNewPerReviewStr = "Target New Cards Per Review";
 		static readonly string allowReviewThreshStr = "Allow Card in Review Threshold";
+		static readonly string repeatCardCountStr = "Max Repeatable Cards Per Review";
+		static readonly string repeatTriesStr = "Max Times Repeating Failed Card";
 	}
 }

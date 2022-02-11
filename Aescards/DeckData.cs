@@ -26,21 +26,25 @@ namespace Aescards
 			while( !reader.EndOfStream ) lines.Add( reader.ReadLine() );
 			reader.Close();
 
-			if( lines.Count > 0 ) lastSave = DateTime.Parse( lines[0] );
-			if( lines.Count > 1 ) this.deckName = lines[1];
-			if( lines.Count > 2 ) fRepair = int.Parse( lines[2] );
-			if( lines.Count > 3 ) nCardsPerReview = int.Parse( lines[3] );
-			if( lines.Count > 4 ) timeUpdateThresh = float.Parse( lines[4] );
-			if( lines.Count > 5 ) maxDeckSize = int.Parse( lines[5] );
-			if( lines.Count > 6 ) sickDelay = int.Parse( lines[6] );
-			if( lines.Count > 7 ) wholeDay = DateTime.Parse( lines[7] );
-			if( lines.Count > 8 ) cardsAddedToday = int.Parse( lines[8] );
-			if( lines.Count > 9 ) checkExisting = bool.Parse( lines[9] );
-			if( lines.Count > 10 ) prioritizeNew = bool.Parse( lines[10] );
-			if( lines.Count > 11 ) cardsReviewedToday = int.Parse( lines[11] );
-			if( lines.Count > 12 ) targetNewPerReview = int.Parse( lines[12] );
-			if( lines.Count > 13 ) lastReviewDate = DateTime.Parse( lines[13] );
-			if( lines.Count > 14 ) allowReviewThresh = float.Parse( lines[14] );
+			int curLine = 0;
+
+			if( lines.Count > curLine ) lastSave = DateTime.Parse( lines[curLine++] );
+			if( lines.Count > curLine ) this.deckName = lines[curLine++];
+			if( lines.Count > curLine ) fRepair = int.Parse( lines[curLine++] );
+			if( lines.Count > curLine ) nCardsPerReview = int.Parse( lines[curLine++] );
+			if( lines.Count > curLine ) timeUpdateThresh = float.Parse( lines[curLine++] );
+			if( lines.Count > curLine ) maxDeckSize = int.Parse( lines[curLine++] );
+			if( lines.Count > curLine ) sickDelay = int.Parse( lines[curLine++] );
+			if( lines.Count > curLine ) wholeDay = DateTime.Parse( lines[curLine++] );
+			if( lines.Count > curLine ) cardsAddedToday = int.Parse( lines[curLine++] );
+			if( lines.Count > curLine ) checkExisting = bool.Parse( lines[curLine++] );
+			if( lines.Count > curLine ) prioritizeNew = bool.Parse( lines[curLine++] );
+			if( lines.Count > curLine ) cardsReviewedToday = int.Parse( lines[curLine++] );
+			if( lines.Count > curLine ) targetNewPerReview = int.Parse( lines[curLine++] );
+			if( lines.Count > curLine ) lastReviewDate = DateTime.Parse( lines[curLine++] );
+			if( lines.Count > curLine ) allowReviewThresh = float.Parse( lines[curLine++] );
+			if( lines.Count > curLine ) maxRepeatCardCount = int.Parse( lines[curLine++] );
+			if( lines.Count > curLine ) maxRepeatTries = int.Parse( lines[curLine++] );
 		}
 
 		public void Save()
@@ -66,6 +70,8 @@ namespace Aescards
 			saveData += targetNewPerReview.ToString() + '\n';
 			saveData += lastReviewDate.ToString() + '\n';
 			saveData += allowReviewThresh.ToString() + '\n';
+			saveData += maxRepeatCardCount.ToString() + '\n';
+			saveData += maxRepeatTries.ToString() + '\n';
 
 			var writer = new StreamWriter( mySavePath );
 			writer.Write( saveData );
@@ -155,6 +161,16 @@ namespace Aescards
 			allowReviewThresh = thresh;
 		}
 
+		public void SetRepeatCardCount( int count )
+		{
+			maxRepeatCardCount = count;
+		}
+
+		public void SetRepeatTries( int tries )
+		{
+			maxRepeatTries = tries;
+		}
+
 		public float GetDaysSinceLastOpened()
 		{
 			return( ( float )( ( DateTime.Now - lastSave ).TotalDays ) );
@@ -235,6 +251,16 @@ namespace Aescards
 			return( allowReviewThresh );
 		}
 
+		public int GetRepeatCardCount()
+		{
+			return( maxRepeatCardCount );
+		}
+
+		public int GetRepeatTries()
+		{
+			return( maxRepeatTries );
+		}
+
 		string mySavePath;
 
 		DateTime lastSave;
@@ -257,5 +283,8 @@ namespace Aescards
 		DateTime lastReviewDate;
 
 		float allowReviewThresh = 0.0f;
+
+		int maxRepeatCardCount = 5;
+		int maxRepeatTries = 5;
 	}
 }

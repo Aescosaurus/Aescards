@@ -99,6 +99,7 @@ namespace Aescards
 
 		void FinishReview()
 		{
+			cardHand.ResetCardReviewTries();
 			cardHand.Save();
 
 			deckPage.GetDeckData().Save();
