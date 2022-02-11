@@ -267,6 +267,11 @@ namespace Aescards
 			return( false );
 		}
 
+		public Card GetCardAt( int i )
+		{
+			return( cards[i] );
+		}
+
 		List<Card> cards = new List<Card>();
 
 		// const int maxCards = 9999;

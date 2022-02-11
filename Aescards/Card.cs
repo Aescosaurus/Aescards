@@ -64,6 +64,16 @@ namespace Aescards
 			writer.Close();
 		}
 
+		public void SetFront( string front )
+		{
+			this.front = front;
+		}
+
+		public void SetBack( string back )
+		{
+			this.back = back;
+		}
+
 		public void UpdateScore( Score score,int fRepair )
 		{
 			switch( score )

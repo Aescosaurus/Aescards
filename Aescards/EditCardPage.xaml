@@ -1,4 +1,4 @@
-﻿<Page x:Class="Aescards.AddCardPage"
+﻿<Page x:Class="Aescards.EditCardPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,15 +7,15 @@
       mc:Ignorable="d"
 	  d:DesignWidth="800"
       d:DesignHeight="600"
-      Title="AddCardPage">
+      Title="EditCardPage">
 
 	<Grid x:Name="BaseGrid">
 		<Rectangle x:Name="bg" Fill="gray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" />
-		
+
 		<DockPanel>
 			<Grid DockPanel.Dock="Top">
 				<Rectangle Fill="LightGray" Width="Auto" Height="55"></Rectangle>
-				<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Text="Add Card"></TextBlock>
+				<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Text="Edit Card"></TextBlock>
 
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -47,14 +47,14 @@
 					<ColumnDefinition Width="2*"></ColumnDefinition>
 					<ColumnDefinition Width="*"></ColumnDefinition>
 				</Grid.ColumnDefinitions>
-				
+
 				<TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Center" Padding="10" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Text="Front" Width="Auto" FontSize="30"/>
 				<TextBox x:Name="InputFront" Grid.Row="1" Grid.Column="1" FontSize="30" TextAlignment="Center" AcceptsReturn="True"></TextBox>
-				
+
 				<TextBlock Grid.Row="2" Grid.Column="1" TextAlignment="Center" Padding="10" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Text="Back" Width="Auto" FontSize="30"/>
 				<TextBox x:Name="InputBack" Grid.Row="3" Grid.Column="1" FontSize="30" TextAlignment="Center" AcceptsReturn="True"></TextBox>
 
-				<Button Grid.Row="5" Grid.Column="1" Content="Add" FontSize="20" Width="250" Click="SaveButton_Click"></Button>
+				<Button Grid.Row="5" Grid.Column="1" Content="Update" FontSize="20" Width="250" Click="SaveButton_Click"></Button>
 			</Grid>
 		</DockPanel>
 	</Grid>
