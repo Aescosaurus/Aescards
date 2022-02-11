@@ -20,20 +20,27 @@ namespace Aescards
 
 		public Card( int cardId,string front,string back,int fCount,float curScore,float daysTillNextReview )
 		{
+			LoadStats( cardId,front,back,fCount,curScore,daysTillNextReview );
+		}
+
+		Card( int cardId )
+		{
 			myId = cardId;
-			this.front = front;
-			this.back = back;
-			this.fCount = fCount;
-			this.curScore = curScore;
-			this.daysTillNextReview = daysTillNextReview;
 		}
 
 		// return null if doesn't exist
 		public static Card GenerateCard( int cardId )
 		{
-			var cardPath = GeneratePath( cardId );
+			var newCard = new Card( cardId );
+			if( newCard.Load() ) return( newCard );
+			else return( null );
+		}
 
-			if( !File.Exists( cardPath ) ) return( null );
+		public bool Load()
+		{
+			var cardPath = GeneratePath( myId );
+
+			if( !File.Exists( cardPath ) ) return( false );
 
 			var reader = new StreamReader( cardPath );
 			var lines = new List<string>();
@@ -46,8 +53,21 @@ namespace Aescards
 
 			Debug.Assert( lines.Count == 5 );
 
-			return( new Card( cardId,lines[0],lines[1],int.Parse( lines[2] ),
-				float.Parse( lines[3] ),float.Parse( lines[4] ) ) );
+			LoadStats( myId,lines[0],lines[1],int.Parse( lines[2] ),
+				float.Parse( lines[3] ),float.Parse( lines[4] ) );
+			// return ( new Card( cardId,lines[0],lines[1],int.Parse( lines[2] ),
+			// 	float.Parse( lines[3] ),float.Parse( lines[4] ) ) );
+			return( true );
+		}
+
+		void LoadStats( int cardId,string front,string back,int fCount,float curScore,float daysTillNextReview )
+		{
+			myId = cardId;
+			this.front = front;
+			this.back = back;
+			this.fCount = fCount;
+			this.curScore = curScore;
+			this.daysTillNextReview = daysTillNextReview;
 		}
 
 		public void Save()

@@ -43,6 +43,8 @@ namespace Aescards
 
 			AescPage.SetupColors( BaseGrid );
 
+			this.cardHand = cardHand;
+
 			cards = cardHand.GetAllCards();
 
 			for( int i = 0; i < cards.Count; ++i )
@@ -138,8 +140,15 @@ namespace Aescards
 				if( char.IsNumber( c ) ) cardNum += c;
 			}
 
-			var selectedCard = cards[int.Parse( cardNum )];
-			
+			highlightedCard = int.Parse( cardNum );
+
+			DisplayHighlightedCardInfo();
+		}
+
+		void DisplayHighlightedCardInfo()
+		{
+			var selectedCard = cards[highlightedCard];
+
 			CardFront.Content = "Front: " + selectedCard.GetFront();
 			CardBack.Content = "Back:\n" + selectedCard.GetBack();
 			CardFCount.Content = "F Count: " + selectedCard.GetFCount().ToString();
@@ -194,9 +203,27 @@ namespace Aescards
 			ResetCardListItems();
 		}
 
+		private void CardEdit_Click( object sender,RoutedEventArgs e )
+		{
+			if( highlightedCard > -1 )
+			{
+				MenuStack.GoInAction( new EditCardPage( cardHand,highlightedCard ),ReloadHighlightedCard );
+			}
+		}
+
+		void ReloadHighlightedCard()
+		{
+			cards[highlightedCard].Load();
+
+			DisplayHighlightedCardInfo();
+		}
+
+		CardHandler cardHand;
 		List<Card> cards;
 		List<int> cardSortOrder = new List<int>();
 
 		SortOrder sortOrder = SortOrder.Descending;
+
+		int highlightedCard = -1;
 	}
 }

@@ -70,6 +70,10 @@
 					<Button x:Name="SortAsc" Click="SortAsc_Click" Content="Asc" Width="55" Height="55" FontSize="16"/>
 					<Button x:Name="SortDesc" Click="SortDesc_Click" Content="Desc" Width="55" Height="55" FontSize="16"/>
 				</StackPanel>
+
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="3">
+					<Button x:Name="CardEdit" Click="CardEdit_Click" Content="Edit" Width="55" Height="55" FontSize="16"/>
+				</StackPanel>
 			</Grid>
 		</DockPanel>
 
