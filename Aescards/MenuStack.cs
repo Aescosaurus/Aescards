@@ -10,6 +10,18 @@ namespace Aescards
 {
     class MenuStack
     {
+		class PageItem
+		{
+			public PageItem( Page page,Action returnAction )
+			{
+				this.page = page;
+				this.returnAction = returnAction;
+			}
+
+			public Page page;
+			public Action returnAction;
+		}
+
 		public static void SetupContentFrame( Frame frame )
 		{
 			contentFrame = frame;
@@ -18,8 +30,16 @@ namespace Aescards
 		public static void GoIn( Page page )
 		{
 			Debug.Assert( contentFrame != null );
-			pageStack.Push( page );
+			pageStack.Push( new PageItem( page,null ) );
 			contentFrame.Navigate( page );
+		}
+
+		// Go in, call onReturn when backing out to this page again
+		public static void GoInAction( Page page,Action onReturn )
+		{
+			pageStack.Peek().returnAction = onReturn;
+
+			GoIn( page );
 		}
 
 		public static void GoBack()
@@ -29,12 +49,13 @@ namespace Aescards
 			if( pageStack.Count > 1 )
 			{
 				pageStack.Pop();
-				Page prevPage = pageStack.Peek();
-				contentFrame.Navigate( prevPage );
+				var prevPageItem = pageStack.Peek();
+				prevPageItem.returnAction?.Invoke();
+				contentFrame.Navigate( prevPageItem.page );
 			}
 		}
 
-		static Stack<Page> pageStack = new Stack<Page>();
+		static Stack<PageItem> pageStack = new Stack<PageItem>();
 		static Frame contentFrame = null;
     }
 }

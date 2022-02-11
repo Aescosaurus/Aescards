@@ -161,7 +161,12 @@ namespace Aescards
 
 		public Card GetCurReviewCard()
 		{
-			return( cards[reviewCards[curReviewSpot]] );
+			return( cards[GetCurReviewCardIndex()] );
+		}
+
+		public int GetCurReviewCardIndex()
+		{
+			return( reviewCards[curReviewSpot] );
 		}
 
 		// return true if end of review

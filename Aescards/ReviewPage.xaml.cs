@@ -164,6 +164,12 @@ namespace Aescards
 			LoadCardBack();
 		}
 
+		private void EditButton_Click( object sender,RoutedEventArgs e )
+		{
+			// MenuStack.GoIn( new EditCardPage( cardHand,cardHand.GetCurReviewCardIndex() ) );
+			MenuStack.GoInAction( new EditCardPage( cardHand,cardHand.GetCurReviewCardIndex() ),LoadCardFront );
+		}
+
 		DeckPage deckPage;
 		CardHandler cardHand;
 
