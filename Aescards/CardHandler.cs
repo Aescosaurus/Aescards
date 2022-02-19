@@ -276,7 +276,7 @@ namespace Aescards
 			int candidateCount = 0;
 			foreach( var card in cards )
 			{
-				if( card.GetDaysTillNextReview() <= 0.0f ) ++candidateCount;
+				if( card.GetDaysTillNextReview() <= deckPage.GetDeckData().GetAllowReviewThresh() ) ++candidateCount;
 			}
 			return( candidateCount );
 		}
