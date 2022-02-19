@@ -42,7 +42,7 @@ namespace Aescards
 			GoIn( page );
 		}
 
-		public static void GoBack()
+		public static void GoBack( bool callReturnAction = true )
 		{
 			Debug.Assert( contentFrame != null );
 
@@ -50,7 +50,7 @@ namespace Aescards
 			{
 				pageStack.Pop();
 				var prevPageItem = pageStack.Peek();
-				prevPageItem.returnAction?.Invoke();
+				if( callReturnAction ) prevPageItem.returnAction?.Invoke();
 				contentFrame.Navigate( prevPageItem.page );
 			}
 		}

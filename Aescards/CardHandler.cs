@@ -283,12 +283,17 @@ namespace Aescards
 
 		public bool CheckExisting( string front )
 		{
-			foreach( var card in cards )
+			return( GetExistingSpot( front ) != -1 );
+		}
+
+		public int GetExistingSpot( string front )
+		{
+			for( int i = 0; i < cards.Count; ++i )
 			{
-				if( card.GetFront() == front ) return( true );
+				if( cards[i].GetFront() == front ) return( i );
 			}
 
-			return( false );
+			return( -1 );
 		}
 
 		public Card GetCardAt( int i )

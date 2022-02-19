@@ -59,10 +59,17 @@ namespace Aescards
 				var backText = InputBack.Text.Replace( "\r\n","\\n" );
 
 				bool allowAdd = true;
-				if( deckPage.CheckExisting( frontText ) )
+				var existingCardSpot = deckPage.GetExistingSpot( frontText );
+				if( existingCardSpot > -1 && deckPage.GetDeckData().GetCheckExisting() )
 				{
-					var result = MessageBox.Show( "Error: Card already exists in deck!  Would you like to add anyway?","Card Already Exists",MessageBoxButton.YesNoCancel );
-					allowAdd = ( result == MessageBoxResult.Yes );
+					var result = MessageBox.Show( "Error: Card already exists in deck!  Would you like to edit the existing card?","Card Already Exists",MessageBoxButton.YesNoCancel );
+					// allowAdd = ( result == MessageBoxResult.Yes );
+					allowAdd = false;
+					if( result == MessageBoxResult.Yes )
+					{
+						// MenuStack.GoIn( new EditCardPage( deckPage.GetCardHand(),existingCardSpot ) );
+						MenuStack.GoInAction( new EditCardPage( deckPage.GetCardHand(),existingCardSpot ),EditExistingReturnAction );
+					}
 				}
 				if( deckPage.GetMaxCard() >= deckPage.GetDeckData().GetMaxDeckSize() )
 				{
@@ -87,6 +94,13 @@ namespace Aescards
 					// MenuStack.GoBack();
 				}
 			}
+		}
+
+		// called by default, if leave without saving then not called
+		void EditExistingReturnAction()
+		{
+			InputFront.Text = "";
+			InputBack.Text = "";
 		}
 
 		void SetInputBoxLanguage( TextBox box )

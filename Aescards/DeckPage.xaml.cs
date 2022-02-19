@@ -161,6 +161,17 @@ namespace Aescards
 			return( myData.GetCheckExisting() && cardHand.CheckExisting( front ) );
 		}
 
+		// return index of existing card, -1 if not existing
+		public int GetExistingSpot( string front )
+		{
+			return( cardHand.GetExistingSpot( front ) );
+		}
+
+		public CardHandler GetCardHand()
+		{
+			return( cardHand );
+		}
+
 		public static readonly string deckPath = "Decks/";
 		DeckData myData;
 		string deckName;

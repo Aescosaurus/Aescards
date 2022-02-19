@@ -50,7 +50,7 @@ namespace Aescards
 				canLeave = ( result == MessageBoxResult.Yes );
 			}
 
-			if( canLeave ) MenuStack.GoBack();
+			if( canLeave ) MenuStack.GoBack( false );
 		}
 
 		private void SaveButton_Click( object sender,RoutedEventArgs e )
@@ -109,14 +109,18 @@ namespace Aescards
 		{
 			card.ResetStats();
 
-			resetSmth = true;
+			card.Save();
+
+			// resetSmth = true;
 		}
 
 		private void ResetDaysTillReviewButton_Click( object sender,RoutedEventArgs e )
 		{
 			card.ResetDaysTillNextReview();
 
-			resetSmth = true;
+			card.Save();
+
+			// resetSmth = true;
 		}
 
 		Card card;

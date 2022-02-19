@@ -270,7 +270,7 @@ namespace Aescards
 		float timeUpdateThresh = 0.2f;
 		int maxDeckSize = 10000;
 		float sickDelay = 3.0f;
-		bool checkExisting = false;
+		bool checkExisting = true; // true by default
 
 		DateTime wholeDay;
 		int cardsAddedToday = 0;
