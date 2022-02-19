@@ -93,7 +93,8 @@ namespace Aescards
 			NewCount.Text = FormatPercent( "New: ",cardHand.GetNewCount(),nCards );
 
 			var reviewableCount = cardHand.GetReviewCandidateCount();
-			ReviewCount.Text = "Reviewable: " + reviewableCount.ToString();// + " card" + ( reviewableCount != 1 ? "s" : "" );
+			// ReviewCount.Text = "Reviewable: " + reviewableCount.ToString();// + " card" + ( reviewableCount != 1 ? "s" : "" );
+			ReviewCount.Text = FormatPercent( "Reviewable: ",reviewableCount,nCards );
 		}
 
 		string FormatFloat( float val )
