@@ -8,6 +8,8 @@ using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using System.Windows.Media;
+using System.Globalization;
+using System.Windows.Input;
 
 namespace Aescards
 {
@@ -54,6 +56,9 @@ namespace Aescards
 				textBoxObj.Foreground = GetCol( textCol );
 				textBoxObj.Background = GetCol( listBoxCol );
 				textBoxObj.FontSize = 30.0;
+
+				var cultureInfo = obj.Dispatcher.Thread.CurrentCulture.Name.ToString();
+				InputLanguageManager.SetInputLanguage( textBoxObj,new CultureInfo( cultureInfo ) );
 			}
 			else if( obj is ListBox )
 			{

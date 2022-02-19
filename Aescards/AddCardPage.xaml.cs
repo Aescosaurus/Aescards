@@ -31,8 +31,8 @@ namespace Aescards
 			// maxCard = cardCount;
 			this.deckPage = deckPage;
 
-			SetInputBoxLanguage( InputFront );
-			SetInputBoxLanguage( InputBack );
+			// SetInputBoxLanguage( InputFront );
+			// SetInputBoxLanguage( InputBack );
 
 			// InputFront.PreviewTextInput += new TextCompositionEventHandler( OnTextInput );
 			// InputBack.PreviewTextInput += new TextCompositionEventHandler( OnTextInput );
@@ -108,11 +108,11 @@ namespace Aescards
 			InputBack.Text = "";
 		}
 
-		void SetInputBoxLanguage( TextBox box )
-		{
-			var cultureInfo = Dispatcher.Thread.CurrentCulture.Name.ToString();
-			InputLanguageManager.SetInputLanguage( box,new System.Globalization.CultureInfo( cultureInfo ) );
-		}
+		// void SetInputBoxLanguage( TextBox box )
+		// {
+		// 	var cultureInfo = Dispatcher.Thread.CurrentCulture.Name.ToString();
+		// 	InputLanguageManager.SetInputLanguage( box,new System.Globalization.CultureInfo( cultureInfo ) );
+		// }
 
 		void OnTextInput( object sender,TextChangedEventArgs args )
 		{
