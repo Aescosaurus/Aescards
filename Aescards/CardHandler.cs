@@ -196,6 +196,16 @@ namespace Aescards
 			return( curReviewSpot >= reviewCards.Count );
 		}
 
+		public void GotoPrevReviewCard()
+		{
+			--curReviewSpot;
+		}
+
+		public bool CanGoPrev()
+		{
+			return( curReviewSpot > 0 );
+		}
+
 		// returns true if we're just reviewing cards that we've seen in the same review but marked as f so they're coming back
 		public bool ReviewingOldCards()
 		{

@@ -80,6 +80,8 @@ namespace Aescards
 			var card = cardHand.GetCurReviewCard();
 
 			ReviewFront.Text = card.GetFront();
+
+			PrevButton.IsEnabled = cardHand.CanGoPrev();
 		}
 
 		void LoadCardBack()
@@ -169,6 +171,15 @@ namespace Aescards
 		{
 			// MenuStack.GoIn( new EditCardPage( cardHand,cardHand.GetCurReviewCardIndex() ) );
 			MenuStack.GoInAction( new EditCardPage( cardHand,cardHand.GetCurReviewCardIndex() ),LoadCardFront );
+		}
+
+		private void PrevButton_Click( object sender,RoutedEventArgs e )
+		{
+			cardHand.GotoPrevReviewCard();
+
+			LoadCardFront();
+
+			PrevButton.IsEnabled = false; // only allow go 1 prev
 		}
 
 		DeckPage deckPage;
