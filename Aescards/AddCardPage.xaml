@@ -54,7 +54,7 @@
 				<TextBlock Grid.Row="2" Grid.Column="1" TextAlignment="Center" Padding="10" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Text="Back" Width="Auto" FontSize="30"/>
 				<TextBox x:Name="InputBack" Grid.Row="3" Grid.Column="1" FontSize="30" TextAlignment="Center" AcceptsReturn="True"></TextBox>
 
-				<Button x:Name="SaveButton" Grid.Row="5" Grid.Column="1" Content="Add" FontSize="20" Width="250" Click="SaveButton_Click" IsEnabled="False"></Button>
+				<Button x:Name="SaveButton" Grid.Row="5" Grid.Column="1" Content="Add" FontSize="20" Width="250" Click="SaveButton_Click"></Button>
 			</Grid>
 		</DockPanel>
 	</Grid>

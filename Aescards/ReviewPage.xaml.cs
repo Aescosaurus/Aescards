@@ -81,7 +81,7 @@ namespace Aescards
 
 			ReviewFront.Text = card.GetFront();
 
-			PrevButton.IsEnabled = cardHand.CanGoPrev();
+			// PrevButton.IsEnabled = cardHand.CanGoPrev();
 		}
 
 		void LoadCardBack()
@@ -175,11 +175,14 @@ namespace Aescards
 
 		private void PrevButton_Click( object sender,RoutedEventArgs e )
 		{
-			cardHand.GotoPrevReviewCard();
+			if( cardHand.CanGoPrev() )
+			{
+				cardHand.GotoPrevReviewCard();
+			}
 
 			LoadCardFront();
 
-			PrevButton.IsEnabled = false; // only allow go 1 prev
+			// PrevButton.IsEnabled = false; // only allow go 1 prev
 		}
 
 		DeckPage deckPage;

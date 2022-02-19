@@ -116,7 +116,8 @@ namespace Aescards
 
 		void OnTextInput( object sender,TextChangedEventArgs args )
 		{
-			SaveButton.IsEnabled = ( InputFront.Text.Length > 0 && InputBack.Text.Length > 0 );
+			// IsEnabled = false wrecks our cool color scheme
+			// SaveButton.IsEnabled = ( InputFront.Text.Length > 0 && InputBack.Text.Length > 0 );
 		}
 
 		DeckPage deckPage;
