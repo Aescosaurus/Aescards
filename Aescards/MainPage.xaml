@@ -62,6 +62,18 @@
 									<ComboBoxItem>
 										<Label Content="Sandy Desert"></Label>
 									</ComboBoxItem>
+									<ComboBoxItem>
+										<Label Content="Red Planet"></Label>
+									</ComboBoxItem>
+									<ComboBoxItem>
+										<Label Content="Mint Green"></Label>
+									</ComboBoxItem>
+									<ComboBoxItem>
+										<Label Content="Creature of the Night"></Label>
+									</ComboBoxItem>
+									<ComboBoxItem>
+										<Label Content="Mike's Recipes"></Label>
+									</ComboBoxItem>
 								</ComboBox>
 							</StackPanel>
 						</ListBoxItem>

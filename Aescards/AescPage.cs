@@ -148,7 +148,7 @@ namespace Aescards
 			{
 				Brushes.White,
 				Brushes.LightPink,
-				Brushes.DeepPink,
+				Brushes.HotPink,
 				Brushes.HotPink
 			},
 			new Brush[] // mellow blue
@@ -160,7 +160,7 @@ namespace Aescards
 			},
 			new Brush[] // deep sea
 			{
-				Brushes.Turquoise,
+				Brushes.LightCyan,
 				Brushes.DarkSlateGray,
 				Brushes.DarkCyan,
 				Brushes.SteelBlue
@@ -171,11 +171,40 @@ namespace Aescards
 				Brushes.PaleGoldenrod,
 				Brushes.LightYellow,
 				Brushes.LightGoldenrodYellow
+			},
+			new Brush[] // red
+			{
+				Brushes.Bisque,
+				Brushes.IndianRed,
+				Brushes.Crimson,
+				Brushes.Salmon
+			},
+			new Brush[] // green
+			{
+				Brushes.White,
+				Brushes.PaleGreen,
+				Brushes.MediumSeaGreen,
+				Brushes.LightGreen
+			},
+			new Brush[] // dark
+			{
+				Brushes.White,
+				new SolidColorBrush( Color.FromRgb( 50,55,60 ) ),
+				Brushes.DarkSlateGray,
+				Brushes.DarkSlateBlue
+			},
+			new Brush[] // mike's recipes
+			{
+				Brushes.White,
+				Brushes.MediumAquamarine,
+				Brushes.Coral,
+				new SolidColorBrush( Color.FromRgb( 255,204,105 ) )
 			}
 
-			// deep sky blue
-			// dark turquoise
-			// dodger blue
+			// text
+			// bg
+			// button/top bar
+			// list box
 		};
 	}
 }
