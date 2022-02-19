@@ -33,7 +33,12 @@ namespace Aescards
 
 			SetInputBoxLanguage( InputFront );
 			SetInputBoxLanguage( InputBack );
-        }
+
+			// InputFront.PreviewTextInput += new TextCompositionEventHandler( OnTextInput );
+			// InputBack.PreviewTextInput += new TextCompositionEventHandler( OnTextInput );
+			InputFront.TextChanged += new TextChangedEventHandler( OnTextInput );
+			InputBack.TextChanged += new TextChangedEventHandler( OnTextInput );
+		}
 
 		private void BackButton_Click( object sender,RoutedEventArgs e )
 		{
@@ -107,6 +112,11 @@ namespace Aescards
 		{
 			var cultureInfo = Dispatcher.Thread.CurrentCulture.Name.ToString();
 			InputLanguageManager.SetInputLanguage( box,new System.Globalization.CultureInfo( cultureInfo ) );
+		}
+
+		void OnTextInput( object sender,TextChangedEventArgs args )
+		{
+			SaveButton.IsEnabled = ( InputFront.Text.Length > 0 && InputBack.Text.Length > 0 );
 		}
 
 		DeckPage deckPage;
