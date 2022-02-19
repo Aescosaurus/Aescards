@@ -54,11 +54,11 @@
 				</Grid>
 				<Grid Grid.Row="3" Grid.Column="3" Grid.RowSpan="3">
 					<ListBox>
-						<ListBoxItem x:Name="CardFront"></ListBoxItem>
-						<ListBoxItem x:Name="CardBack"></ListBoxItem>
-						<ListBoxItem x:Name="CardFCount"></ListBoxItem>
-						<ListBoxItem x:Name="CardScore"></ListBoxItem>
-						<ListBoxItem x:Name="CardReview"></ListBoxItem>
+						<ListBoxItem x:Name="CardFront" IsHitTestVisible="False"></ListBoxItem>
+						<ListBoxItem x:Name="CardBack" IsHitTestVisible="False"></ListBoxItem>
+						<ListBoxItem x:Name="CardFCount" IsHitTestVisible="False"></ListBoxItem>
+						<ListBoxItem x:Name="CardScore" IsHitTestVisible="False"></ListBoxItem>
+						<ListBoxItem x:Name="CardReview" IsHitTestVisible="False"></ListBoxItem>
 					</ListBox>
 				</Grid>
 
