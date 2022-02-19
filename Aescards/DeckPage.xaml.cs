@@ -144,7 +144,7 @@ namespace Aescards
 
 		private void ViewCardsButton_Click( object sender,RoutedEventArgs e )
 		{
-			MenuStack.GoIn( new ViewCardsPage( cardHand ) );
+			MenuStack.GoIn( new ViewCardsPage( cardHand,myData ) );
 		}
 
 		public int GetMaxCard()

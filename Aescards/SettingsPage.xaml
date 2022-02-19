@@ -15,6 +15,8 @@
 		<DockPanel>
 			<Grid DockPanel.Dock="Top">
 				<Rectangle Fill="LightGray" Width="Auto" Height="55"></Rectangle>
+				<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Text="Deck Settings"></TextBlock>
+				
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -45,7 +47,7 @@
 					<ColumnDefinition Width="2.7*"></ColumnDefinition>
 					<ColumnDefinition Width="0.7*"></ColumnDefinition>
 				</Grid.ColumnDefinitions>
-				<TextBlock Grid.ColumnSpan="4" Grid.Row="0" TextAlignment="Center" HorizontalAlignment="Stretch" Text="Deck Settings" VerticalAlignment="Center" Width="Auto" FontSize="60"/>
+				<TextBlock x:Name="DeckName" Grid.ColumnSpan="4" Grid.Row="0" TextAlignment="Center" HorizontalAlignment="Stretch" Text="Deck Settings" VerticalAlignment="Center" Width="Auto" FontSize="60"/>
 				<Grid Grid.Row="2" Grid.Column="1" Grid.RowSpan="2">
 					<ListBox x:Name="SettingsList">
 					</ListBox>

@@ -37,11 +37,13 @@ namespace Aescards
 			Descending
 		}
 
-		public ViewCardsPage( CardHandler cardHand )
+		public ViewCardsPage( CardHandler cardHand,DeckData deckData )
 		{
 			InitializeComponent();
 
 			AescPage.SetupColors( BaseGrid );
+
+			DeckName.Text = deckData.GetDeckName() + " Cards";
 
 			this.cardHand = cardHand;
 

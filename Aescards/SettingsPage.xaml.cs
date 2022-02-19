@@ -39,6 +39,8 @@ namespace Aescards
 
 			AescPage.SetupColors( BaseGrid );
 
+			DeckName.Text = deckPage.GetDeckData().GetDeckName() + " Settings";
+
 			this.deckPage = deckPage;
 			this.mainPage = mainPage;
 
