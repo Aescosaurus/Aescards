@@ -153,6 +153,18 @@ namespace Aescards
 			modified = true;
 		}
 
+		public void ResetDaysTillNextReview()
+		{
+			daysTillNextReview = 0.0f;
+		}
+
+		public void ResetStats()
+		{
+			fCount = 0;
+			curScore = 0.0f;
+			ResetDaysTillNextReview();
+		}
+
 		static string GeneratePath( int cardId )
 		{
 			return( CardHandler.curCardPath + cardId.ToString() + ".txt" );

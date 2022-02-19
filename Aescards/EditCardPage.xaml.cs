@@ -44,7 +44,7 @@ namespace Aescards
 		{
 			bool canLeave = true;
 
-			if( InputFront.Text != origFront || InputBack.Text != origBack )
+			if( InputFront.Text != origFront || InputBack.Text != origBack || resetSmth )
 			{
 				var result = MessageBox.Show( "Error: Unsaved changes.  Leave without saving?","Unsaved Changes",MessageBoxButton.YesNoCancel );
 				canLeave = ( result == MessageBoxResult.Yes );
@@ -105,9 +105,25 @@ namespace Aescards
 			InputLanguageManager.SetInputLanguage( box,new System.Globalization.CultureInfo( cultureInfo ) );
 		}
 
+		private void ResetStatsButton_Click( object sender,RoutedEventArgs e )
+		{
+			card.ResetStats();
+
+			resetSmth = true;
+		}
+
+		private void ResetDaysTillReviewButton_Click( object sender,RoutedEventArgs e )
+		{
+			card.ResetDaysTillNextReview();
+
+			resetSmth = true;
+		}
+
 		Card card;
 
 		string origFront;
 		string origBack;
+
+		bool resetSmth = false;
 	}
 }

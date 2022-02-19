@@ -54,6 +54,9 @@
 				<TextBlock Grid.Row="2" Grid.Column="1" TextAlignment="Center" Padding="10" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Text="Back" Width="Auto" FontSize="30"/>
 				<TextBox x:Name="InputBack" Grid.Row="3" Grid.Column="1" FontSize="30" TextAlignment="Center" AcceptsReturn="True"></TextBox>
 
+				<Button x:Name="ResetStatsButton" Click="ResetStatsButton_Click" Grid.Row="1" Grid.Column="2" Margin="25" Height="50" Content="Reset Card Stats"></Button>
+				<Button x:Name="ResetDaysTillReviewButton" Click="ResetDaysTillReviewButton_Click" Grid.Row="3" Grid.Column="2" Margin="25" Height="50" Content="Reset Days Till Next Review"></Button>
+				
 				<Button Grid.Row="5" Grid.Column="1" Content="Update" FontSize="20" Width="250" Click="SaveButton_Click"></Button>
 			</Grid>
 		</DockPanel>
