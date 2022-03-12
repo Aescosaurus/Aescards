@@ -50,19 +50,59 @@ namespace Aescards
 			curCard.UpdateScore( score,deckData.GetFRepair() );
 
 			// repeat failed cards until they are not fail
-			if( score == Card.Score.Fail && curReviewSpot < reviewCards.Count - 1 &&
-				curReviewSpot < deckData.GetCardsPerReview() + deckData.GetRepeatCardCount() &&
-				curCard.repeatCount < deckData.GetRepeatTries() )
+			if( score == Card.Score.Fail )
 			{
-				reviewCards.Add( reviewCards[curReviewSpot] );
+				if( curReviewSpot < reviewCards.Count - 1 &&
+				curReviewSpot < deckData.GetCardsPerReview() + deckData.GetRepeatCardCount() &&
+				curCard.repeatCount < deckData.GetRepeatTries() &&
+				!CheckCardInReviewAfterSpot( GetCurReviewCard(),curReviewSpot ) )
+				{
+					reviewCards.Add( reviewCards[curReviewSpot] );
 
-				++curCard.repeatCount;
+					++curCard.repeatCount;
+				}
+			}
+			else
+			{
+				// if you update score to not fail remove copy at end
+				RemoveNextReviewCardCopy();
 			}
 		}
 
 		public void SickCurCard()
 		{
 			GetCurReviewCard().Sick( deckPage.GetDeckData().GetSickDelay() );
+
+			RemoveNextReviewCardCopy();
+		}
+
+		// return true if card match exists after spot
+		bool CheckCardInReviewAfterSpot( Card card,int spot )
+		{
+			return( CheckCardInReviewAfterSpotGetIndex( card,spot ) != -1 );
+		}
+
+		// return index of next copy of card in review after spot, -1 = not found
+		int CheckCardInReviewAfterSpotGetIndex( Card card,int spot )
+		{
+			for( int i = spot + 1; i < reviewCards.Count; ++i )
+			{
+				if( cards[reviewCards[i]].GetFront() == card.GetFront() )
+				{
+					return( i );
+				}
+			}
+
+			return( -1 );
+		}
+
+		void RemoveNextReviewCardCopy()
+		{
+			var nextCopySpot = CheckCardInReviewAfterSpotGetIndex( GetCurReviewCard(),curReviewSpot );
+			if( nextCopySpot > -1 )
+			{
+				reviewCards.RemoveAt( nextCopySpot );
+			}
 		}
 
 		public void Save()

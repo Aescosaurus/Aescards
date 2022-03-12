@@ -178,6 +178,7 @@ namespace Aescards
 			if( cardHand.CanGoPrev() )
 			{
 				cardHand.GotoPrevReviewCard();
+				deckPage.GetDeckData().UnReviewCard();
 			}
 
 			LoadCardFront();

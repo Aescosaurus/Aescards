@@ -146,6 +146,11 @@ namespace Aescards
 			++cardsReviewedToday;
 		}
 
+		public void UnReviewCard()
+		{
+			--cardsReviewedToday;
+		}
+
 		public void SetNewCardsPerReview( int count )
 		{
 			targetNewPerReview = count;
