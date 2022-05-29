@@ -186,6 +186,11 @@ namespace Aescards
 			// PrevButton.IsEnabled = false; // only allow go 1 prev
 		}
 
+		private void SkipButton_Click( object sender,RoutedEventArgs e )
+		{
+			GotoNextCard();
+		}
+
 		DeckPage deckPage;
 		CardHandler cardHand;
 

@@ -32,6 +32,7 @@
 					
 					<StackPanel Orientation="Horizontal" Grid.Column="2">
 						<Button FontSize="16" x:Name="PrevButton" Click="PrevButton_Click" Content="Prev" Width="55" Height="55" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+						<Button FontSize="16" x:Name="SkipButton" Click="SkipButton_Click" Content="Skip" Width="55" Height="55" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 						<Button FontSize="16" x:Name="EditButton" Click="EditButton_Click" Content="Edit" Width="55" Height="55" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 						<Button FontSize="16" x:Name="SickButton" Click="SickButton_Click" Content="Sick" Width="55" Height="55" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 					</StackPanel>
