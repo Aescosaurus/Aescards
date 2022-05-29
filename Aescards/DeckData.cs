@@ -47,6 +47,7 @@ namespace Aescards
 			if( lines.Count > curLine ) maxRepeatTries = int.Parse( lines[curLine++] );
 			if( lines.Count > curLine ) hardDelay = float.Parse( lines[curLine++] );
 			if( lines.Count > curLine ) easyBuff = float.Parse( lines[curLine++] );
+			if( lines.Count > curLine ) easyBaseScore = float.Parse( lines[curLine++] );
 		}
 
 		public void Save()
@@ -76,6 +77,7 @@ namespace Aescards
 			saveData += maxRepeatTries.ToString() + '\n';
 			saveData += hardDelay.ToString() + '\n';
 			saveData += easyBuff.ToString() + '\n';
+			saveData += easyBaseScore.ToString() + '\n';
 
 			var writer = new StreamWriter( mySavePath );
 			writer.Write( saveData );
@@ -190,6 +192,11 @@ namespace Aescards
 			easyBuff = buff;
 		}
 
+		public void SetEasyBaseScore( float easyBaseScore )
+		{
+			this.easyBaseScore = easyBaseScore;
+		}
+
 		public float GetDaysSinceLastOpened()
 		{
 			return( ( float )( ( DateTime.Now - lastSave ).TotalDays ) );
@@ -289,6 +296,11 @@ namespace Aescards
 		{
 			return( easyBuff );
 		}
+		
+		public float GetEasyBaseScore()
+		{
+			return( easyBaseScore );
+		}
 
 		string mySavePath;
 
@@ -318,5 +330,6 @@ namespace Aescards
 
 		float hardDelay = 1.0f;
 		float easyBuff = 2.0f;
+		float easyBaseScore = 2.0f;
 	}
 }

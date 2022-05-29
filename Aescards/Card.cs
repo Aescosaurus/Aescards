@@ -98,13 +98,14 @@ namespace Aescards
 			this.back = back;
 		}
 
-		public void UpdateScore( Score score,int fRepair,float hardDelay,float easyBuff )
+		public void UpdateScore( Score score,DeckData data )
 		{
 			if( curScore < 1.0f )
 			{
 				if( score != Score.Fail ) score = Score.Hard;
 			}
 
+			var fRepair = data.GetFRepair();
 			switch( score )
 			{
 				case Score.Fail:
@@ -114,7 +115,7 @@ namespace Aescards
 					break;
 				case Score.Hard:
 					curScore = 1.0f / ( fCount + 1.0f );
-					daysTillNextReview += hardDelay;
+					daysTillNextReview += data.GetHardDelay();
 					// daysTillNextReview = 0.0001f;
 					break;
 				case Score.Good:
@@ -127,10 +128,11 @@ namespace Aescards
 					fCount -= fRepair;
 					if( fCount < 0 ) fCount = 0;
 					
-					if( curScore < 2.0f ) curScore = 2.0f;
+					var easyBaseScore = data.GetEasyBaseScore();
+					if( curScore < easyBaseScore ) curScore = easyBaseScore;
 
 					curScore += 1.0f / ( fCount + 1.0f );
-					curScore += easyBuff;
+					curScore += data.GetEasyBuff();
 
 					daysTillNextReview = curScore;
 					break;

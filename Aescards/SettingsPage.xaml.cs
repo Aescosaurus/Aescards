@@ -60,6 +60,7 @@ namespace Aescards
 			AddSettingsListItem( repeatTriesStr,deckData.GetRepeatTries().ToString(),InputType.Int );
 			AddSettingsListItem( hardDelayStr,deckData.GetHardDelay().ToString(),InputType.Float );
 			AddSettingsListItem( easyBuffStr,deckData.GetEasyBuff().ToString(),InputType.Float );
+			AddSettingsListItem( easyBaseScoreStr,deckData.GetEasyBaseScore().ToString(),InputType.Float );
 		}
 
 		void AddSettingsListItem( string name,string value,InputType inputType )
@@ -131,6 +132,7 @@ namespace Aescards
 			var repeatTriesVal = GetSettingInt( repeatTriesStr );
 			var hardDelayVal = GetSettingFloat( hardDelayStr );
 			var easyBuffVal = GetSettingFloat( easyBuffStr );
+			var easyBaseScoreVal = GetSettingFloat( easyBaseScoreStr );
 
 			if( !parseError )
 			{
@@ -148,6 +150,7 @@ namespace Aescards
 				deckData.SetRepeatTries( repeatTriesVal );
 				deckData.SetHardDelay( hardDelayVal );
 				deckData.SetEasyBuff( easyBuffVal );
+				deckData.SetEasyBaseScore( easyBaseScoreVal );
 
 				deckData.Save();
 
@@ -241,7 +244,8 @@ namespace Aescards
 				GetSettingInt( repeatCardCountStr ) != deckData.GetRepeatCardCount() ||
 				GetSettingInt( repeatTriesStr ) != deckData.GetRepeatTries() ||
 				GetSettingFloat( hardDelayStr ) != deckData.GetHardDelay() ||
-				GetSettingFloat( easyBuffStr ) != deckData.GetEasyBuff() );
+				GetSettingFloat( easyBuffStr ) != deckData.GetEasyBuff() ||
+				GetSettingFloat( easyBaseScoreStr ) != deckData.GetEasyBaseScore() );
 		}
 
 		private void TextIntMatch( object sender,TextCompositionEventArgs args )
@@ -283,5 +287,6 @@ namespace Aescards
 		static readonly string repeatTriesStr = "Max Times Repeating Failed Card";
 		static readonly string hardDelayStr = "Hard Delay";
 		static readonly string easyBuffStr = "Easy Buff";
+		static readonly string easyBaseScoreStr = "Easy Base Score";
 	}
 }
