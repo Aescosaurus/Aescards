@@ -121,7 +121,7 @@ namespace Aescards
 
 		void TryAddCardListItem( Card card,int id )
 		{
-			if( card.GetFront().Contains( filterStr ) || card.GetBack().Contains( filterStr ) )
+			if( card.GetFront().ToUpper().Contains( filterStr ) || card.GetBack().ToUpper().Contains( filterStr ) )
 			{
 				AddCardListItem( card.GetFront(),id );
 			}
@@ -230,11 +230,16 @@ namespace Aescards
 			DisplayHighlightedCardInfo();
 		}
 
-		private void SearchButton_Click( object sender,RoutedEventArgs e )
+		void Search()
 		{
-			filterStr = SearchBox.Text;
+			filterStr = SearchBox.Text.ToUpper();
 
 			ResetCardListItems();
+		}
+
+		private void SearchButton_Click( object sender,RoutedEventArgs e )
+		{
+			Search();
 		}
 
 		private void ClearSearchButton_Click( object sender,RoutedEventArgs e )
@@ -243,6 +248,11 @@ namespace Aescards
 			filterStr = "";
 
 			ResetCardListItems();
+		}
+
+		private void SearchBox_KeyDown( object sender,KeyEventArgs e )
+		{
+			if( e.Key == Key.Enter ) Search();
 		}
 
 		CardHandler cardHand;
