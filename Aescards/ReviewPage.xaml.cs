@@ -178,7 +178,7 @@ namespace Aescards
 			if( cardHand.CanGoPrev() )
 			{
 				cardHand.GotoPrevReviewCard();
-				deckPage.GetDeckData().UnReviewCard();
+				if( !cardHand.ReviewingOldCards() ) deckPage.GetDeckData().UnReviewCard();
 			}
 
 			LoadCardFront();
