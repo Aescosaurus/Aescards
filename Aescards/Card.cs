@@ -98,7 +98,7 @@ namespace Aescards
 			this.back = back;
 		}
 
-		public void UpdateScore( Score score,int fRepair,float hardDelay )
+		public void UpdateScore( Score score,int fRepair,float hardDelay,float easyBuff )
 		{
 			if( curScore < 1.0f )
 			{
@@ -129,7 +129,8 @@ namespace Aescards
 					
 					if( curScore < 2.0f ) curScore = 2.0f;
 
-					curScore += 1.0f / ( fCount + 1 );
+					curScore += 1.0f / ( fCount + 1.0f );
+					curScore += easyBuff;
 
 					daysTillNextReview = curScore;
 					break;

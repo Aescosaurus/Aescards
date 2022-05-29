@@ -47,7 +47,7 @@ namespace Aescards
 
 			var curCard = GetCurReviewCard();
 				
-			curCard.UpdateScore( score,deckData.GetFRepair(),deckData.GetHardDelay() );
+			curCard.UpdateScore( score,deckData.GetFRepair(),deckData.GetHardDelay(),deckData.GetEasyBuff() );
 
 			// repeat failed cards until they are not fail
 			if( score == Card.Score.Fail )

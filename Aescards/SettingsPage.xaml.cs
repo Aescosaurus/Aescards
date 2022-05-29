@@ -59,6 +59,7 @@ namespace Aescards
 			AddSettingsListItem( repeatCardCountStr,deckData.GetRepeatCardCount().ToString(),InputType.Int );
 			AddSettingsListItem( repeatTriesStr,deckData.GetRepeatTries().ToString(),InputType.Int );
 			AddSettingsListItem( hardDelayStr,deckData.GetHardDelay().ToString(),InputType.Float );
+			AddSettingsListItem( easyBuffStr,deckData.GetEasyBuff().ToString(),InputType.Float );
 		}
 
 		void AddSettingsListItem( string name,string value,InputType inputType )
@@ -128,7 +129,8 @@ namespace Aescards
 			var allowReviewThreshVal = GetSettingFloat( allowReviewThreshStr );
 			var repeatCountVal = GetSettingInt( repeatCardCountStr );
 			var repeatTriesVal = GetSettingInt( repeatTriesStr );
-			var hardDelayVal = GetSettingInt( hardDelayStr );
+			var hardDelayVal = GetSettingFloat( hardDelayStr );
+			var easyBuffVal = GetSettingFloat( easyBuffStr );
 
 			if( !parseError )
 			{
@@ -145,6 +147,7 @@ namespace Aescards
 				deckData.SetRepeatCardCount( repeatCountVal );
 				deckData.SetRepeatTries( repeatTriesVal );
 				deckData.SetHardDelay( hardDelayVal );
+				deckData.SetEasyBuff( easyBuffVal );
 
 				deckData.Save();
 
@@ -237,7 +240,8 @@ namespace Aescards
 				GetSettingFloat( allowReviewThreshStr ) != deckData.GetAllowReviewThresh() ||
 				GetSettingInt( repeatCardCountStr ) != deckData.GetRepeatCardCount() ||
 				GetSettingInt( repeatTriesStr ) != deckData.GetRepeatTries() ||
-				GetSettingInt( hardDelayStr ) != deckData.GetHardDelay() );
+				GetSettingFloat( hardDelayStr ) != deckData.GetHardDelay() ||
+				GetSettingFloat( easyBuffStr ) != deckData.GetEasyBuff() );
 		}
 
 		private void TextIntMatch( object sender,TextCompositionEventArgs args )
@@ -278,5 +282,6 @@ namespace Aescards
 		static readonly string repeatCardCountStr = "Max Repeatable Cards Per Review";
 		static readonly string repeatTriesStr = "Max Times Repeating Failed Card";
 		static readonly string hardDelayStr = "Hard Delay";
+		static readonly string easyBuffStr = "Easy Buff";
 	}
 }

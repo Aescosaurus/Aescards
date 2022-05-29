@@ -46,6 +46,7 @@ namespace Aescards
 			if( lines.Count > curLine ) maxRepeatCardCount = int.Parse( lines[curLine++] );
 			if( lines.Count > curLine ) maxRepeatTries = int.Parse( lines[curLine++] );
 			if( lines.Count > curLine ) hardDelay = float.Parse( lines[curLine++] );
+			if( lines.Count > curLine ) easyBuff = float.Parse( lines[curLine++] );
 		}
 
 		public void Save()
@@ -74,6 +75,7 @@ namespace Aescards
 			saveData += maxRepeatCardCount.ToString() + '\n';
 			saveData += maxRepeatTries.ToString() + '\n';
 			saveData += hardDelay.ToString() + '\n';
+			saveData += easyBuff.ToString() + '\n';
 
 			var writer = new StreamWriter( mySavePath );
 			writer.Write( saveData );
@@ -178,9 +180,14 @@ namespace Aescards
 			maxRepeatTries = tries;
 		}
 
-		public void SetHardDelay( int delay )
+		public void SetHardDelay( float delay )
 		{
 			hardDelay = delay;
+		}
+
+		public void SetEasyBuff( float buff )
+		{
+			easyBuff = buff;
 		}
 
 		public float GetDaysSinceLastOpened()
@@ -278,6 +285,11 @@ namespace Aescards
 			return( hardDelay );
 		}
 
+		public float GetEasyBuff()
+		{
+			return( easyBuff );
+		}
+
 		string mySavePath;
 
 		DateTime lastSave;
@@ -305,5 +317,6 @@ namespace Aescards
 		int maxRepeatTries = 5;
 
 		float hardDelay = 1.0f;
+		float easyBuff = 2.0f;
 	}
 }
