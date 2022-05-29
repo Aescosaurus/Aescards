@@ -98,8 +98,13 @@ namespace Aescards
 			this.back = back;
 		}
 
-		public void UpdateScore( Score score,int fRepair )
+		public void UpdateScore( Score score,int fRepair,float hardDelay )
 		{
+			if( curScore < 1.0f )
+			{
+				if( score != Score.Fail ) score = Score.Hard;
+			}
+
 			switch( score )
 			{
 				case Score.Fail:
@@ -109,7 +114,8 @@ namespace Aescards
 					break;
 				case Score.Hard:
 					curScore = 1.0f / ( fCount + 1.0f );
-					daysTillNextReview = 0.0001f;
+					daysTillNextReview += hardDelay;
+					// daysTillNextReview = 0.0001f;
 					break;
 				case Score.Good:
 					fCount -= fRepair / 2;
