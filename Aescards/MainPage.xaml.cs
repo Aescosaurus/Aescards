@@ -42,6 +42,8 @@ namespace Aescards
         {
             InitializeComponent();
 
+			if( !Directory.Exists( DeckPage.deckPath ) ) Directory.CreateDirectory( DeckPage.deckPath );
+
 			settings = new AescardsSettings();
 
 			var selectedColorScheme = settings.GetColorScheme();
@@ -55,8 +57,6 @@ namespace Aescards
 
 		void LoadDecks()
 		{
-			if( !Directory.Exists( DeckPage.deckPath ) ) Directory.CreateDirectory( DeckPage.deckPath );
-
 			var deckDataList = new List<DeckListItem>();
 
 			for( int i = 0; i < 9999; ++i )
