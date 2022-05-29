@@ -53,10 +53,15 @@ namespace Aescards
 			if( score == Card.Score.Fail )
 			{
 				if( curReviewSpot < reviewCards.Count - 1 &&
-				curReviewSpot < deckData.GetCardsPerReview() + deckData.GetRepeatCardCount() &&
+				// curReviewSpot < deckData.GetCardsPerReview() + deckData.GetRepeatCardCount() &&
+				reviewCards.Count < deckData.GetCardsPerReview() + deckData.GetRepeatCardCount() &&
 				curCard.repeatCount < deckData.GetRepeatTries() &&
 				!CheckCardInReviewAfterSpot( GetCurReviewCard(),curReviewSpot ) )
 				{
+					var cardsPerReview = deckData.GetCardsPerReview();
+					var repeatCount = deckData.GetRepeatCardCount();
+
+
 					reviewCards.Add( reviewCards[curReviewSpot] );
 
 					++curCard.repeatCount;
