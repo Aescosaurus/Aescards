@@ -272,7 +272,7 @@ namespace Aescards
 		static readonly string deckNameStr = "Deck Name";
 		static readonly string fRepairStr = "F Repair";
 		static readonly string cardsPerReviewStr = "Cards Per Review";
-		static readonly string timeUpdateThreshStr = "Time Update Threshhold";
+		static readonly string timeUpdateThreshStr = "Time Update Threshold";
 		static readonly string maxDeckSizeStr = "Max Deck Size";
 		static readonly string sickDelayStr = "Sick Delay";
 		static readonly string checkExistingStr = "Check Existing";
