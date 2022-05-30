@@ -100,10 +100,7 @@ namespace Aescards
 
 		public void UpdateScore( Score score,DeckData data )
 		{
-			if( curScore < 1.0f )
-			{
-				if( score != Score.Fail ) score = Score.Hard;
-			}
+			if( curScore < 0.0002f && score != Score.Fail ) score = Score.Hard;
 
 			var fRepair = data.GetFRepair();
 			switch( score )
