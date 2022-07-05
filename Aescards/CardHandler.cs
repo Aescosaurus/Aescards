@@ -152,6 +152,7 @@ namespace Aescards
 			var allowInReviewThresh = deckData.GetAllowReviewThresh();
 			var targetNewPerReview = deckData.GetNewCardsPerReview();
 			var reviewSize = deckData.GetCardsPerReview();
+			var targetRandPerReview = deckData.GetTargetRandPerReview();
 
 			// add new
 			int newAdded = 0;
@@ -165,13 +166,28 @@ namespace Aescards
 				}
 			}
 
+			// add rand
+			int randTries = 9999;
+			var addRand = new Random();
+			for( int i = 0; i < targetRandPerReview; )
+			{
+				var curCard = cards[addRand.Next( 0,cards.Count - 1 )];
+				if( !curCard.IsNew() && curCard.GetDaysTillNextReview() <= allowInReviewThresh && !reviewCards.Contains( curCard.GetId() ) )
+				{
+					reviewCards.Add( curCard.GetId() );
+					++i;
+					if( --randTries < 0 ) break; // no infinite loops here
+				}
+			}
+
 			// fill out leftover
 			foreach( var card in reviewDateSorted )
 			{
 				var curCard = cards[card];
-				if( curCard.GetDaysTillNextReview() <= allowInReviewThresh && reviewCards.Count < reviewSize )
+				if( !curCard.IsNew() && curCard.GetDaysTillNextReview() <= allowInReviewThresh && !reviewCards.Contains( curCard.GetId() ) )
 				{
-					reviewCards.Add( curCard.GetId() );
+					if( reviewCards.Count < reviewSize ) reviewCards.Add( curCard.GetId() );
+					else break;
 				}
 			}
 
@@ -227,22 +243,21 @@ namespace Aescards
 			// // 		return( cards[a].GetDaysTillNextReview().CompareTo( cards[b].GetDaysTillNextReview() ) );
 			// // 	} );
 			// // }
-			// 
-			// // cull excess cards
-			// var reviewSize = deckData.GetCardsPerReview();
-			// if( reviewCards.Count > reviewSize )
-			// {
-			// 	int amountOver = reviewCards.Count - reviewSize;
-			// 	reviewCards.RemoveRange( reviewCards.Count - amountOver,amountOver );
-			// }
+
+			// cull excess cards
+			if( reviewCards.Count > reviewSize )
+			{
+				int amountOver = reviewCards.Count - reviewSize;
+				reviewCards.RemoveRange( reviewCards.Count - amountOver,amountOver );
+			}
 
 			// shuffle
-			var rand = new Random();
+			var shuffleRand = new Random();
 			for( int shuffle = 0; shuffle < 3; ++shuffle )
 			{
 				for( int i = 0; i < reviewCards.Count; ++i )
 				{
-					int randSpot = rand.Next( 0,reviewCards.Count - 1 );
+					int randSpot = shuffleRand.Next( 0,reviewCards.Count - 1 );
 			
 					var temp = reviewCards[i];
 					reviewCards[i] = reviewCards[randSpot];

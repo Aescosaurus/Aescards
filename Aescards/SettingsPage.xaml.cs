@@ -61,6 +61,7 @@ namespace Aescards
 			AddSettingsListItem( hardDelayStr,deckData.GetHardDelay().ToString(),InputType.Float );
 			AddSettingsListItem( easyBuffStr,deckData.GetEasyBuff().ToString(),InputType.Float );
 			AddSettingsListItem( easyBaseScoreStr,deckData.GetEasyBaseScore().ToString(),InputType.Float );
+			AddSettingsListItem( targetRandPerReviewStr,deckData.GetTargetRandPerReview().ToString(),InputType.Int );
 		}
 
 		void AddSettingsListItem( string name,string value,InputType inputType )
@@ -133,6 +134,7 @@ namespace Aescards
 			var hardDelayVal = GetSettingFloat( hardDelayStr );
 			var easyBuffVal = GetSettingFloat( easyBuffStr );
 			var easyBaseScoreVal = GetSettingFloat( easyBaseScoreStr );
+			var targetRandVal = GetSettingInt( targetRandPerReviewStr );
 
 			if( !parseError )
 			{
@@ -151,6 +153,7 @@ namespace Aescards
 				deckData.SetHardDelay( hardDelayVal );
 				deckData.SetEasyBuff( easyBuffVal );
 				deckData.SetEasyBaseScore( easyBaseScoreVal );
+				deckData.SetTargetRandPerReview( targetRandVal );
 
 				deckData.Save();
 
@@ -288,5 +291,6 @@ namespace Aescards
 		static readonly string hardDelayStr = "Hard Delay";
 		static readonly string easyBuffStr = "Easy Buff";
 		static readonly string easyBaseScoreStr = "Easy Base Score";
+		static readonly string targetRandPerReviewStr = "Target Random Cards Per Review";
 	}
 }
