@@ -140,71 +140,101 @@ namespace Aescards
 			reviewCards.Clear();
 			curReviewSpot = 0;
 
+			var reviewDateSorted = new List<int>();
+			foreach( var card in cards ) reviewDateSorted.Add( card.GetId() );
+			reviewDateSorted.Sort( delegate( int a,int b )
+			{
+				return( cards[a].GetDaysTillNextReview().CompareTo( cards[b].GetDaysTillNextReview() ) );
+			} );
+
 			var deckData = deckPage.GetDeckData();
 
 			var allowInReviewThresh = deckData.GetAllowReviewThresh();
-
 			var targetNewPerReview = deckData.GetNewCardsPerReview();
-			int curNew = 0;
-			foreach( var card in cards )
+			var reviewSize = deckData.GetCardsPerReview();
+
+			// add new
+			int newAdded = 0;
+			foreach( var card in reviewDateSorted )
 			{
-				if( card.GetDaysTillNextReview() <= allowInReviewThresh )
+				var curCard = cards[card];
+				if( curCard.IsNew() && newAdded < targetNewPerReview )
 				{
-					if( !card.IsNew() || curNew++ < targetNewPerReview )
-					{
-						reviewCards.Add( card.GetId() );
-					}
+					reviewCards.Add( curCard.GetId() );
+					++newAdded;
 				}
 			}
 
-			// // Sort with longest overdue cards coming first
-			// reviewCards.Sort( delegate( int a,int b )
-			// {
-			// 	return( cards[a].GetDaysTillNextReview().CompareTo( cards[b].GetDaysTillNextReview() ) );
-			// } );
-			// 
-			// // i dont think this wrecks the previous sorting that much but maybe a little so we should find a better solution
-			// reviewCards.Sort( delegate( int a,int b )
-			// {
-			// 	return( cards[b].IsNew().CompareTo( cards[a].IsNew() ) );
-			// } );
-			reviewCards.Sort( delegate( int a,int b )
+			// fill out leftover
+			foreach( var card in reviewDateSorted )
 			{
-				if( cards[a].IsNew() != cards[b].IsNew() ) // new & not new, sort new first
+				var curCard = cards[card];
+				if( curCard.GetDaysTillNextReview() <= allowInReviewThresh && reviewCards.Count < reviewSize )
 				{
-					return( cards[b].IsNew().CompareTo( cards[a].IsNew() ) );
+					reviewCards.Add( curCard.GetId() );
 				}
-				else // both new or both not new, sort with longest overdue cards coming first
-				{
-					return( cards[a].GetDaysTillNextReview().CompareTo( cards[b].GetDaysTillNextReview() ) );
-				}
-			} );
+			}
 
-			// // Try to get all new cards in reviewCards.
-			// if( deckData.GetPrioritizeNew() )
+			// int curNew = 0;
+			// foreach( var card in cards )
 			// {
-			// 	// new cards at the front, they're all new so we don't care about days till next review
-			// 	reviewCards.Sort( delegate( int a,int b )
+			// 	if( card.GetDaysTillNextReview() <= allowInReviewThresh )
+			// 	{
+			// 		if( !card.IsNew() || curNew++ < targetNewPerReview )
+			// 		{
+			// 			reviewCards.Add( card.GetId() );
+			// 		}
+			// 	}
+			// }
+			// 
+			// // // Sort with longest overdue cards coming first
+			// // reviewCards.Sort( delegate( int a,int b )
+			// // {
+			// // 	return( cards[a].GetDaysTillNextReview().CompareTo( cards[b].GetDaysTillNextReview() ) );
+			// // } );
+			// // 
+			// // // i dont think this wrecks the previous sorting that much but maybe a little so we should find a better solution
+			// // reviewCards.Sort( delegate( int a,int b )
+			// // {
+			// // 	return( cards[b].IsNew().CompareTo( cards[a].IsNew() ) );
+			// // } );
+			// reviewCards.Sort( delegate( int a,int b )
+			// {
+			// 	if( cards[a].IsNew() != cards[b].IsNew() ) // new & not new, sort new first
 			// 	{
 			// 		return( cards[b].IsNew().CompareTo( cards[a].IsNew() ) );
-			// 	} );
-			// }
-			// else
-			// {
-			// 	// Sort with longest overdue cards coming first
-			// 	reviewCards.Sort( delegate( int a,int b )
+			// 	}
+			// 	else // both new or both not new, sort with longest overdue cards coming first
 			// 	{
 			// 		return( cards[a].GetDaysTillNextReview().CompareTo( cards[b].GetDaysTillNextReview() ) );
-			// 	} );
+			// 	}
+			// } );
+			// 
+			// // // Try to get all new cards in reviewCards.
+			// // if( deckData.GetPrioritizeNew() )
+			// // {
+			// // 	// new cards at the front, they're all new so we don't care about days till next review
+			// // 	reviewCards.Sort( delegate( int a,int b )
+			// // 	{
+			// // 		return( cards[b].IsNew().CompareTo( cards[a].IsNew() ) );
+			// // 	} );
+			// // }
+			// // else
+			// // {
+			// // 	// Sort with longest overdue cards coming first
+			// // 	reviewCards.Sort( delegate( int a,int b )
+			// // 	{
+			// // 		return( cards[a].GetDaysTillNextReview().CompareTo( cards[b].GetDaysTillNextReview() ) );
+			// // 	} );
+			// // }
+			// 
+			// // cull excess cards
+			// var reviewSize = deckData.GetCardsPerReview();
+			// if( reviewCards.Count > reviewSize )
+			// {
+			// 	int amountOver = reviewCards.Count - reviewSize;
+			// 	reviewCards.RemoveRange( reviewCards.Count - amountOver,amountOver );
 			// }
-
-			// cull excess cards
-			var reviewSize = deckData.GetCardsPerReview();
-			if( reviewCards.Count > reviewSize )
-			{
-				int amountOver = reviewCards.Count - reviewSize;
-				reviewCards.RemoveRange( reviewCards.Count - amountOver,amountOver );
-			}
 
 			// shuffle
 			var rand = new Random();
